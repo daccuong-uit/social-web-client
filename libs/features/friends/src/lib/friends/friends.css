@@ -1,0 +1,80 @@
+/* Ensure the page‑shell arranges main and rightbar side‑by‑side */
+.ui-page-shell {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+/* Main content (subtab list) occupies full available width */
+.friends-main-area {
+  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ─── Friends Top Navigation ────────────────────────────────── */
+.friends-top-nav-container {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-5) var(--spacing-5) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-base);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.friends-page-title {
+  font-size: var(--font-size-heading-md);
+  font-weight: 900;
+  color: var(--color-text-base);
+  margin: 0 0 var(--spacing-4) 0;
+  line-height: 1.2;
+}
+
+.friends-tabs-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* ─── Friends Content ───────────────────────────────────────── */
+.friends-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.friends-main-area .friends-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  align-items: stretch;
+}
+
+/* Grid automatically places .friends-content and .friends-rightbar-area in equal columns */
+
+/* Ensure right sidebar fills its column */
+.friends-rightbar-area {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.friends-profile-area {
+  width: var(--page-rightbar-width, 320px);
+  min-width: calc(var(--page-rightbar-width, 320px) - 20px);
+  display: flex;
+  flex-direction: column;
+  padding-left: var(--spacing-3);
+  min-height: 100%;
+}
+
+.friends-profile-area > feat-friend-profile {
+  min-height: 0;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .friends-columns {
+    flex-direction: column;
+  }
+}
+

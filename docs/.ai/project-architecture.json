@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-architecture",
+  "description": "Data-driven definition of the Nx Monorepo layer structure. AI agents parse this JSON to determine the exact file path for any new file to be created. Do NOT rely on memory or assumptions — always reference this file.",
+  "project": {
+    "name": "cross_platform_software_daccuong_uit_fe",
+    "type": "nx-monorepo",
+    "framework": "Angular 18+",
+    "build_system": "Nx + Vite",
+    "package_manager": "npm"
+  },
+
+  "tsconfig_paths": {
+    "@fe/core": "libs/core/src/index.ts",
+    "@fe/ui": "libs/ui/src/index.ts",
+    "@fe/domain/social": "libs/domain/social/src/index.ts",
+    "@fe/domain/profile": "libs/domain/profile/src/index.ts",
+    "@fe/domain/media": "libs/domain/media/src/index.ts",
+    "@fe/features/auth": "libs/features/auth/src/index.ts",
+    "@fe/features/home": "libs/features/home/src/index.ts",
+    "@fe/features/dashboard": "libs/features/dashboard/src/index.ts",
+    "@fe/features/media": "libs/features/media/src/index.ts",
+    "@fe/features/profile": "libs/features/profile/src/index.ts",
+    "@fe/features/settings": "libs/features/settings/src/index.ts",
+    "@fe/features/social": "libs/features/social/src/index.ts"
+  },
+
+  "dependency_flow": {
+    "description": "Unidirectional dependency rule. Higher layers CANNOT be imported by lower layers.",
+    "order": ["apps", "features", "domain", "core", "ui"],
+    "diagram": "apps → features → domain → core/ui"
+  },
+
+  "layers": [
+    {
+      "id": "apps",
+      "name": "Application Shell",
+      "path": "apps/app-shell/src",
+      "allowed_dependencies": ["features", "ui", "core"],
+      "forbidden_to_import_from": [],
+      "description": "Entry point only. Contains routing, layout, bootstrap, and i18n config.",
+      "sub_directories": {
+        "app_component": "apps/app-shell/src/app/app.component.ts",
+        "routes": "apps/app-shell/src/app/routes/app.routes.ts",
+        "layout": "apps/app-shell/src/app/layout/",
+        "config": "apps/app-shell/src/app/app.config.ts",
+        "styles": "apps/app-shell/src/styles.css",
+        "i18n_en": "apps/app-shell/public/assets/i18n/en.json",
+        "i18n_vi": "apps/app-shell/public/assets/i18n/vi.json"
+      },
+      "file_creation_rules": {
+        "ALLOWED": ["layout components", "route config", "app config", "global styles"],
+        "FORBIDDEN": ["business services", "data models", "reusable UI components"]
+      }
+    },
+    {
+      "id": "features",
+      "name": "Feature Libraries",
+      "path": "libs/features",
+      "allowed_dependencies": ["domain", "core", "ui"],
+      "forbidden_to_import_from": ["apps", "other features directly"],
+      "description": "User-facing feature screens. Each feature is an independently lazy-loaded unit.",
+      "existing_features": [
+        {
+          "name": "auth",
+          "path": "libs/features/auth/src/lib",
+          "alias": "@fe/features/auth",
+          "purpose": "Login, Registration, Password Reset",
+          "sub_directories": {
+            "routes": "libs/features/auth/src/lib/lib.routes.ts",
+            "state_facade": "libs/features/auth/src/lib/data-access/auth.facade.ts",
+            "login_screen": "libs/features/auth/src/lib/login/",
+            "register_screen": "libs/features/auth/src/lib/register/"
+          }
+        },
+        {
+          "name": "home",
+          "path": "libs/features/home/src/lib",
+          "alias": "@fe/features/home",
+          "purpose": "Main social feed, discover, create post",
+          "sub_directories": {
+            "routes": "libs/features/home/src/lib/lib.routes.ts",
+            "feed": "libs/features/home/src/lib/components/feed/",
+            "discover": "libs/features/home/src/lib/components/discover/",
+            "create": "libs/features/home/src/lib/components/create/",
+            "activity": "libs/features/home/src/lib/components/activity/",
+            "right_sidebar": "libs/features/home/src/lib/components/right-sidebar/"
+          }
+        },
+        {
+          "name": "dashboard",
+          "path": "libs/features/dashboard/src/lib",
+          "alias": "@fe/features/dashboard",
+          "purpose": "Analytics overview for creators"
+        },
+        {
+          "name": "media",
+          "path": "libs/features/media/src/lib",
+          "alias": "@fe/features/media",
+          "purpose": "Media upload, management, content studio",
+          "sub_directories": {
+            "routes": "libs/features/media/src/lib/lib.routes.ts",
+            "models": "libs/features/media/src/lib/models/",
+            "services": "libs/features/media/src/lib/services/",
+            "studio": "libs/features/media/src/lib/media-studio/"
+          }
+        },
+        {
+          "name": "profile",
+          "path": "libs/features/profile/src/lib",
+          "alias": "@fe/features/profile",
+          "purpose": "User profile view and edit"
+        },
+        {
+          "name": "settings",
+          "path": "libs/features/settings/src/lib",
+          "alias": "@fe/features/settings",
+          "purpose": "App preferences, theme, UI settings"
+        },
+        {
+          "name": "social",
+          "path": "libs/features/social/src/lib",
+          "alias": "@fe/features/social",
+          "purpose": "Social interactions: post detail, comments overlay, likes list"
+        }
+      ],
+      "file_creation_template": {
+        "new_feature_scaffold": [
+          "libs/features/{name}/src/index.ts",
+          "libs/features/{name}/src/lib/lib.routes.ts",
+          "libs/features/{name}/src/lib/data-access/{name}.facade.ts",
+          "libs/features/{name}/src/lib/{main-screen}/{name}.component.ts",
+          "libs/features/{name}/src/lib/{main-screen}/{name}.component.html",
+          "libs/features/{name}/src/lib/{main-screen}/{name}.component.css"
+        ]
+      }
+    },
+    {
+      "id": "domain",
+      "name": "Domain Libraries",
+      "path": "libs/domain",
+      "allowed_dependencies": ["core", "ui"],
+      "forbidden_to_import_from": ["apps", "features"],
+      "description": "Business logic layer. Contains domain models, API-calling services, and mock data. No UI.",
+      "existing_domains": [
+        {
+          "name": "social",
+          "path": "libs/domain/social/src/lib",
+          "alias": "@fe/domain/social",
+          "purpose": "Posts, Comments, Likes, Follows, Notifications, Search",
+          "sub_directories": {
+            "models": "libs/domain/social/src/lib/models/social.models.ts",
+            "services": "libs/domain/social/src/lib/services/",
+            "mocks": "libs/domain/social/src/lib/mocks/mock-data.ts"
+          },
+          "existing_services": [
+            "social-post.service.ts",
+            "social-comment.service.ts",
+            "social-notification.service.ts",
+            "social-user.service.ts",
+            "social-search.service.ts"
+          ]
+        },
+        {
+          "name": "profile",
+          "path": "libs/domain/profile/src/lib",
+          "alias": "@fe/domain/profile",
+          "purpose": "User profile data, avatar, bio",
+          "sub_directories": {
+            "services": "libs/domain/profile/src/lib/services/profile.service.ts"
+          }
+        },
+        {
+          "name": "media",
+          "path": "libs/domain/media/src/lib",
+          "alias": "@fe/domain/media",
+          "purpose": "Media assets, upload, processing status",
+          "sub_directories": {
+            "services": "libs/domain/media/src/lib/services/media.service.ts"
+          }
+        }
+      ],
+      "file_creation_template": {
+        "new_domain_scaffold": [
+          "libs/domain/{name}/src/index.ts",
+          "libs/domain/{name}/src/lib/models/{name}.model.ts",
+          "libs/domain/{name}/src/lib/services/{name}.service.ts",
+          "libs/domain/{name}/src/lib/mocks/mock-{name}.ts"
+        ]
+      }
+    },
+    {
+      "id": "core",
+      "name": "Core Library",
+      "path": "libs/core/src/lib",
+      "alias": "@fe/core",
+      "allowed_dependencies": [],
+      "forbidden_to_import_from": ["apps", "features", "domain", "ui"],
+      "description": "Infrastructure layer. Cross-cutting concerns only. No feature-specific logic.",
+      "sub_directories": {
+        "api_service": "libs/core/src/lib/services/api.service.ts",
+        "auth_service": "libs/core/src/lib/services/auth.service.ts",
+        "cache_service": "libs/core/src/lib/services/cache.service.ts",
+        "error_service": "libs/core/src/lib/services/error.service.ts",
+        "loading_service": "libs/core/src/lib/services/loading.service.ts",
+        "theme_service": "libs/core/src/lib/services/theme.service.ts",
+        "auth_guard": "libs/core/src/lib/guards/auth.guard.ts",
+        "guest_guard": "libs/core/src/lib/guards/guest.guard.ts",
+        "auth_interceptor": "libs/core/src/lib/interceptors/auth.interceptor.ts",
+        "error_interceptor": "libs/core/src/lib/interceptors/error.interceptor.ts",
+        "loading_interceptor": "libs/core/src/lib/interceptors/loading.interceptor.ts",
+        "design_tokens": "libs/core/src/lib/design-system/design-tokens.ts",
+        "app_config": "libs/core/src/lib/config/app-config.ts",
+        "url_config": "libs/core/src/lib/config/url-config.ts"
+      }
+    },
+    {
+      "id": "ui",
+      "name": "UI Component Library",
+      "path": "libs/ui/src/lib",
+      "alias": "@fe/ui",
+      "allowed_dependencies": ["core"],
+      "forbidden_to_import_from": ["apps", "features", "domain"],
+      "description": "Pure UI components. No business logic, no API calls, no state management beyond local UI state.",
+      "sub_directories": {
+        "button": "libs/ui/src/lib/button/",
+        "card": "libs/ui/src/lib/card/",
+        "input": "libs/ui/src/lib/input/",
+        "header": "libs/ui/src/lib/header/",
+        "footer": "libs/ui/src/lib/footer/",
+        "logo": "libs/ui/src/lib/logo/",
+        "loader": "libs/ui/src/lib/loader/",
+        "skeleton": "libs/ui/src/lib/skeleton/",
+        "directives": "libs/ui/src/lib/directives/",
+        "layouts": "libs/ui/src/lib/layouts/",
+        "shared_header": "libs/ui/src/lib/components/shared-header/",
+        "shared_table": "libs/ui/src/lib/components/shared-table/",
+        "sidebar_menu": "libs/ui/src/lib/components/sidebar-menu/",
+        "social_post_card": "libs/ui/src/lib/components/social/post-card/",
+        "social_user_card": "libs/ui/src/lib/components/social/user-card/",
+        "social_like_button": "libs/ui/src/lib/components/social/like-button/",
+        "social_comment_section": "libs/ui/src/lib/components/social/comment-section/",
+        "social_follow_button": "libs/ui/src/lib/components/social/follow-button/"
+      },
+      "public_api": "libs/ui/src/index.ts"
+    }
+  ],
+
+  "decision_tree": {
+    "description": "AI uses this tree to determine where to place any new file",
+    "questions": [
+      {
+        "q": "Is it a reusable, domain-agnostic UI component with no API calls?",
+        "yes": "→ libs/ui/src/lib/{component-type}/"
+      },
+      {
+        "q": "Is it a business model, interface, or type definition?",
+        "yes": "→ libs/domain/{domain}/src/lib/models/"
+      },
+      {
+        "q": "Is it a service that calls an API or contains business logic?",
+        "yes": "→ libs/domain/{domain}/src/lib/services/"
+      },
+      {
+        "q": "Is it mock/fake data for development?",
+        "yes": "→ libs/domain/{domain}/src/lib/mocks/"
+      },
+      {
+        "q": "Is it a screen component or feature-specific UI?",
+        "yes": "→ libs/features/{feature}/src/lib/{screen-name}/"
+      },
+      {
+        "q": "Is it state management / facade for a feature?",
+        "yes": "→ libs/features/{feature}/src/lib/data-access/"
+      },
+      {
+        "q": "Is it an HTTP interceptor, guard, or infrastructure service?",
+        "yes": "→ libs/core/src/lib/{interceptors|guards|services}/"
+      },
+      {
+        "q": "Is it a route definition, layout, or app bootstrap config?",
+        "yes": "→ apps/app-shell/src/app/"
+      }
+    ]
+  }
+}

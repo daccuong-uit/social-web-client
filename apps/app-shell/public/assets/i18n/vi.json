@@ -1,0 +1,8 @@
+{
+  "common": {
+    "welcome": "Chào mừng bạn",
+    "login": "Đăng nhập",
+    "submit": "Gửi",
+    "cancel": "Hủy"
+  }
+}

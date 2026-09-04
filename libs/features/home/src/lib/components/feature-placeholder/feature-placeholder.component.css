@@ -1,0 +1,75 @@
+.placeholder-page {
+  padding: calc(var(--std-padding-scale) * 1.5rem);
+  display: grid;
+  gap: calc(var(--std-padding-scale) * 1.4rem);
+}
+.placeholder-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--std-padding-scale) * 1.2rem);
+}
+.placeholder-hero h1 {
+  margin: 0 0 10px;
+  font-size: var(--font-size-heading);
+}
+.placeholder-hero p {
+  margin: 0;
+  color: var(--color-text-muted, #334155);
+  max-width: 680px;
+}
+.placeholder-grid {
+  display: grid;
+  gap: calc(var(--std-padding-scale) * 1rem);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.placeholder-card {
+  display: grid;
+  gap: 12px;
+  padding: calc(var(--std-padding-scale) * 1.25rem);
+  border-radius: 24px;
+  background: var(--color-surface-base, #ffffff);
+  border: 1px solid var(--color-border-subtle, rgba(15, 23, 42, 0.08));
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.placeholder-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-border-subtle, rgba(15, 23, 42, 0.14));
+}
+.item-icon {
+  width: var(--std-icon-size-xl);
+  height: var(--std-icon-size-xl);
+  display: grid;
+  place-items: center;
+  background: var(--color-surface-subtle, #eff6ff);
+  border-radius: 16px;
+  font-size: var(--font-size-subtitle);
+}
+.placeholder-card h2 {
+  margin: 0;
+  font-size: var(--font-size-subtitle);
+}
+.placeholder-card p {
+  margin: 4px 0 0;
+  color: var(--color-text-muted, #475569);
+  line-height: 1.6;
+}
+.placeholder-card button {
+  width: fit-content;
+  border: none;
+  background: var(--color-text-base, #0f172a);
+  color: var(--color-text-inverse, #ffffff);
+  padding: 0 18px;
+  height: 40px;
+  border-radius: 999px;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-strong);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.placeholder-card button:hover {
+  background: var(--color-text-muted, #1e293b);
+}

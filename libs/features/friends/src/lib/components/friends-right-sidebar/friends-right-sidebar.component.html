@@ -1,0 +1,43 @@
+<div class="sidebar-container">
+  @if (friend) {
+    <div class="mini-profile-banner">
+      <img [src]="friend.coverUrl || 'https://images.unsplash.com/photo-1707343843437-caacff5cfa74?w=500&h=150&fit=crop'" alt="Cover">
+    </div>
+    <div class="mini-profile-content">
+      <div class="avatar-row">
+        <img [src]="friend.avatar || 'https://ui-avatars.com/api/?name=' + friend.name + '&background=random'" alt="Avatar" class="mini-avatar">
+      </div>
+      <div class="info-row">
+        <h3 class="friend-name">{{ friend.name }}</h3>
+        <p class="friend-handle">&#64;{{ friend.username || friend.name.toLowerCase().replace(' ', '') }}</p>
+      </div>
+      
+      <div class="stats-row">
+        <div class="stat">
+          <strong>{{ friend.mutualFriends || 0 }}</strong>
+          <span>Bạn chung</span>
+        </div>
+        <div class="stat">
+          <strong>{{ friend.postCount || 0 }}</strong>
+          <span>Bài viết</span>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <lib-button variant="primary" style="flex: 1; min-width: 0;">Nhắn tin</lib-button>
+        <lib-button variant="outline" style="flex: 1; min-width: 0;">Xem hồ sơ</lib-button>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <h4>Hồ sơ bạn bè</h4>
+      <p>Chọn một người bạn để xem thông tin chi tiết.</p>
+    </div>
+  }
+</div>

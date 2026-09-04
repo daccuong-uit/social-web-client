@@ -1,0 +1,154 @@
+<div class="about-layout">
+    <!-- Menu bên trái -->
+    <aside class="sidebar-column">
+        <ui-sidebar-menu [items]="tabs" (itemClick)="selectTab($event)">
+        </ui-sidebar-menu>
+    </aside>
+
+    <!-- Đường kẻ vạch xám phân cách -->
+    <div class="divider"></div>
+
+    <!-- Nội dung hiển thị bên phải -->
+    <main class="content-column">
+        <div class="about-card">
+
+            <!-- Tab 1: Tổng quan -->
+            <ng-container *ngIf="selectedTab() === 'overview'">
+                <!-- Item 1: Vị trí -->
+                <div class="about-item" *ngIf="profile?.location">
+                    <span class="item-label">Vị trí</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">📍</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.location }}</span>
+                            <span class="item-desc">Tỉnh/Thành phố hiện tại</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Quê quán -->
+                <div class="about-item" *ngIf="profile?.hometown">
+                    <span class="item-label">Quê quán</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">🏠</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.hometown }}</span>
+                            <span class="item-desc">Quê quán</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Mối quan hệ -->
+                <div class="about-item" *ngIf="profile?.relationshipStatus">
+                    <span class="item-label">Mối quan hệ</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">❤️</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.relationshipStatus }}</span>
+                            <span class="item-desc">Tình trạng hôn nhân</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty" *ngIf="!profile?.location && !profile?.hometown && !profile?.relationshipStatus">
+                    Chưa có thông tin tổng quan.
+                </div>
+            </ng-container>
+
+            <!-- Tab 2: Thông tin cơ bản -->
+            <ng-container *ngIf="selectedTab() === 'personal'">
+                <!-- Giới tính -->
+                <div class="about-item" *ngIf="profile?.gender">
+                    <span class="item-label">Giới tính</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">👤</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.gender }}</span>
+                            <span class="item-desc">Giới tính</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ngày sinh -->
+                <div class="about-item" *ngIf="profile?.birthday">
+                    <span class="item-label">Ngày sinh</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">🎂</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.birthday | relativeTime }}</span>
+                            <span class="item-desc">Ngày sinh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty" *ngIf="!profile?.gender && !profile?.birthday">
+                    Chưa có thông tin cá nhân.
+                </div>
+            </ng-container>
+
+            <!-- Tab 3: Thông tin liên hệ -->
+            <ng-container *ngIf="selectedTab() === 'contact'">
+                <!-- Email -->
+                <div class="about-item" *ngIf="profile?.email">
+                    <span class="item-label">Email</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">✉️</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.email }}</span>
+                            <span class="item-desc">Địa chỉ Email</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Điện thoại -->
+                <div class="about-item" *ngIf="profile?.phone">
+                    <span class="item-label">Điện thoại</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">📞</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.phone }}</span>
+                            <span class="item-desc">Số điện thoại</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website -->
+                <div class="about-item" *ngIf="profile?.website">
+                    <span class="item-label">Trang web</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">🌐</div>
+                        <div class="info-text">
+                            <a [href]="profile?.website" target="_blank" rel="noopener" class="item-desc link">
+                                {{ profile?.website }}
+                            </a>
+                            <span class="info-text">Liên kết ngoài</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty" *ngIf="!profile?.email && !profile?.phone && !profile?.website">
+                    Chưa có thông tin liên hệ.
+                </div>
+            </ng-container>
+
+            <!-- Tab 4: Sở thích -->
+            <ng-container *ngIf="selectedTab() === 'hobbies'">
+                <div class="about-item" *ngIf="profile?.hobbies?.length">
+                    <span class="item-label">Sở thích cá nhân</span>
+                    <div class="info-card">
+                        <div class="avatar-icon">🎨</div>
+                        <div class="info-text">
+                            <span class="item-title">{{ profile?.hobbies?.join(', ') }}</span>
+                            <span class="item-desc">Sở thích</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty" *ngIf="!profile?.hobbies?.length">
+                    Chưa cập nhật sở thích.
+                </div>
+            </ng-container>
+
+        </div>
+    </main>
+</div>

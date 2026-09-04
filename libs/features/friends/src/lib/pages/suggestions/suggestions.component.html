@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h1 class="page-title">Gợi ý kết bạn</h1>
+  <p class="page-subtitle">Những người bạn có thể biết</p>
+
+  <div class="card-grid">
+    @for (user of users(); track user.id) {
+      <fe-friend-card variant="avatar-card" [user]="user" [context]="'suggestions'" (actionRequested)="onAction($event)" (menuItemClick)="onMenuItemClick($event, user)"></fe-friend-card>
+    }
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<nav class="sidebar-menu">
+  <!-- Dynamic Items -->
+  @for (item of items; track item.id) {
+    <!-- Link version -->
+    @if (item.link) {
+      <a [routerLink]="item.link" 
+         [routerLinkActive]="'active'" 
+         [routerLinkActiveOptions]="{ exact: item.exactMatch || false }"
+         [class.ai-link]="item.isAi"
+         (click)="onItemClick(item, $event)">
+        <div class="nav-icon" [class.ai-icon]="item.isAi" *ngIf="item.svgIcon" [innerHTML]="item.svgIcon | safeHtml"></div>
+        <span class="nav-text" [class.ai-text]="item.isAi">{{ item.label }}</span>
+        @if (item.badge) {
+          <span class="badge">{{ item.badge }}</span>
+        }
+      </a>
+    }
+    <!-- Button version (for settings tabs) -->
+    @else {
+      <a href="#"
+         [class.active]="activeItemId === item.id"
+         [class.ai-link]="item.isAi"
+         (click)="onItemClick(item, $event)">
+        <div class="nav-icon" [class.ai-icon]="item.isAi" *ngIf="item.svgIcon" [innerHTML]="item.svgIcon | safeHtml"></div>
+        <span class="nav-text" [class.ai-text]="item.isAi">{{ item.label }}</span>
+        @if (item.badge) {
+          <span class="badge">{{ item.badge }}</span>
+        }
+      </a>
+    }
+  }
+</nav>

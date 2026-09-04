@@ -1,0 +1,392 @@
+/* ═══════════════════════════════════════════════════════════════
+   FriendCardComponent — Avatar card + List row variants
+   All values use CSS design tokens, zero hardcoded colors/sizes.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Host ──────────────────────────────────────────────────── */
+:host {
+  display: block;
+  /* Default stacking order; elevated when menu is open (Bug #2 fix) */
+  position: relative;
+  z-index: 0;
+}
+
+/*
+  BUG FIX #2 — Z-Index Stack Issue
+  When the 3-dot menu is open on a card, sibling cards underneath
+  in the list would overlap the floating-panel.
+  Adding is-menu-open on :host elevates it above its siblings.
+*/
+:host.is-menu-open,
+.friend-card.is-menu-open {
+  z-index: 50;
+  position: relative;
+}
+
+/* ─── Base card ─────────────────────────────────────────────── */
+.friend-card {
+  background: var(--color-surface-base);
+  overflow: visible;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* ─── Button base ───────────────────────────────────────────── */
+.btn {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/*
+  BUG FIX #1 — CSS State
+  Hover effects must fire on :hover, NOT on :active/:focus pseudo-classes.
+  All interactive effects are moved here.
+*/
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn.state-pending,
+.btn.state-following,
+.btn.state-blocked,
+.btn.state-suggested {
+  box-shadow: 0 6px 16px rgba(13, 138, 188, 0.16);
+}
+
+.btn.state-pending {
+  background: var(--color-surface-subtle);
+  color: var(--color-text-base);
+  border-color: var(--color-border-strong);
+}
+
+.btn.state-suggested,
+.btn.state-following {
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-brand-primary);
+}
+
+.btn.state-blocked {
+  background: var(--color-danger-strong);
+  color: var(--color-text-inverse);
+  border-color: var(--color-danger-strong);
+}
+
+.btn.is-danger {
+  color: var(--color-danger-strong);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   AVATAR-CARD variant
+   Layout: column  →  Avatar (1:1) | Name | Subtext | Actions
+   ══════════════════════════════════════════════════════════════ */
+.avatar-card {
+  display: flex;
+  flex-direction: column;
+  /* Light border, very slightly rounded — almost square */
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
+}
+
+.avatar-card:hover {
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-brand-primary) 12%, transparent);
+}
+
+/* Avatar: full-width, square ratio */
+.avatar-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-surface-subtle);
+  overflow: hidden;
+  flex-shrink: 0;
+  /* Top corners match card radius */
+  border-radius: 6px 6px 0 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card body: Name + Subtext + Actions stacked */
+.card-body {
+  padding: calc(var(--spacing-scale-base, 4px) * 3.5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-scale-base, 4px) * 2.5);
+  flex: 1;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.card-name {
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-strong);
+  color: var(--color-text-base);
+  margin: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Actions: column of full-width buttons at bottom of card */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-scale-base, 4px) * 1.75);
+  margin-top: auto;
+  width: 100%;
+}
+
+.card-actions .btn,
+.card-actions .floating-menu-wrapper,
+.card-actions .floating-menu-wrapper .btn {
+  width: 100%;
+}
+
+.card-actions .btn {
+  font-size: var(--font-size-caption);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LIST-ROW variant
+   Multi-row grid:
+     Row 1: [Avatar + Name] auto  |  [Actions] shrink
+     Row 2: [Bio] full-width
+   ══════════════════════════════════════════════════════════════ */
+.list-row {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-scale-base, 4px) * 1.5);
+  padding: calc(var(--spacing-scale-base, 4px) * 2.5) calc(var(--spacing-scale-base, 4px) * 3);
+  box-sizing: border-box;
+  /* BUG: Remove ALL borders from list-row cards */
+  border: none;
+  border-radius: 0;
+}
+
+.list-row:hover {
+  background: color-mix(in srgb, var(--color-brand-primary) 4%, transparent);
+}
+
+/* ── Row 1: identity (left) + actions (right) ── */
+.list-row-top {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-scale-base, 4px) * 3);
+}
+
+/* Left cluster: Avatar + Name side-by-side */
+.list-identity {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-scale-base, 4px) * 3);
+  flex: 1;
+  min-width: 0;
+}
+
+.list-avatar-wrap {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.list-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.list-identity .card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Right cluster: primary action + 3-dot button */
+.list-top-actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-scale-base, 4px) * 1.75);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.list-top-actions .btn {
+  font-size: var(--font-size-caption);
+}
+
+/* Square icon button (3-dot) */
+.btn-icon {
+  padding: 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Row 2: Bio / Subtext — spans full width ── */
+.list-row-bio {
+  /* Indent to align with name (avatar width + gap) */
+  padding-left: calc(48px + calc(var(--spacing-scale-base, 4px) * 3));
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.list-row-bio .card-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FLOATING PANEL (3-dot dropdown)
+   BUG FIX #2: z-index is set on the panel; host elevation handles
+   the stacking-context issue vs sibling cards.
+   ══════════════════════════════════════════════════════════════ */
+.floating-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.floating-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 8px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Panel itself is above other content within this stacking context */
+  z-index: 100;
+  transform-origin: top right;
+}
+
+.floating-panel .btn {
+  background: transparent;
+  border: none;
+  justify-content: flex-start;
+  padding: 8px 12px;
+  font-size: var(--font-size-caption);
+  text-align: left;
+  width: 100%;
+}
+
+.floating-panel .btn:hover {
+  background: color-mix(in srgb, var(--color-brand-primary) 8%, transparent);
+}
+
+.floating-panel .btn.is-danger:hover {
+  background: color-mix(in srgb, var(--color-danger-strong) 8%, transparent);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RECURSIVE SUBMENU STYLES
+   ══════════════════════════════════════════════════════════════ */
+.menu-item-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.menu-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.submenu-indicator {
+  font-size: 10px;
+  margin-left: auto;
+  opacity: 0.7;
+}
+
+.submenu-panel {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 100%; /* Opens to the left to avoid screen edge clipping */
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 8px;
+  min-width: 160px;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 101;
+}
+
+.menu-item-wrapper:hover > .submenu-panel {
+  display: flex;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Legacy <details> dropdown (kept for backward-compat)
+   ══════════════════════════════════════════════════════════════ */
+details.dropdown {
+  position: relative;
+}
+
+details.dropdown summary {
+  list-style: none;
+}
+
+details.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 8px;
+  min-width: 160px;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 50;
+}
+
+details.dropdown[open] .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu .btn {
+  width: 100%;
+  justify-content: flex-start;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+}

@@ -1,0 +1,55 @@
+<div class="feed-reels-strip">
+  <div class="strip-scroll-wrapper">
+
+    <!-- Add Reel button - luôn hiện ở đầu -->
+    <div class="reel-item reel-add-item" (click)="onAddReel()" id="feed-add-reel-btn" role="button" tabindex="0"
+      aria-label="Thêm Reel mới" (keydown.enter)="onAddReel()">
+      <div class="reel-thumb reel-add-thumb">
+        <div class="reel-add-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </div>
+        <div class="reel-add-ring"></div>
+      </div>
+    </div>
+
+    <!-- Friend Reels -->
+    <ng-container *ngFor="let reel of friendReels(); trackBy: trackById">
+      <!-- Click trực tiếp vào reel-item để phát/mở video -->
+      <div class="reel-item" (click)="onOpenReel(reel)" role="button" tabindex="0" [attr.id]="'feed-reel-' + reel.id"
+        [attr.aria-label]="'Phát video của ' + reel.author + ': ' + reel.description" (keydown.enter)="onOpenReel(reel)"
+        (keydown.space)="$event.preventDefault(); onOpenReel(reel)">
+
+        <div class="reel-thumb" [class.has-thumbnail]="!!reel.thumbnailUrl"
+          [style.background-image]="getThumbnailStyle(reel.thumbnailUrl)"
+          [style.background-color]="!reel.thumbnailUrl ? reel.thumbnailColor : 'transparent'">
+
+          <!-- Avatar ở góc trên -->
+          <div class="reel-avatar-ring">
+            <div class="reel-avatar">
+              <!-- 1. Hiển thị ảnh nếu reel.avatar có dữ liệu -->
+              <img *ngIf="reel.avatar" [src]="reel.avatar" [alt]="'Avatar của ' + reel.author"
+                (error)="reel.avatar = ''" />
+
+              <!-- 2. Chữ cái đầu hiển thị khi không có avatar hoặc ảnh lỗi -->
+              <span *ngIf="!reel.avatar" class="reel-avatar-letter">
+                {{ reel.author ? reel.author.charAt(0) : 'U' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Tên Author phủ dưới đáy (Facebook Style) -->
+          <div class="reel-author-overlay">
+            <span class="reel-label-inside" [title]="reel.author">
+              {{ reel.author }}
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

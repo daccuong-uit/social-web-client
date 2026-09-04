@@ -1,0 +1,48 @@
+<div class="ui-tabs" [class.can-scroll-left]="canScrollLeft()" [class.can-scroll-right]="canScrollRight()">
+  <button type="button" class="ui-tabs__nav ui-tabs__nav--left" [class.is-visible]="canScrollLeft()"
+    [disabled]="!canScrollLeft()" (click)="scrollBy('left')" aria-label="Cuộn sang trái">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <div class="ui-tabs__viewport">
+    <div class="ui-tabs__track" #track role="tablist" (scroll)="onTrackScroll()">
+      @for (tab of tabs; track tab.id; let i = $index) {
+      @if (tab.link) {
+      <a #tabRef class="ui-tabs__tab" role="tab" [id]="'ui-tab-' + tab.id" [attr.data-tab-id]="tab.id"
+        [attr.aria-selected]="activeTabId === tab.id" [attr.tabindex]="activeTabId === tab.id ? 0 : -1"
+        [class.is-active]="activeTabId === tab.id" [routerLink]="tab.link" routerLinkActive="is-active"
+        (click)="onTabActivate(tab, $event)" (keydown)="onTabKeydown($event, i)">
+        <span class="ui-tabs__label">{{ tab.label }}</span>
+        @if (tab.count !== undefined) {
+        <span class="ui-tabs__count">{{ tab.count }}</span>
+        }
+      </a>
+      } @else {
+      <button #tabRef type="button" class="ui-tabs__tab" role="tab" [id]="'ui-tab-' + tab.id"
+        [attr.data-tab-id]="tab.id" [attr.aria-selected]="activeTabId === tab.id"
+        [attr.tabindex]="activeTabId === tab.id ? 0 : -1" [class.is-active]="activeTabId === tab.id"
+        (click)="onTabActivate(tab, $event)" (keydown)="onTabKeydown($event, i)">
+        <span class="ui-tabs__label">{{ tab.label }}</span>
+        @if (tab.count !== undefined) {
+        <span class="ui-tabs__count">{{ tab.count }}</span>
+        }
+      </button>
+      }
+      }
+
+      <span class="ui-tabs__indicator" [class.is-visible]="indicator().visible" [style.width.px]="indicator().width"
+        [style.transform]="'translateX(' + indicator().left + 'px)'"></span>
+    </div>
+  </div>
+
+  <button type="button" class="ui-tabs__nav ui-tabs__nav--right" [class.is-visible]="canScrollRight()"
+    [disabled]="!canScrollRight()" (click)="scrollBy('right')" aria-label="Cuộn sang phải">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>

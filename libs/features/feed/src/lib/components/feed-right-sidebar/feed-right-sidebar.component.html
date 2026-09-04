@@ -1,0 +1,183 @@
+<div class="sidebar-right">
+  <div class="sidebar-scroll-container">
+    <form class="sidebar-scroll-form">
+
+      <section class="profile-card">
+        <div class="profile-top">
+          <div class="profile-avatar"
+            [style.background-image]="'url(https://ui-avatars.com/api/?name=' + (user()?.displayName || user()?.username || 'User') + '&background=0D8ABC&color=fff)'"
+            style="background-size: cover;">
+          </div>
+
+          <div class="profile-info">
+            <p class="profile-name">
+              {{ user()?.displayName || 'Người dùng' }}
+            </p>
+
+            <p class="profile-handle">
+              {{ user()?.username ? '@' + user()?.username : '@user' }}
+            </p>
+          </div>
+
+          <div class="profile-menu-btn" (click)="toggleMenu($event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="12" cy="5" r="1"></circle>
+              <circle cx="12" cy="19" r="1"></circle>
+            </svg>
+          </div>
+
+          <div *ngIf="showMenu()" class="profile-menu-dropdown" #menuDropdown>
+            <a routerLink="/profile" class="dropdown-item" (click)="closeMenu()">
+              Xem Profile
+            </a>
+
+            <a class="dropdown-item dropdown-logout" (click)="logout()">
+              Đăng xuất
+            </a>
+          </div>
+        </div>
+
+        <ng-container *ngIf="isHome()">
+          <div class="profile-actions">
+            <button class="btn btn-outline" style="padding: 0; width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </button>
+
+            <button class="btn btn-outline" style="padding: 0; width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+
+            <button class="btn btn-primary" routerLink="/media/studio">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              </svg>
+              Studio
+            </button>
+          </div>
+        </ng-container>
+      </section>
+
+      <ng-container *ngIf="isHome()">
+
+        <section class="promo-card">
+          <div class="promo-head">
+            <span class="premium-text">Reals Premium</span>
+            <span class="badge">Giảm 50%</span>
+          </div>
+
+          <p>
+            Trải nghiệm không giới hạn, sáng tạo chuyên nghiệp với Reals AI.
+          </p>
+
+          <button class="btn btn-primary" style="width: 100%;">Đăng ký ngay</button>
+        </section>
+
+        <section class="trending-card">
+          <div class="section-title">
+            Xu hướng thịnh hành
+          </div>
+
+          <ul>
+            <li>
+              <div class="trend-meta">
+                Công nghệ · Trực tiếp
+              </div>
+
+              <strong>
+                Reals ra mắt tính năng AI mới
+              </strong>
+
+              <span class="trend-stats">
+                24.5N bài viết
+              </span>
+            </li>
+
+            <li>
+              <div class="trend-meta">
+                Giải trí · Đang thịnh hành
+              </div>
+
+              <strong>
+                Sự kiện âm nhạc 2026
+              </strong>
+
+              <span class="trend-stats">
+                18.2N bài viết
+              </span>
+            </li>
+
+            <li>
+              <div class="trend-meta">
+                Thể thao · Nổi bật
+              </div>
+
+              <strong>
+                Chung kết eSports
+              </strong>
+
+              <span class="trend-stats">
+                12.1N bài viết
+              </span>
+            </li>
+          </ul>
+
+          <a class="show-more">
+            Hiển thị thêm
+          </a>
+        </section>
+
+        <section class="trending-card">
+          <div class="section-title">
+            Gợi ý kết bạn
+          </div>
+
+          <div class="suggestions-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+            <app-user-card *ngFor="let u of suggestedUsers()" [user]="u" [showActions]="false"
+              (toggleFollow)="onToggleFollow(u)">
+            </app-user-card>
+          </div>
+
+          <a class="show-more" style="margin-top: 12px;">
+            Xem tất cả
+          </a>
+        </section>
+
+      </ng-container>
+
+      <ng-container *ngIf="isProfile() && !isHome()">
+        <section class="suggestion-card">
+          <div class="section-title">Thông tin nhanh</div>
+          <p class="profile-quick-text">
+            Duy trì nội dung nhất quán và cập nhật hồ sơ để tăng tương tác.
+          </p>
+          <ul class="profile-quick-list">
+            <li><strong>Thuộc tính:</strong> Cá nhân hóa tên và username.</li>
+            <li><strong>Nội dung nổi bật:</strong> Chia sẻ bài đăng mới mỗi ngày.</li>
+            <li><strong>Bảo mật:</strong> Kiểm tra cài đặt đăng nhập.</li>
+          </ul>
+          <a class="show-more" routerLink="/settings">Mở cài đặt hồ sơ</a>
+        </section>
+
+        <section class="suggestion-card">
+          <div class="section-title">Mẹo sử dụng</div>
+          <p class="profile-quick-text">
+            Thêm mô tả rõ ràng, liên kết đến kênh khác và cập nhật ảnh đại diện thường xuyên.
+          </p>
+          <button>Khám phá nội dung</button>
+        </section>
+      </ng-container>
+
+    </form>
+  </div>
+</div>

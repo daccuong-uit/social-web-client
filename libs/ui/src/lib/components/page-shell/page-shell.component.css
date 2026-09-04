@@ -1,0 +1,493 @@
+/* ═══════════════════════════════════════════════════════════════
+   PageShellComponent — Single source-of-truth for page layout.
+   All dimensions reference global tokens from styles.css:
+     --page-sidebar-width, --page-sidebar-collapsed,
+     --page-rightbar-width, --page-rightbar-width-full
+   ═══════════════════════════════════════════════════════════════ */
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 8px;
+  box-sizing: border-box;
+  background: var(--color-surface-base);
+  /* Block viewport from ever going below the feed's min-width */
+  min-width: calc(var(--page-sidebar-collapsed) + 380px + 16px);
+}
+
+/* ─── Programmatic sidebar collapse (e.g. Friends page) ───── */
+:host.sidebar-collapsed .page-sidebar {
+  width: var(--page-sidebar-collapsed);
+  min-width: var(--page-sidebar-collapsed);
+}
+
+:host.sidebar-collapsed .page-brand {
+  justify-content: center;
+  padding: 8px 4px;
+}
+
+:host.sidebar-collapsed .page-brand-title {
+  font-size: var(--font-size-caption);
+  font-weight: 800;
+}
+
+:host.sidebar-collapsed .page-settings-link {
+  justify-content: center;
+  padding: 12px;
+}
+
+:host.sidebar-collapsed .page-settings-meta {
+  display: none;
+}
+
+:host.sidebar-collapsed .page-nav-separator {
+  margin: 16px 8px;
+}
+
+/* When collapsed and no right sidebar: main fills all remaining width */
+:host.sidebar-collapsed .page-main {
+  flex: 1 1 auto;
+  width: auto;
+}
+
+:host.sidebar-collapsed .page-main-content {
+  width: 100%;
+  max-width: 100%;
+  border-right: none;
+}
+
+
+/* ─── 3-column layout spread across the viewport ───────────── */
+.page-shell {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-surface-base);
+  color: var(--color-text-base);
+}
+
+/* ─── Left Sidebar ──────────────────────────────────────────── */
+.page-sidebar {
+  width: var(--page-sidebar-width);
+  min-width: var(--page-sidebar-width);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  background: transparent;
+  border-right: 1px solid var(--color-border-subtle);
+  z-index: 10;
+  margin-left: -8px;
+  padding-left: 8px;
+}
+
+.page-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: calc(8px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1)) 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+.page-sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Brand ─────────────────────────────────────────────────── */
+.page-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  margin: 0 -4px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.page-brand:hover {
+  background: var(--color-surface-subtle);
+}
+
+.page-brand-icon {
+  width: calc(44px * var(--padding-scale, 1));
+  height: calc(44px * var(--padding-scale, 1));
+  min-width: calc(44px * var(--padding-scale, 1));
+  display: grid;
+  place-items: center;
+  color: var(--color-text-base);
+}
+
+.page-brand-icon svg {
+  width: 70%;
+  height: 70%;
+}
+
+.page-brand-title {
+  font-size: var(--font-size-heading-md);
+  font-weight: 900;
+  color: var(--color-text-base);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ─── Separator ─────────────────────────────────────────────── */
+.page-nav-separator {
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+  margin: 16px 12px;
+}
+
+/* ─── Settings footer ───────────────────────────────────────── */
+.page-sidebar-footer {
+  margin-top: auto;
+  padding-bottom: calc(8px * var(--padding-scale, 1));
+  flex-shrink: 0;
+}
+
+.page-settings-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(8px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
+  min-height: calc(44px * var(--padding-scale, 1));
+  border-radius: 12px;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.18s ease;
+}
+
+.page-settings-link:hover {
+  background: var(--color-surface-subtle);
+}
+
+.page-settings-avatar {
+  width: calc(28px * var(--padding-scale, 1));
+  height: calc(28px * var(--padding-scale, 1));
+  min-width: calc(28px * var(--padding-scale, 1));
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse, #fff);
+  flex-shrink: 0;
+}
+
+.page-settings-avatar svg {
+  width: 55%;
+  height: 55%;
+}
+
+.page-settings-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.page-settings-name {
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-strong);
+  color: var(--color-text-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-settings-hint {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Sidebar Hamburger (hidden on desktop) ─────────────────── */
+.sidebar-hamburger {
+  display: none;
+}
+
+/* ─── Mobile Topbar (hidden on desktop) ─────────────────────── */
+.mobile-topbar {
+  display: none;
+}
+
+/* ─── Hamburger Button ───────────────────────────────────────── */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 8px;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+  background: var(--color-surface-subtle);
+}
+
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text-base);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Mobile Drawer Overlay ──────────────────────────────────── */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+  animation: overlayFadeIn 0.25s ease;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Mobile Drawer ──────────────────────────────────────────── */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--color-surface-base);
+  border-right: 1px solid var(--color-border-subtle);
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+  animation: drawerSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.mobile-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 8px 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.mobile-drawer-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-drawer-footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ─── Main Content ──────────────────────────────────────────── */
+.page-main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  flex: 1 1 var(--page-main-width);
+  min-width: calc(var(--page-main-width) * 0.7);
+}
+
+.page-main-content {
+  width: 100%;
+  max-width: var(--page-main-width);
+  margin: 0;
+  border-left: 1px solid var(--color-border-default);
+  border-right: 1px solid var(--color-border-default);
+  min-height: 100vh;
+  padding: 0 0 var(--spacing-6) 0;
+  box-sizing: border-box;
+}
+
+/* ─── Right Sidebar ─────────────────────────────────────────── */
+.page-rightbar {
+  width: var(--page-rightbar-width);
+  min-width: var(--page-rightbar-width);
+  position: sticky;
+  top: 0;
+  height: calc(100vh - var(--spacing-1, 4.4px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  flex-shrink: 0;
+  margin-right: -8px;
+  padding-right: 8px;
+}
+
+.page-rightbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 1. < 1440px: Collapse left sidebar (icon mode) and replace logo with hamburger. Keep right sidebar visible. */
+@media (max-width: 1439.98px) {
+  .page-sidebar {
+    width: var(--page-sidebar-collapsed);
+    min-width: var(--page-sidebar-collapsed);
+  }
+
+  .page-brand {
+    display: none;
+  }
+
+  .sidebar-hamburger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+  }
+
+  .page-settings-link {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .page-settings-meta {
+    display: none;
+  }
+
+  .page-nav-separator {
+    margin: 16px 8px;
+  }
+}
+
+/* 2. < 1100px: Hide right sidebar. */
+@media (max-width: 1099.98px) {
+  .page-rightbar {
+    display: none;
+  }
+
+  .page-main-content {
+    border-right: none;
+    max-width: 100%;
+  }
+}
+
+/* 3. < 860px: Full mobile layout (Hide collapsed sidebar, show topbar). */
+@media (max-width: 859.98px) {
+  /* Override :host min-width to lock viewport at the feed width */
+  :host {
+    min-width: 380px;
+    padding: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-shell {
+    flex-direction: column;
+  }
+
+  .page-sidebar {
+    display: none;
+  }
+
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 8px 16px;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-surface-base) 90%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: none;
+    flex-shrink: 0;
+  }
+
+  .mobile-brand {
+    margin: 0;
+    padding: 4px 8px;
+  }
+
+  .mobile-overlay {
+    display: block;
+  }
+
+  .mobile-drawer {
+    display: block;
+  }
+
+  /* Main takes full width */
+  .page-main {
+    padding: 0;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: calc(100vh - 56px);
+  }
+
+  .page-main-content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    padding: 0 0 var(--spacing-6) 0;
+    min-width: 380px;
+  }
+}

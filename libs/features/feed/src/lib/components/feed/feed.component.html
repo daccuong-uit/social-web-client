@@ -1,0 +1,86 @@
+<div class="feed-container">
+  <!-- Feed Header / Compose Box -->
+  <div class="feed-header">
+    <div class="compose-card">
+      <div class="compose-top">
+        <button type="button" class="compose-input" (click)="onCreatePost()">
+          <span class="compose-input-avatar" aria-hidden="true"></span>
+          Bạn đang nghĩ gì thế?
+        </button>
+      </div>
+      <div class="compose-actions">
+        <div class="action-buttons compact">
+          <lib-button variant="ghost" (click)="onCreatePost()">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2345bd62' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='M21 15l-5-5L5 21'/%3E%3C/svg%3E"
+              alt="Hình ảnh/Video" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 4px;" />
+            Hình ảnh/Video
+          </lib-button>
+          <lib-button variant="ghost" (click)="onCreatePost()">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f7b928' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'/%3E%3Cpath d='M9 10h.01M15 10h.01'/%3E%3C/svg%3E"
+              alt="Cảm xúc" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 4px;" />
+            Cảm xúc
+          </lib-button>
+          <lib-button variant="ghost" (click)="onCreatePost()">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5533d' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s8-4.5 8-11a8 8 0 0 0-16 0c0 6.5 8 11 8 11z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"
+              alt="Vị trí" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 4px;" />
+            Check in
+          </lib-button>
+        </div>
+        <lib-button variant="primary" (click)="onCreatePost()">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='22' y1='2' x2='11' y2='13'/%3E%3Cpolygon points='22 2 15 22 11 13 2 9 22 2'/%3E%3C/svg%3E"
+            alt="Đăng" style="width: 18px; height: 18px; display: block; margin-right: 6px;" />
+          Đăng
+        </lib-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Friend Reels Strip -->
+  <lib-feed-reels-strip (addReel)="onOpenCreateReel()" id="feed-reels-strip">
+  </lib-feed-reels-strip>
+
+  <!-- Posts List -->
+  <div class="feed-posts">
+    <!-- Skeleton Loading -->
+    <ng-container *ngIf="isLoading()">
+      <lib-skeleton-card *ngFor="let i of skeletonItems"></lib-skeleton-card>
+    </ng-container>
+
+    <!-- Error State -->
+    <div class="feed-error" *ngIf="error() && !isLoading()">
+      <p>{{ error() }}</p>
+      <lib-button variant="outline" (click)="retryLoad()">Thử lại</lib-button>
+    </div>
+
+    <!-- Posts -->
+    <ng-container *ngIf="!isLoading()">
+      <app-post-card *ngFor="let post of filteredPosts(); trackBy: trackByPostId" [post]="post"
+        (toggleLike)="onToggleLike(post.id)" (comment)="onOpenComments(post)" (share)="onOpenShareModal(post)">
+      </app-post-card>
+    </ng-container>
+
+    <!-- Empty State -->
+    <div class="feed-empty" *ngIf="!isLoading() && !error() && filteredPosts().length === 0">
+      <p>Chưa có bài đăng nào. Hãy là người đầu tiên đăng bài!</p>
+    </div>
+  </div>
+
+  <lib-comment-thread-panel *ngIf="isCommentPanelOpen() && selectedCommentTarget()" [target]="selectedCommentTarget()!"
+    [post]="selectedCommentTarget()?.post" [comments]="selectedComments()" (close)="onCloseCommentPanel()"
+    (submitComment)="onSubmitComment($event)">
+  </lib-comment-thread-panel>
+</div>
+
+<!-- Create Post Modal -->
+<lib-create-post-modal [isOpen]="isCreatePostModalOpen()" [sharedPost]="postToShare()" (close)="onCloseCreatePost()"
+  (submitPost)="onSubmitPost($event)">
+</lib-create-post-modal>
+
+<!-- Create Reel Modal -->
+<lib-create-reel-modal [isOpen]="isCreateReelModalOpen()" (close)="onCloseCreateReel()"
+  (submitReel)="onSubmitReel($event)">
+</lib-create-reel-modal>

@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h1 class="page-title">Tất cả bạn bè</h1>
+  <p class="page-subtitle">{{ users().length }} bạn bè</p>
+
+  <div class="card-list">
+    @for (user of users(); track user.id) {
+      <fe-friend-card variant="list-row" [user]="user" [context]="'all'" (actionRequested)="onAction($event)" (menuItemClick)="onMenuItemClick($event, user)"></fe-friend-card>
+    }
+  </div>
+</div>

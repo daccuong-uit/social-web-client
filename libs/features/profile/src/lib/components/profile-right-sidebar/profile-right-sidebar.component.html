@@ -1,0 +1,128 @@
+<div class="sidebar-right">
+  <div class="sidebar-scroll-container">
+    <form class="sidebar-scroll-form">
+
+      <!-- ═══ Studio Navigation Button (TOP) ═══ -->
+      <a routerLink="/media/studio" class="studio-nav-btn" id="profile-sidebar-studio-btn">
+        <div class="studio-btn-glow"></div>
+
+        <div class="studio-btn-left">
+          <div class="studio-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <div class="studio-btn-text">
+            <span class="studio-label">Studio</span>
+            <span class="studio-sub">Quản lý nội dung</span>
+          </div>
+        </div>
+
+        <div class="studio-badges">
+          <div class="studio-badge-item video-badge" title="Video đã đăng">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+            <span class="badge-count" *ngIf="videoCount() > 0">
+              {{ videoCount() > 99 ? '99+' : videoCount() }}
+            </span>
+          </div>
+
+          <div class="studio-badge-item view-badge" title="Lượt xem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span class="badge-count" *ngIf="viewsCount() > 0">
+              {{ viewsCount() > 99 ? '99+' : viewsCount() }}
+            </span>
+          </div>
+
+          <div class="studio-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+
+
+      <!-- ═══ Tin nổi bật ═══ -->
+      <section class="suggestion-card">
+        <div class="card-header">
+          <div class="section-title">Tin nổi bật</div>
+          <button type="button" class="btn-header-action" (click)="onActionClick()">
+            {{ isOwner() ? 'Chỉnh sửa' : 'Xem thêm' }}
+          </button>
+        </div>
+
+        <div class="featured-reels-wrapper">
+          <button type="button" class="nav-arrow nav-arrow-left" (click)="scrollLeft()" aria-label="Tin trước"
+            *ngIf="mockReels().length > 2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div class="featured-reels-list" #reelsContainer>
+            <div class="featured-reel-card" *ngFor="let reel of mockReels()">
+              <div class="featured-reel-cover" [style.background-image]="'url(' + reel.cover + ')'">
+                <div class="featured-reel-overlay">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"></path>
+                  </svg>
+                  <span class="featured-reel-views">{{ reel.views }}</span>
+                </div>
+              </div>
+              <div class="featured-reel-info">
+                <div class="featured-reel-title" [title]="reel.title">{{ reel.title }}</div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="nav-arrow nav-arrow-right" (click)="scrollRight()" aria-label="Tin tiếp theo"
+            *ngIf="mockReels().length > 2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ═══ Card Ảnh ═══ -->
+      <section class="suggestion-card">
+        <div class="card-header">
+          <div class="section-title">Ảnh</div>
+          <button type="button" class="btn-header-action">Xem chi tiết</button>
+        </div>
+
+        <div class="photo-grid">
+          <!-- Bạn có thể thay đổi src hoặc dùng directive *ngFor theo danh sách ảnh của bạn -->
+          <div class="photo-item">
+            <img src="https://picsum.photos/300/300?random=1" alt="Ảnh 1" />
+          </div>
+          <div class="photo-item">
+            <img src="https://picsum.photos/300/300?random=2" alt="Ảnh 2" />
+          </div>
+          <div class="photo-item">
+            <img src="https://picsum.photos/300/300?random=3" alt="Ảnh 3" />
+          </div>
+          <div class="photo-item">
+            <img src="https://picsum.photos/300/300?random=4" alt="Ảnh 4" />
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </div>
+</div>

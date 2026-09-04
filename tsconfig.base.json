@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@fe/ui": ["./libs/ui/src/index.ts"],
+      "@fe/core": ["./libs/core/src/index.ts"],
+      "@fe/features/auth": ["./libs/features/auth/src/index.ts"],
+      "@fe/features/dashboard": ["./libs/features/dashboard/src/index.ts"],
+      "@fe/features/home": ["./libs/features/home/src/index.ts"],
+      "@fe/features/profile": ["./libs/features/profile/src/index.ts"],
+      "@fe/features/media": ["./libs/features/media/src/index.ts"],
+      "@fe/domain/profile": ["./libs/domain/profile/src/index.ts"],
+      "@fe/domain/media": ["./libs/domain/media/src/index.ts"],
+      "@fe/domain/social": ["./libs/domain/social/src/index.ts"],
+      "@fe/features/settings": ["./libs/features/settings/src/index.ts"],
+      "@fe/features/friends": ["./libs/features/friends/src/index.ts"],
+      "@fe/features/reels": ["./libs/features/reels/src/index.ts"],
+      "@fe/features/feed": ["./libs/features/feed/src/index.ts"],
+      "@fe/features/video": ["./libs/features/video/src/index.ts"],
+      "@fe/features/shop": ["./libs/features/shop/src/index.ts"],
+      "@fe/features/stories": ["./libs/features/stories/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

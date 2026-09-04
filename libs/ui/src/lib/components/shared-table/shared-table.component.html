@@ -1,0 +1,30 @@
+<div class="shared-table">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let c of columns" (click)="toggleSort(c)" [class.sortable]="c.sortable">
+          {{ c.label }}
+          <span *ngIf="currentSort?.field === c.key">{{ currentSort?.direction }}</span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let c of columns">{{ row[c.key] }}</td>
+        <td>
+          <button (click)="emitDelete(row)">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="!data || data.length === 0">
+        <td [attr.colspan]="columns.length + 1">No results</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button (click)="changePage(-1)">Prev</button>
+    <span>Page {{ pageIndex }} / {{ pageCount }}</span>
+    <button (click)="changePage(1)">Next</button>
+  </div>
+</div>

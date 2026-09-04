@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h1 class="page-title">Người theo dõi</h1>
+  <p class="page-subtitle">{{ users().length }} người đang theo dõi bạn</p>
+
+  <div class="card-list">
+    @for (user of users(); track user.id) {
+      <fe-friend-card variant="list-row" [user]="user" [context]="'followers'" (actionRequested)="onAction($event)" (menuItemClick)="onMenuItemClick($event, user)"></fe-friend-card>
+    }
+  </div>
+</div>

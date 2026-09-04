@@ -1,0 +1,28 @@
+{
+  "name": "domain-profile",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain/profile/src",
+  "prefix": "domain-profile",
+  "projectType": "library",
+  "tags": ["type:domain", "scope:profile"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/domain/profile/ng-package.json",
+        "tsConfig": "libs/domain/profile/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/domain/profile/tsconfig.lib.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

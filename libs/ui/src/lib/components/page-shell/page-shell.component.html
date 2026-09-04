@@ -1,0 +1,118 @@
+<div class="page-shell">
+
+  <!-- ═══ LEFT SIDEBAR ═══ -->
+  <aside class="page-sidebar">
+    <nav class="page-sidebar-nav">
+
+      <!-- Brand logo -->
+      <a [routerLink]="brandLink" class="page-brand">
+        <div class="page-brand-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
+            <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
+            <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800"
+                  font-family="inherit" fill="var(--color-brand-primary)">C</text>
+          </svg>
+        </div>
+        <span class="page-brand-title">Reals</span>
+      </a>
+
+      <!-- Collapsed Menu Hamburger -->
+      <div class="sidebar-hamburger">
+        <button class="hamburger-btn" (click)="toggleMobileMenu($event)" [class.open]="mobileMenuOpen()" aria-label="Menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+
+      <hr class="page-nav-separator" />
+
+      <!-- Navigation menu -->
+      <ui-sidebar-menu [items]="menuItems"></ui-sidebar-menu>
+
+      <!-- Settings footer -->
+      @if (showSettingsFooter) {
+        <div class="page-sidebar-footer">
+          <a routerLink="/settings" class="page-settings-link">
+            <div class="page-settings-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="3"></circle>
+                <path d="M5.5 20.5c1.5-2.5 4-4 6.5-4s5 1.5 6.5 4"></path>
+              </svg>
+            </div>
+            <div class="page-settings-meta">
+              <span class="page-settings-name">Cài đặt</span>
+              <span class="page-settings-hint">Chung &amp; giao diện</span>
+            </div>
+          </a>
+        </div>
+      }
+
+    </nav>
+  </aside>
+
+  <!-- ═══ MOBILE TOPBAR ═══ -->
+  <div class="mobile-topbar">
+    <button class="hamburger-btn" (click)="toggleMobileMenu($event)" [class.open]="mobileMenuOpen()" aria-label="Menu">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
+    <a [routerLink]="brandLink" class="page-brand mobile-brand">
+      <div class="page-brand-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
+          <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
+          <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800"
+                font-family="inherit" fill="var(--color-brand-primary)">C</text>
+        </svg>
+      </div>
+      <span class="page-brand-title">Reals</span>
+    </a>
+  </div>
+
+  <!-- ═══ MOBILE DRAWER OVERLAY ═══ -->
+  @if (mobileMenuOpen()) {
+    <div class="mobile-overlay" (click)="closeMobileMenu()"></div>
+    <div class="mobile-drawer" [class.open]="mobileMenuOpen()">
+      <div class="mobile-drawer-inner">
+        <ui-sidebar-menu [items]="menuItems" (click)="closeMobileMenu()"></ui-sidebar-menu>
+        @if (showSettingsFooter) {
+          <div class="mobile-drawer-footer">
+            <a routerLink="/settings" class="page-settings-link" (click)="closeMobileMenu()">
+              <div class="page-settings-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="3"></circle>
+                  <path d="M5.5 20.5c1.5-2.5 4-4 6.5-4s5 1.5 6.5 4"></path>
+                </svg>
+              </div>
+              <div class="page-settings-meta">
+                <span class="page-settings-name">Cài đặt</span>
+                <span class="page-settings-hint">Chung &amp; giao diện</span>
+              </div>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="page-main">
+    <div class="page-main-content">
+      <ng-content select="[slot=main]"></ng-content>
+    </div>
+  </main>
+
+  <!-- ═══ RIGHT SIDEBAR ═══ -->
+  @if (showRightbar) {
+    <aside class="page-rightbar">
+      <ng-content select="[slot=rightbar]"></ng-content>
+    </aside>
+  }
+
+</div>

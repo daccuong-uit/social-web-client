@@ -1,0 +1,101 @@
+import {
+  Component,
+  inject,
+  signal,
+  HostListener,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  RouterModule,
+  Router,
+  NavigationEnd
+} from '@angular/router';
+import { AuthService } from '@fe/core';
+import { filter } from 'rxjs/operators';
+import { SocialFacade } from '@fe/domain/social';
+import { UserCardComponent } from '@fe/ui';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule, RouterModule, UserCardComponent],
+  selector: 'fe-feed-right-sidebar',
+  templateUrl: './feed-right-sidebar.component.html',
+  styleUrls: ['./feed-right-sidebar.component.css'],
+})
+export class FeedRightSidebarComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private elementRef = inject(ElementRef);
+  private socialFacade = inject(SocialFacade);
+
+  @ViewChild('menuDropdown')
+  menuDropdown: any;
+
+  user = this.authService.user;
+  suggestedUsers = this.socialFacade.suggestedUsers;
+
+  showMenu = signal(false);
+  isHome = signal(true);
+  isProfile = signal(false);
+
+  constructor() {
+    this.socialFacade.loadSuggestedUsers();
+    this.router.events
+      .pipe(
+        filter(
+          event => event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event: any) => {
+        this.updateRouteFlags(event.url);
+      });
+
+    this.updateRouteFlags(this.router.url);
+  }
+
+  private updateRouteFlags(url: string) {
+    this.isHome.set(url === '/home' || url === '/');
+    this.isProfile.set(url === '/profile' || url.startsWith('/profile'));
+  }
+
+  toggleMenu(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+
+    this.showMenu.update(v => !v);
+  }
+
+  closeMenu() {
+    this.showMenu.set(false);
+  }
+
+  @HostListener(
+    'document:click',
+    ['$event']
+  )
+  onDocumentClick(event: MouseEvent) {
+    if (
+      this.showMenu() &&
+      !this.elementRef.nativeElement.contains(
+        event.target
+      )
+    ) {
+      this.closeMenu();
+    }
+  }
+
+  logout() {
+    this.authService.logout();
+
+    this.router.navigate([
+      '/auth/login',
+    ]);
+  }
+
+  onToggleFollow(user: any) {
+    this.socialFacade.toggleFollow(user);
+  }
+}

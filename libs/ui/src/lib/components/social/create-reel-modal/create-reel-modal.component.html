@@ -1,0 +1,114 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 class="modal-title">Tạo Reels</h2>
+      <button class="close-btn" (click)="onClose()" aria-label="Đóng">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Author & Privacy -->
+    <div class="modal-author">
+      <div class="author-info-block">
+        <div class="author-avatar" [style.background-image]="authorAvatar ? 'url(' + authorAvatar + ')' : 'none'"
+          [class.no-avatar]="!authorAvatar">
+          <span *ngIf="!authorAvatar">{{ authorName.charAt(0) }}</span>
+        </div>
+        <div class="author-details">
+          <span class="author-name">{{ authorName }}</span>
+          <span class="author-username" *ngIf="authorUsername">@{{ authorUsername }}</span>
+        </div>
+      </div>
+      <div class="privacy-selector">
+        <lib-button variant="outline" class="privacy-chip" type="button" (click)="cyclePrivacy()"
+          aria-label="Thay đổi chế độ hiển thị">
+          {{ getPrivacyOptionLabel(privacy()) }}
+        </lib-button>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Video Upload Area or Preview (9:16) -->
+      <div class="video-upload-area" *ngIf="!videoPreviewUrl()">
+        <input type="file" #videoInput accept="video/*" style="display:none" (change)="onVideoSelected($event)">
+        <button class="video-upload-btn" type="button" (click)="videoInput.click()" id="reel-upload-video-btn">
+          <div class="upload-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <p class="upload-hint">Chọn video để đăng Reels</p>
+          <p class="upload-hint-sub">Tỷ lệ 9:16 – MP4, MOV</p>
+        </button>
+      </div>
+
+      <!-- Video Preview (9:16 container) -->
+      <div class="video-preview-wrap" *ngIf="videoPreviewUrl()">
+        <video class="video-preview-player" [src]="videoPreviewUrl()!" controls playsinline></video>
+        <button class="remove-video-btn" (click)="removeVideo()" type="button" aria-label="Xóa video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Description -->
+      <textarea class="post-input" [class.has-content]="description().length > 0" placeholder="Mô tả"
+        [ngModel]="description()" (ngModelChange)="description.set($event)" rows="3">
+      </textarea>
+    </div>
+
+    <!-- Hashtag Input -->
+    <div class="modal-hashtags">
+      <span style="font-size: 16px; color: var(--color-brand-primary, #1d9bf0);">#</span>
+      <input type="text" class="hashtag-input" placeholder="Thêm hashtag (ví dụ: dancechallenge, travel)"
+        [ngModel]="hashtagsInput()" (ngModelChange)="hashtagsInput.set($event)" />
+    </div>
+
+    <!-- Add-on Toolbar -->
+    <div class="modal-addons">
+      <span class="addons-label">Thêm vào Reels của bạn</span>
+      <div class="addon-buttons">
+        <input type="file" #videoInput2 accept="video/*" style="display:none" (change)="onVideoSelected($event)">
+        <button class="addon-btn" title="Video" (click)="videoInput2.click()" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="23 7 16 12 23 17 23 7" stroke="#fe2c55" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2" stroke="#fe2c55" stroke-width="2" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Cảm xúc" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#f7b928" stroke-width="2" />
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#f7b928" stroke-width="2" stroke-linecap="round" />
+            <circle cx="9" cy="9" r="1" fill="#f7b928" />
+            <circle cx="15" cy="9" r="1" fill="#f7b928" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Vị trí" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#f5533d" stroke-width="2" />
+            <circle cx="12" cy="10" r="3" stroke="#f5533d" stroke-width="2" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <lib-button id="submit-reel-btn" variant="primary" [disabled]="!canSubmit()" (click)="onSubmit()">
+        {{ isSubmitting() ? 'Đang đăng...' : 'Đăng Reels' }}
+      </lib-button>
+    </div>
+
+  </div>
+</div>

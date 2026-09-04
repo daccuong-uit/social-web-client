@@ -1,0 +1,140 @@
+<!--
+  HomeShellComponent — Keep-Alive Tab Switcher
+  =============================================
+  Instead of <router-outlet> (which destroys/recreates components on every
+  navigation), we render ALL tabs up-front and toggle visibility with [hidden].
+
+  Lazy activation: a tab is only inserted into the DOM the *first* time the
+  user navigates to it (isTabActivated guard). Once inserted it is never
+  removed, so scroll position, form state and loaded data are preserved.
+
+  Active-tab refresh: SidebarMenuComponent calls TabKeepAliveService.triggerRefresh()
+  when the user re-clicks the already-active item. Feature components subscribe
+  to keepAlive.refreshFor(route) and react (scroll-to-top + refetch API).
+-->
+<ui-page-shell [menuItems]="menuItems">
+
+  <!-- ═══ MAIN CONTENT (Keep-Alive tabs) ═══ -->
+  <div slot="main">
+
+    <!-- ── 4-Module Sticky Custom Tab Navigation ───────────── -->
+    @if (isFeedModuleTab(activeTab())) {
+      <nav class="home-main-tabs" role="tablist" aria-label="Feed navigation">
+        <div class="home-tabs-grid">
+          @for (tab of feedTabs; track tab.id) {
+            <button
+              type="button"
+              role="tab"
+              class="home-tab-btn"
+              [class.active]="activeTab() === tab.id"
+              [attr.aria-selected]="activeTab() === tab.id"
+              (click)="selectFeedTab(tab)"
+            >
+              <span class="home-tab-label">{{ tab.label }}</span>
+            </button>
+          }
+        </div>
+        <div class="home-tabs-indicator-track" aria-hidden="true">
+          <div
+            class="home-tabs-indicator"
+            [style.transform]="'translateX(' + (activeFeedTabIndex() * 100) + '%)'"
+          >
+            <span class="home-tabs-indicator-bar"></span>
+          </div>
+        </div>
+      </nav>
+    }
+
+    <!-- ── Feed (home) ─────────────────────────────────────────── -->
+    @if (isTabActivated('home')) {
+      <fe-feed [hidden]="!isTabVisible('home')"></fe-feed>
+    }
+
+    <!-- ── Videos (/home/videos) ─────────────────────────── -->
+    @if (isTabActivated('videos')) {
+      <fe-video [hidden]="!isTabVisible('videos')"></fe-video>
+    }
+
+    <!-- ── Shop (/home/shop) ─────────────────────────── -->
+    @if (isTabActivated('shop')) {
+      <fe-shop [hidden]="!isTabVisible('shop')"></fe-shop>
+    }
+
+    <!-- ── Stories (/home/stories) ─────────────────────────── -->
+    @if (isTabActivated('stories')) {
+      <fe-stories [hidden]="!isTabVisible('stories')"></fe-stories>
+    }
+
+    <!-- ── Discover (/home/discover) ──────────────────────────── -->
+    @if (isTabActivated('discover')) {
+      <fe-discover [hidden]="!isTabVisible('discover')"></fe-discover>
+    }
+
+    <!-- ── Following (/home/following) ───────────────────────── -->
+    @if (isTabActivated('following')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('following')"
+        [title]="placeholderData['following'].title"
+        [description]="placeholderData['following'].description"
+      ></fe-feature-placeholder>
+    }
+
+    <!-- ── Chat (/home/chat) ─────────────────────────────────── -->
+    @if (isTabActivated('chat')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('chat')"
+        [title]="placeholderData['chat'].title"
+        [description]="placeholderData['chat'].description"
+      ></fe-feature-placeholder>
+    }
+
+    <!-- ── Bookmarks (/home/bookmarks) ───────────────────────── -->
+    @if (isTabActivated('bookmarks')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('bookmarks')"
+        [title]="placeholderData['bookmarks'].title"
+        [description]="placeholderData['bookmarks'].description"
+      ></fe-feature-placeholder>
+    }
+
+    <!-- ── Notifications (lazy, on-demand) ───────────────────── -->
+    @if (isTabActivated('notifications')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('notifications')"
+        [title]="placeholderData['notifications'].title"
+        [description]="placeholderData['notifications'].description"
+      ></fe-feature-placeholder>
+    }
+
+    <!-- ── Reals AI (lazy, on-demand) ────────────────────────── -->
+    @if (isTabActivated('reals-ai')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('reals-ai')"
+        [title]="placeholderData['reals-ai'].title"
+        [description]="placeholderData['reals-ai'].description"
+      ></fe-feature-placeholder>
+    }
+
+    <!-- ── Premium / More (lazy, on-demand) ──────────────────── -->
+    @if (isTabActivated('premium')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('premium')"
+        [title]="placeholderData['premium'].title"
+        [description]="placeholderData['premium'].description"
+      ></fe-feature-placeholder>
+    }
+
+    @if (isTabActivated('more')) {
+      <fe-feature-placeholder
+        [hidden]="!isTabVisible('more')"
+        [title]="placeholderData['more'].title"
+        [description]="placeholderData['more'].description"
+      ></fe-feature-placeholder>
+    }
+
+  </div>
+
+  <!-- ═══ RIGHT SIDEBAR ═══ -->
+  <fe-right-sidebar slot="rightbar"></fe-right-sidebar>
+
+</ui-page-shell>

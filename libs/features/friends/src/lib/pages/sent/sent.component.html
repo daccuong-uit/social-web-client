@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h1 class="page-title">Lời mời đã gửi</h1>
+  <p class="page-subtitle">{{ users().length }} lời mời đang chờ phản hồi</p>
+
+  <div class="card-grid">
+    @for (user of users(); track user.id) {
+      <fe-friend-card variant="avatar-card" [user]="user" [context]="'sent'" (actionRequested)="onAction($event)" (menuItemClick)="onMenuItemClick($event, user)"></fe-friend-card>
+    }
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="reel-video-card" (click)="handleVideoClick(videoPlayer)">
+  <!-- Video background -->
+  <div class="reel-video-bg" [style.background]="reel.thumbnailColor">
+    <video #videoPlayer class="reel-video-element" [hidden]="!reel.videoUrl" loop
+      muted playsinline preload="auto"
+      (play)="paused = false" (pause)="paused = true"
+      (timeupdate)="onTimeUpdate(videoPlayer)">
+    </video>
+
+    <!-- 3 Control Buttons (Center Overlay - Facebook Reels Style) -->
+    <div class="video-controls-overlay" *ngIf="showControls">
+      <!-- Nút Tua Lùi 10s -->
+      <button class="control-btn" (click)="seek(videoPlayer, -10, $event)" aria-label="Tua lùi 10s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+          <text x="12" y="15.5" font-size="7" font-weight="800" font-family="sans-serif" text-anchor="middle" fill="currentColor" stroke="none">10</text>
+        </svg>
+      </button>
+
+      <!-- Nút Play / Pause -->
+      <button class="control-btn play-pause-btn" (click)="togglePlayPauseFromControl(videoPlayer, $event)" aria-label="Phát hoặc tạm dừng">
+        <svg *ngIf="paused || (reel.videoUrl && videoPlayer?.paused)" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 4l15 8-15 8V4z" />
+        </svg>
+        <svg *ngIf="!paused && !(reel.videoUrl && videoPlayer?.paused)" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+        </svg>
+      </button>
+
+      <!-- Nút Tua Tới 10s -->
+      <button class="control-btn" (click)="seek(videoPlayer, 10, $event)" aria-label="Tua tới 10s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+          <path d="M21 3v5h-5" />
+          <text x="12" y="15.5" font-size="7" font-weight="800" font-family="sans-serif" text-anchor="middle" fill="currentColor" stroke="none">10</text>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Timeline / Progress Bar -->
+    <div class="video-timeline-container" (click)="$event.stopPropagation()">
+      <input type="range" class="video-timeline-range" [value]="progressValue || 0" min="0" max="100" step="0.1"
+        [style.background]="'linear-gradient(to right, #ffffff ' + (progressValue || 0) + '%, rgba(255, 255, 255, 0.3) ' + (progressValue || 0) + '%)'"
+        (pointerdown)="onSeekStart($event)" (pointerup)="onSeekEnd(videoPlayer, $event)"
+        (input)="onSeek(videoPlayer, $event)">
+    </div>
+
+    <!-- Heart burst on double-tap -->
+    <div class="like-burst" [class.active]="reel.liked">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Author info overlay (bottom of video) -->
+  <div class="reel-overlay-info">
+    <div class="reel-author">
+      <div class="reel-avatar">
+        <img [src]="reel.avatar" alt="Avatar">
+      </div>
+      <div class="reel-author-details">
+        <span class="reel-author-name">{{ reel.author }}</span>
+        <button class="reel-follow-btn" [class.following]="reelsService.isFollowingAuthor(reel.id)"
+          (click)="$event.stopPropagation(); reelsService.toggleFollow(reel.id)">
+          {{ reelsService.isFollowingAuthor(reel.id) ? 'Đang theo dõi' : 'Theo dõi' }}
+        </button>
+      </div>
+    </div>
+    <p class="reel-description">{{ reel.description }}</p>
+    <p class="reel-music">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+        <path d="M9 18V5l12-2v13" />
+        <circle cx="6" cy="18" r="3" />
+        <circle cx="18" cy="16" r="3" />
+      </svg>
+      {{ reel.music }}
+    </p>
+  </div>
+</div>

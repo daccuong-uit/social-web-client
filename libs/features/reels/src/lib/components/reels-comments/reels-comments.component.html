@@ -1,0 +1,207 @@
+<!-- Full-featured Comments Panel (conditionally visible) -->
+<ng-container *ngIf="reelsService.showComments()">
+  <div class="reels-comments-panel fade-in">
+
+    <!-- Panel header -->
+    <div class="comments-header">
+      <button class="comments-close-btn" (click)="onCloseComments()" aria-label="Đóng bình luận">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <h2 class="comments-title">
+        Bình luận
+        <span class="comments-count">{{ reelsService.currentReel().comments }}</span>
+      </h2>
+      <div style="width: 32px"></div> <!-- Spacer to keep title centered if space-between is used -->
+    </div>
+
+    <!-- Loading state -->
+    <div class="comments-loading" *ngIf="reelsService.isReelCommentsLoading()">
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+    </div>
+
+    <!-- Comment list with full nested reply support -->
+    <div class="comments-list" *ngIf="!reelsService.isReelCommentsLoading()">
+
+      <ng-template #commentNode let-comment let-level="level">
+        <div class="comment-node" [style.margin-left.px]="level * 20">
+          <div class="comment-card">
+            <!-- Avatar: ảnh thật nếu có, fallback initials -->
+            <ng-container *ngIf="comment.author.avatar; else initialsAvatar">
+              <img
+                [src]="comment.author.avatar"
+                [alt]="comment.author.fullName"
+                class="comment-avatar-img"
+              />
+            </ng-container>
+            <ng-template #initialsAvatar>
+              <div class="comment-avatar-initials">
+                {{ (comment.author.fullName || comment.author.username || '?')[0].toUpperCase() }}
+              </div>
+            </ng-template>
+
+            <div class="comment-body">
+              <div class="comment-meta">
+                <span class="comment-author">{{ comment.author.fullName || comment.author.username }}</span>
+                <span class="comment-time">{{ formatTime(comment.createdAt) }}</span>
+              </div>
+
+              <!-- Rich content: render @mention spans -->
+              <div class="comment-content">
+                <ng-container *ngFor="let fragment of getCommentContentFragments(comment.content, comment.mentionRanges)">
+                  <span
+                    *ngIf="fragment.type === 'mention'"
+                    class="comment-mention"
+                    role="button"
+                    tabindex="0"
+                    (click)="onMentionClick(fragment.username)"
+                    (keydown.enter)="onMentionClick(fragment.username)"
+                  >{{ fragment.value }}</span>
+                  <span *ngIf="fragment.type === 'text'">{{ fragment.value }}</span>
+                </ng-container>
+              </div>
+
+              <div class="comment-actions">
+                <!-- Like button -->
+                <button
+                  type="button"
+                  class="comment-like-btn"
+                  [class.liked]="comment.isLiked"
+                  (click)="onToggleLike(comment.id)"
+                  [attr.aria-label]="comment.isLiked ? 'Bỏ thích' : 'Thích'"
+                >
+                  <span class="heart-icon" [class.is-liked]="comment.isLiked">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M12 20.25c-1.06-1.1-4.5-3.88-6.66-6.48A5.34 5.34 0 0 1 12 6.75a5.34 5.34 0 0 1 6.66 6.99c-2.16 2.6-5.6 5.38-6.66 6.51Z"/>
+                    </svg>
+                  </span>
+                  <span class="like-count">{{ comment.likesCount || 0 }}</span>
+                </button>
+
+                <!-- Reply button -->
+                <button
+                  type="button"
+                  class="comment-reply-btn"
+                  (click)="setReplyTarget(comment.id, comment.author.fullName, comment.author.username, comment.author.id)"
+                >Phản hồi</button>
+
+                <!-- Expand/collapse replies (only for top-level comments) -->
+                <button
+                  *ngIf="getReplyCount(comment) > 0 && level === 0"
+                  type="button"
+                  class="comment-reply-count-btn"
+                  (click)="toggleReplies(comment)"
+                >
+                  <ng-container *ngIf="isReplyLoading(comment.id)">Đang tải…</ng-container>
+                  <ng-container *ngIf="!isReplyLoading(comment.id)">
+                    {{ isReplyExpanded(comment.id) ? 'Thu gọn' : (getReplyCount(comment) + ' phản hồi') }}
+                  </ng-container>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nested replies -->
+          <div
+            class="reply-list"
+            *ngIf="isReplyExpanded(comment.id) && getVisibleReplies(comment).length && canRenderReplyChildren(level)"
+          >
+            <ng-container *ngFor="let reply of getVisibleReplies(comment); trackBy: trackComment">
+              <ng-container *ngTemplateOutlet="commentNode; context: { $implicit: reply, level: level + 1 }"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- Render root-level comments -->
+      <ng-container *ngFor="let comment of reelsService.reelComments(); trackBy: trackComment">
+        <ng-container *ngTemplateOutlet="commentNode; context: { $implicit: comment, level: 0 }"></ng-container>
+      </ng-container>
+
+      <!-- Empty state -->
+      <div class="comments-empty" *ngIf="reelsService.reelComments().length === 0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>Chưa có bình luận nào</p>
+      </div>
+    </div>
+
+    <!-- Composer area -->
+    <div class="comment-input-area">
+      <!-- Reply context bar -->
+      <div class="reply-context-bar" *ngIf="replyTargetName">
+        <span>Đang trả lời <strong>{{ replyTargetName }}</strong></span>
+        <button type="button" class="reply-context-clear" (click)="clearReplyTarget()" aria-label="Huỷ trả lời">✕</button>
+      </div>
+
+      <div class="composer-row">
+        <!-- Current user avatar -->
+        <ng-container *ngIf="currentUserAvatar; else composerInitials">
+          <img [src]="currentUserAvatar" alt="Bạn" class="composer-avatar-img" />
+        </ng-container>
+        <ng-template #composerInitials>
+          <div class="comment-input-avatar">
+            {{ (user()?.displayName || user()?.username || 'B')[0].toUpperCase() }}
+          </div>
+        </ng-template>
+
+        <div class="comment-input-wrapper">
+          <!-- Mention suggestions dropdown -->
+          <div class="mention-suggestions" *ngIf="showMentionSuggestions && mentionSuggestions.length">
+            <button
+              type="button"
+              class="mention-suggestion"
+              *ngFor="let suggestion of mentionSuggestions"
+              (click)="applyMention(suggestion)"
+            >
+              <img
+                [src]="suggestion.avatar || 'https://i.pravatar.cc/150?img=12'"
+                [alt]="suggestion.name"
+                class="mention-suggestion-avatar"
+              />
+              <span class="mention-suggestion-name">{{ suggestion.name }}</span>
+              <span class="mention-suggestion-handle">@{{ suggestion.username }}</span>
+            </button>
+          </div>
+
+          <textarea
+            class="comment-input"
+            placeholder="Viết bình luận công khai..."
+            rows="1"
+            [(ngModel)]="draftComment"
+            (ngModelChange)="onDraftCommentChange($event)"
+            (keydown.enter)="onComposerKeydown($any($event))"
+            id="reel-comment-input"
+          ></textarea>
+
+          <div class="composer-footer">
+            <div class="composer-icons">
+              <button type="button" class="composer-icon-btn" title="Emoji">😊</button>
+              <button type="button" class="composer-icon-btn" title="GIF">GIF</button>
+            </div>
+            <button
+              type="button"
+              class="comment-submit-btn"
+              [class.active]="draftComment.trim().length > 0"
+              (click)="onSubmitComment()"
+              [disabled]="draftComment.trim().length === 0"
+              id="reel-comment-submit"
+              aria-label="Gửi bình luận"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

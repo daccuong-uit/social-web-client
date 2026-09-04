@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-dictionary",
+  "description": "Ubiquitous Language — Từ điển thuật ngữ dự án. AI PHẢI dùng đúng tên này khi đặt tên file, class, interface, signal, method. Mục tiêu: Nhất quán 100% trong toàn bộ codebase.",
+  "version": "2.0",
+  "updated": "June 2026",
+
+  "domains": {
+    "social": {
+      "description": "Tính năng mạng xã hội — bài đăng, bình luận, lượt thích, theo dõi",
+      "entities": {
+        "Post": {
+          "vi": "Bài đăng",
+          "file_convention": "post",
+          "model_file": "social.models.ts",
+          "service_file": "social-post.service.ts",
+          "mock_file": "mock-posts.ts",
+          "fields": {
+            "id": "string — UUID",
+            "authorId": "string — User ID của người đăng",
+            "content": "string — Nội dung văn bản",
+            "mediaUrls": "string[] — Danh sách URL ảnh/video",
+            "hashtags": "string[] — Danh sách hashtag không có #",
+            "likeCount": "number",
+            "commentCount": "number",
+            "shareCount": "number",
+            "isLikedByCurrentUser": "boolean",
+            "visibility": "'public' | 'friends' | 'private'",
+            "createdAt": "Date",
+            "updatedAt": "Date"
+          }
+        },
+        "Comment": {
+          "vi": "Bình luận",
+          "file_convention": "comment",
+          "model_file": "social.models.ts",
+          "service_file": "social-comment.service.ts",
+          "fields": {
+            "id": "string",
+            "postId": "string",
+            "authorId": "string",
+            "parentCommentId": "string | null — null nếu là comment gốc",
+            "content": "string",
+            "likeCount": "number",
+            "replyCount": "number",
+            "isLikedByCurrentUser": "boolean",
+            "createdAt": "Date"
+          }
+        },
+        "User": {
+          "vi": "Người dùng",
+          "file_convention": "user",
+          "model_file": "social.models.ts",
+          "service_file": "social-user.service.ts",
+          "fields": {
+            "id": "string",
+            "username": "string — @handle",
+            "displayName": "string — Tên hiển thị",
+            "avatarUrl": "string",
+            "bio": "string",
+            "followerCount": "number",
+            "followingCount": "number",
+            "postCount": "number",
+            "isFollowedByCurrentUser": "boolean",
+            "isVerified": "boolean"
+          }
+        },
+        "Notification": {
+          "vi": "Thông báo",
+          "file_convention": "notification",
+          "model_file": "social.models.ts",
+          "service_file": "social-notification.service.ts",
+          "fields": {
+            "id": "string",
+            "type": "'like' | 'comment' | 'follow' | 'mention' | 'repost'",
+            "actorId": "string — User thực hiện hành động",
+            "targetId": "string — Post ID hoặc User ID bị tác động",
+            "isRead": "boolean",
+            "createdAt": "Date"
+          }
+        }
+      }
+    },
+    "media": {
+      "description": "Quản lý media — ảnh, video upload và processing",
+      "entities": {
+        "MediaAsset": {
+          "vi": "Tài nguyên media",
+          "file_convention": "media-asset",
+          "model_file": "media.model.ts",
+          "service_file": "media.service.ts",
+          "fields": {
+            "id": "string",
+            "ownerId": "string",
+            "url": "string",
+            "thumbnailUrl": "string",
+            "type": "'image' | 'video' | 'reel'",
+            "status": "'processing' | 'ready' | 'failed'",
+            "fileSize": "number — bytes",
+            "duration": "number | null — seconds, null for images",
+            "createdAt": "Date"
+          }
+        }
+      }
+    },
+    "profile": {
+      "description": "Hồ sơ người dùng — thông tin cá nhân, cài đặt tài khoản",
+      "entities": {
+        "UserProfile": {
+          "vi": "Hồ sơ cá nhân",
+          "file_convention": "user-profile",
+          "model_file": "profile.model.ts",
+          "service_file": "profile.service.ts",
+          "fields": {
+            "userId": "string",
+            "username": "string",
+            "displayName": "string",
+            "avatarUrl": "string",
+            "coverImageUrl": "string",
+            "bio": "string",
+            "website": "string",
+            "location": "string",
+            "isPrivate": "boolean"
+          }
+        }
+      }
+    },
+    "auth": {
+      "description": "Xác thực — đăng nhập, đăng ký, token",
+      "entities": {
+        "AuthCredentials": {
+          "vi": "Thông tin xác thực",
+          "fields": {
+            "email": "string",
+            "password": "string"
+          }
+        },
+        "AuthTokens": {
+          "vi": "Cặp token xác thực",
+          "fields": {
+            "accessToken": "string — JWT",
+            "refreshToken": "string",
+            "expiresIn": "number — seconds"
+          }
+        },
+        "AuthUser": {
+          "vi": "Người dùng đã xác thực",
+          "fields": {
+            "id": "string",
+            "email": "string",
+            "username": "string",
+            "role": "'user' | 'creator' | 'admin'"
+          }
+        }
+      }
+    }
+  },
+
+  "shared_types": {
+    "PaginatedResponse": {
+      "description": "Chuẩn response cho API trả về danh sách có phân trang",
+      "structure": {
+        "data": "T[] — Mảng items",
+        "meta": {
+          "total": "number — Tổng số items",
+          "page": "number — Trang hiện tại (1-indexed)",
+          "pageSize": "number — Số items mỗi trang",
+          "totalPages": "number — Tổng số trang",
+          "hasNextPage": "boolean",
+          "hasPrevPage": "boolean"
+        }
+      }
+    },
+    "ApiResponse": {
+      "description": "Wrapper chuẩn cho mọi API response",
+      "structure": {
+        "success": "boolean",
+        "data": "T | null",
+        "error": "ApiError | null",
+        "message": "string | null"
+      }
+    },
+    "ApiError": {
+      "description": "Cấu trúc lỗi chuẩn",
+      "structure": {
+        "code": "string — Machine-readable error code (e.g. USER_NOT_FOUND)",
+        "message": "string — Human-readable error",
+        "statusCode": "number — HTTP status code",
+        "details": "Record<string, string> | null"
+      }
+    }
+  },
+
+  "ui_vocabulary": {
+    "Feed": "Dòng thời gian — List cuộn vô tận của posts",
+    "PostCard": "Thẻ bài đăng — Component hiển thị một Post trong Feed",
+    "UserCard": "Thẻ người dùng — Component preview thông tin User",
+    "StoryReel": "Dải story — Hàng ngang hiển thị stories",
+    "DiscoverGrid": "Lưới khám phá — Grid ảnh/video theo kiểu Instagram Explore",
+    "CommentOverlay": "Lớp phủ bình luận — Bottom sheet hoặc side panel hiển thị Comments",
+    "LikeButton": "Nút yêu thích — Icon tim có animation",
+    "FollowButton": "Nút theo dõi — Toggle follow/unfollow",
+    "InfiniteScroll": "Cuộn vô tận — Kỹ thuật tải thêm data khi scroll đến cuối",
+    "SkeletonLoader": "Khung xương tải — Placeholder animation trước khi data load xong",
+    "GlassCard": "Thẻ kính mờ — Card với glassmorphism effect"
+  },
+
+  "angular_conventions": {
+    "signal_naming": {
+      "pattern": "camelCase, bắt đầu bằng danh từ mô tả data",
+      "examples": {
+        "posts": "signal<Post[]>([])",
+        "selectedPost": "signal<Post | null>(null)",
+        "isLoading": "signal(false)",
+        "hasError": "signal(false)",
+        "currentPage": "signal(1)",
+        "totalCount": "signal(0)"
+      }
+    },
+    "computed_naming": {
+      "pattern": "camelCase, thường bắt đầu bằng has/is/can/total",
+      "examples": {
+        "hasPosts": "computed(() => posts().length > 0)",
+        "isFirstPage": "computed(() => currentPage() === 1)",
+        "canLoadMore": "computed(() => currentPage() < totalPages())",
+        "filteredPosts": "computed(() => posts().filter(...))"
+      }
+    },
+    "method_naming": {
+      "load": "Tải data ban đầu: loadPosts(), loadUser()",
+      "fetch": "Fetch thêm data: fetchMorePosts()",
+      "on": "Event handler: onLikeClick(), onFollowToggle()",
+      "handle": "Logic xử lý: handleError(), handleSuccess()",
+      "navigate": "Điều hướng: navigateToProfile(), navigateToPost()"
+    }
+  },
+
+  "api_conventions": {
+    "base_url_pattern": "/api/v1/{resource}",
+    "resource_naming": "plural kebab-case: /posts, /comments, /user-profiles",
+    "query_params": {
+      "pagination": "page (1-indexed), pageSize (default 20)",
+      "sorting": "sortBy (field name), sortDir ('asc' | 'desc')",
+      "filtering": "filter[fieldName]=value"
+    },
+    "response_codes": {
+      "200": "OK — Thành công",
+      "201": "Created — Tạo mới thành công",
+      "400": "Bad Request — Dữ liệu đầu vào sai",
+      "401": "Unauthorized — Chưa đăng nhập",
+      "403": "Forbidden — Không có quyền",
+      "404": "Not Found — Không tìm thấy",
+      "422": "Unprocessable Entity — Validation error",
+      "500": "Internal Server Error — Lỗi hệ thống"
+    }
+  }
+}

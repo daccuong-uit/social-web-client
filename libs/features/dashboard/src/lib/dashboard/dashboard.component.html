@@ -1,0 +1,106 @@
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo"></div>
+      <span>Reals Admin</span>
+    </div>
+    <nav class="admin-nav">
+      <a href="javascript:void(0)" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+        Tổng quan
+      </a>
+      <a href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Người dùng
+      </a>
+      <a href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+        Nội dung
+      </a>
+      <a href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Cài đặt
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button (click)="goHome()" class="home-btn">Quay lại trang chủ</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="admin-header">
+      <div class="header-title">
+        <h1>Bảng điều khiển</h1>
+        <p>Chào mừng quản trị viên, <span>{{ userDisplayName }}</span></p>
+      </div>
+      <div class="header-actions">
+        <button class="logout-btn" (click)="logout()">Đăng xuất</button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Tổng người dùng</h3>
+          <p>12,450</p>
+          <span class="trend positive">+15% so với tháng trước</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Nội dung Video</h3>
+          <p>3,280</p>
+          <span class="trend positive">+8% so với tháng trước</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Trạng thái hệ thống</h3>
+          <p>Hoạt động</p>
+          <span class="trend neutral">Tất cả dịch vụ trực tuyến</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="recent-section">
+      <div class="section-header">
+        <h2>Hoạt động gần đây</h2>
+        <button class="view-all">Xem tất cả</button>
+      </div>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-icon success">✓</div>
+          <div class="activity-details">
+            <p><strong>{{ userDisplayName }}</strong> đã cập nhật quyền cho người dùng</p>
+            <span>2 phút trước</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon warning">!</div>
+          <div class="activity-details">
+            <p>Cảnh báo tài nguyên máy chủ đang ở mức cao</p>
+            <span>15 phút trước</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon info">i</div>
+          <div class="activity-details">
+            <p>Đồng bộ dữ liệu Reals AI hoàn tất</p>
+            <span>1 giờ trước</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="placeholder-page">
+  <div class="placeholder-hero">
+    <div class="placeholder-icon">{{ icon }}</div>
+    <div>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+
+  <div class="placeholder-grid">
+    <article *ngFor="let item of items" class="placeholder-card">
+      <div class="item-icon">{{ item.icon }}</div>
+      <div>
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.detail }}</p>
+      </div>
+      <button *ngIf="item.cta">{{ item.cta }}</button>
+    </article>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  }
+}

@@ -1,0 +1,798 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;500;700&family=Nunito:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* 
+  NOTE: Manual CSS variables as fallback for Tailwind v4 
+  This ensures the Design System works even if the compiler is bypassed.
+*/
+:root {
+  /* Semantic Colors */
+  --color-success: oklch(0.65 0.2 145);
+  --color-warning: oklch(0.75 0.18 85);
+  --color-danger: oklch(0.55 0.22 25);
+  --color-info: oklch(0.6 0.18 210);
+
+  /* Dynamic Typography System 
+     ─────────────────────────────────────────────────────────
+     Base System: All font sizes calculated from --font-size-body
+     When user adjusts Typography in Settings, only --font-size-body 
+     changes, and ALL other sizes scale proportionally.
+     ─────────────────────────────────────────────────────────── */
+  --font-family: 'Outfit', sans-serif;
+
+  /* Scaling Factors (set by UiSettingsService) */
+  --font-size-scale: 1;
+  --padding-scale: 1;
+  --line-height: 1.5;
+
+  /* ▌ BASE TYPOGRAPHY TIERS — Dynamic System (Root: 14.4px) ▌
+     Khóa cứng gốc 18px. Mọi cỡ chữ cascade từ biến này.
+     Khi UiSettingsService thay --font-size-body, toàn hệ thống scale theo. */
+  --font-size-body: 18px;
+  /* Gốc: Body text, nav items, row labels     */
+
+  /* ── Hạ bậc (Sub-scale) ─────────────────────────────────── */
+  --font-size-label: calc(var(--font-size-body) - 2px);
+  /* 16px — label, username phụ    */
+  --font-size-caption: calc(var(--font-size-body) - 4px);
+  /* 14px — timestamp, mô tả nhỏ  */
+
+  /* ── Tăng bậc (Up-scale) ────────────────────────────────── */
+  --font-size-heading-sm: calc(var(--font-size-body) + 2px);
+  /* 20px — tiêu đề khối con, setting name  */
+  --font-size-heading-md: calc(var(--font-size-body) + 4px);
+  /* 22px — tiêu đề card, xu hướng          */
+  --font-size-heading-lg: calc(var(--font-size-body) + 8px);
+  /* 26px — tên profile, chữ Cài đặt        */
+
+  /* ── Alias nội bộ (Internal aliases — giữ backward-compat) ─ */
+  --font-size-sm: var(--font-size-label);
+  /* 16px */
+  --font-size-xs: var(--font-size-caption);
+  /* 14px */
+  --font-size-md: calc(var(--font-size-body) + 1px);
+  /* 19px — subtitle nhỏ */
+  --font-size-lg: calc(var(--font-size-body) + 2px);
+  /* 20px — alias cho heading-sm */
+  --font-size-xl: var(--font-size-heading-md);
+  /* 22px */
+  --font-size-heading: var(--font-size-heading-lg);
+  /* 26px — max page title */
+  --font-size-title: var(--font-size-heading-md);
+  /* 22px */
+  --font-size-subtitle: var(--font-size-heading-sm);
+  /* 20px */
+  --font-size-subtitle-sm: var(--font-size-label);
+  /* 16px */
+
+  /* ▌ TYPOGRAPHY WEIGHTS ▌ */
+  --font-weight-heavy: 800;
+  --font-weight-strong: 700;
+  --font-weight-medium: 600;
+  --font-weight-regular: 500;
+
+  /* ▌ DYNAMIC SPACING SYSTEM ▌
+     Base unit scales from 4px. User adjusts in Settings → spacing scale changes.
+     All padding/margin then recalculates using multiplication/division.
+  */
+  --spacing-scale-base: 4.4px;
+  /* Base unit — default 4px (1 × base) */
+  --spacing-1: calc(var(--spacing-scale-base) * 1);
+  /* 4px */
+  --spacing-2: calc(var(--spacing-scale-base) * 2);
+  /* 8px */
+  --spacing-2-5: calc(var(--spacing-scale-base) * 2.5);
+  /* 10px */
+  --spacing-3: calc(var(--spacing-scale-base) * 3);
+  /* 12px */
+  --spacing-4: calc(var(--spacing-scale-base) * 4);
+  /* 16px — default padding */
+  --spacing-5: calc(var(--spacing-scale-base) * 5);
+  /* 20px */
+  --spacing-6: calc(var(--spacing-scale-base) * 6);
+  /* 24px — card padding */
+  --spacing-7: calc(var(--spacing-scale-base) * 7);
+  /* 28px */
+  --spacing-8: calc(var(--spacing-scale-base) * 8);
+  /* 32px — section gap */
+  --spacing-10: calc(var(--spacing-scale-base) * 10);
+  /* 40px */
+  --spacing-12: calc(var(--spacing-scale-base) * 12);
+  /* 48px */
+  --spacing-16: calc(var(--spacing-scale-base) * 16);
+  /* 64px — large section */
+  --spacing-20: calc(var(--spacing-scale-base) * 20);
+  /* 80px */
+  --spacing-24: calc(var(--spacing-scale-base) * 24);
+  /* 96px */
+
+  /* ▌ CARD & BORDER STYLING ▌ */
+  --card-border-radius: 12px;
+  --card-padding: var(--spacing-6);
+  /* 24px or scaled */
+
+  /* ─── Page Shell Layout Tokens ───────────────────────────────
+     Single source-of-truth for all page layout dimensions.
+     Changing these propagates to Home, Profile, and Settings.
+     All layout sizes are now fully dynamic and depend on user scaling.
+  ─────────────────────────────────────────────────────────── */
+  --page-sidebar-width: calc(var(--spacing-scale-base) * 70);
+  /* Left nav — full labels */
+  --page-sidebar-collapsed: calc(var(--spacing-scale-base) * 22);
+  /* Left nav — icons only */
+  --page-main-width: calc(var(--spacing-scale-base) * 170);
+  /* Main feed width */
+  --page-rightbar-width: calc(var(--spacing-scale-base) * 100);
+  /* The width of the right sidebar on very large screens (if different) */
+  --page-rightbar-width-full: calc(var(--spacing-scale-base) * 100);
+  /* Right sidebar — full */
+  --page-content-max-width: calc(var(--spacing-scale-base) * 335);
+  /* Page max width */
+  --header-height: calc(var(--spacing-scale-base) * 18);
+  /* ui-shared-header */
+}
+
+
+/* Base Reset & Core Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* KHÔNG dùng font-size % ở html để tránh khuếch đại calc() trong design system.
+     Tất cả kích thước dùng px tuyệt đối qua CSS custom properties. */
+  font-size: 100%;
+  line-height: var(--line-height, 1.5);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family), sans-serif;
+  background-color: var(--color-surface-base);
+  color: var(--color-text-base);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease;
+}
+
+/* Global Font Override for custom font switching */
+body,
+button,
+input,
+select,
+textarea,
+.tiktok-btn {
+  font-family: var(--font-family), sans-serif !important;
+}
+
+/* Light Theme — Telegram Light */
+:root {
+  --color-surface-base: #ffffff;
+  --color-surface-subtle: #f4f4f5;
+  --color-border-subtle: #e4e4e7;
+  --color-border-default: #e4e4e7;
+  --color-text-base: #000000;
+  --color-text-muted: #707579;
+  --color-text-inverse: #ffffff;
+  --color-error: #df3f40;
+  --color-btn-bg: #eaf4fb;
+  --color-btn-hover: #d4eaf7;
+  --color-btn-border: rgba(42, 171, 238, 0.2);
+  --color-btn-border-hover: rgba(42, 171, 238, 0.4);
+  /* Telegram brand: Sky Blue #2AABEE */
+  --color-brand-primary: #2aabee;
+  --color-brand-primary-hover: #1c93e3;
+  --color-brand-gradient: linear-gradient(135deg, #2aabee, #1c93e3);
+  --color-brand-accent: #1c93e3;
+  --color-brand-secondary: #5dc8f5;
+}
+
+/* Dark Theme — Telegram Dark / Smooth Gray */
+.dark {
+  /* Soothing dark gray surfaces */
+  --color-surface-base: #18181b;
+  --color-surface-subtle: #27272a;
+  --color-border-subtle: #3f3f46;
+  --color-border-default: #3f3f46;
+  --color-text-base: #e4e4e7;
+  --color-text-muted: #a1a1aa;
+  --color-text-inverse: #18181b;
+  --color-error: #f87171;
+  --color-btn-bg: #27272a;
+  --color-btn-hover: #3f3f46;
+  --color-btn-border: rgba(42, 171, 238, 0.2);
+  --color-btn-border-hover: rgba(42, 171, 238, 0.4);
+  /* Telegram brand: Sky Blue #2AABEE */
+  --color-brand-primary: #38bdf8;
+  --color-brand-primary-hover: #0ea5e9;
+  --color-brand-gradient: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  --color-brand-accent: #0ea5e9;
+  --color-brand-secondary: #7dd3fc;
+}
+
+/* Ocean Theme — Threads (Meta) */
+.ocean {
+  /* Threads: ultra-minimal black-and-white with warm near-black surfaces */
+  --color-surface-base: #0a0a0a;
+  --color-surface-subtle: #171717;
+  --color-border-subtle: #262626;
+  --color-border-default: #262626;
+  --color-text-base: #fafafa;
+  --color-text-muted: #a3a3a3;
+  --color-text-inverse: #0a0a0a;
+  --color-error: #ef4444;
+  --color-btn-bg: #171717;
+  --color-btn-hover: #262626;
+  --color-btn-border: rgba(255, 255, 255, 0.1);
+  --color-btn-border-hover: rgba(255, 255, 255, 0.18);
+  /* Threads brand: pure black/white, no hue accent */
+  --color-brand-primary: #ffffff;
+  --color-brand-primary-hover: #d4d4d4;
+  --color-brand-gradient: linear-gradient(135deg, #ffffff, #a3a3a3);
+  --color-brand-accent: #ffffff;
+  --color-brand-secondary: #737373;
+}
+
+/* Forest Theme — TikTok */
+.forest {
+  /* TikTok: near-black background, Razzmatazz red + Splash cyan accents */
+  --color-surface-base: #000000;
+  --color-surface-subtle: #121212;
+  --color-border-subtle: #27272a;
+  --color-border-default: #27272a;
+  --color-text-base: #ffffff;
+  --color-text-muted: #a1a1aa;
+  --color-text-inverse: #000000;
+  --color-error: #f43f5e;
+  --color-btn-bg: #18181b;
+  --color-btn-hover: #27272a;
+  --color-btn-border: rgba(254, 44, 85, 0.25);
+  --color-btn-border-hover: rgba(254, 44, 85, 0.45);
+  /* TikTok brand: Razzmatazz #FE2C55 & Splash #25F4EE */
+  --color-brand-primary: #fe2c55;
+  --color-brand-primary-hover: #e11d48;
+  --color-brand-gradient: linear-gradient(135deg, #fe2c55, #2dd4bf);
+  --color-brand-accent: #2dd4bf;
+  --color-brand-secondary: #2dd4bf;
+}
+
+/* Brand reference tokens — shared across themes */
+:root {
+  --color-tiktok-primary: #fe2c55;
+  --color-tiktok-cyan: #25f4ee;
+  --color-instagram-purple: #833ab4;
+  --color-instagram-red: #fd1d1d;
+  --color-instagram-orange: #fcaf45;
+  --color-threads-black: #000000;
+  --color-threads-white: #ffffff;
+}
+
+/* ─── TikTok Button ─────────────────────────────────────────────────── */
+.tiktok-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: var(--std-button-padding-vertical) var(--std-button-padding-horizontal);
+  border: 1px solid var(--color-btn-border);
+  background-color: var(--color-btn-bg);
+  color: var(--color-text-base);
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  /* Matching TikTok's rounded buttons */
+  border-radius: var(--std-button-border-radius);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button,
+button[type="button"],
+button[type="submit"],
+input[type="button"],
+input[type="submit"],
+.std-button,
+.btn,
+.button {
+  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-size: var(--font-size-caption);
+  font-weight: var(--button-font-weight, 400);
+  height: var(--button-height, calc(var(--padding-scale, 1) * 1.3rem));
+  min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.3rem));
+  padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.1rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.5rem));
+  border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  line-height: 1;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.std-icon,
+.icon-inline,
+.icon-button,
+svg.icon,
+button svg,
+button[type="button"] svg,
+button[type="submit"] svg,
+input[type="button"] svg,
+input[type="submit"] svg,
+.std-button svg,
+.btn svg,
+.button svg,
+.nav-icon svg,
+.header-brand-icon svg,
+.header-more-btn svg,
+.studio-icon svg,
+.upload-btn svg,
+.filter-btn svg {
+  width: 1em !important;
+  height: 1em !important;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.tiktok-btn:hover {
+  background-color: var(--color-btn-hover);
+  border-color: var(--color-btn-border-hover);
+}
+
+/* Icon pinned to left edge, text centered in remaining space */
+.tiktok-btn-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25em;
+  height: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.tiktok-btn-icon svg {
+  width: 1em !important;
+  height: 1em !important;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────── */
+.fade-in {
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────── */
+.text-h1 {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-strong);
+  line-height: 1.2;
+}
+
+.std-section-title,
+.text-h1 {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-strong);
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  color: var(--color-text-base);
+}
+
+.std-section-subtitle,
+.std-subtitle {
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-base);
+  margin: 0;
+}
+
+.std-group-label {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0 0 0.5rem 0;
+}
+
+.std-row-name,
+.std-label {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-base);
+  margin: 0;
+}
+
+.std-row-desc,
+.std-caption {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0.25rem 0 0 0;
+}
+
+.std-row-value,
+.std-row-action,
+.std-meta,
+.std-badge {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.std-card {
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 1rem;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.06);
+}
+
+.std-card-body {
+  padding: calc(var(--padding-scale, 1) * 1.5rem);
+}
+
+.std-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.std-row:last-child {
+  border-bottom: none;
+}
+
+.std-row-link {
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 0.75rem;
+  margin: 0 -1rem;
+  padding: 1rem;
+}
+
+.std-row-link:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.std-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.std-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.std-toggle-track {
+  width: 44px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+  position: relative;
+  transition: background 0.25s ease;
+}
+
+.std-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.std-toggle input:checked~.std-toggle-track {
+  background: #0f172a;
+}
+
+.std-toggle input:checked~.std-toggle-track::after {
+  transform: translateX(20px);
+}
+
+.std-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* ─── Layout helpers ─────────────────────────────────────────────────── */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.max-w-sm {
+  max-width: 24rem;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.border-t {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+.border-border-subtle {
+  border-color: var(--color-border-subtle);
+}
+
+.bg-surface-base {
+  background-color: var(--color-surface-base);
+}
+
+.text-text-base {
+  color: var(--color-text-base);
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}
+
+.hover\:opacity-70:hover {
+  opacity: 0.7;
+}
+
+.transition-opacity {
+  transition: opacity 0.2s;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.top-1\/2 {
+  top: 50%;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.hover\:bg-surface-subtle:hover {
+  background-color: var(--color-surface-subtle);
+}
+
+.transition-colors {
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.opacity-70 {
+  opacity: 0.7;
+}
+
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+
+/* ─── Mobile Drawer: always show full vertical sidebar menu ──── */
+/* Override the icon-only collapse when sidebar is inside the drawer */
+.mobile-drawer .sidebar-menu {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  padding: 0 12px !important;
+  height: auto !important;
+}
+
+.mobile-drawer .sidebar-menu a {
+  justify-content: flex-start !important;
+  padding: 12px 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.mobile-drawer ui-sidebar-menu,
+.mobile-drawer .sidebar-menu {
+  width: 100% !important;
+}
+
+.mobile-drawer .nav-text,
+.mobile-drawer .badge {
+  display: flex !important;
+}
+
+/* Show settings label inside drawer (overrides the icon-only state) */
+.mobile-drawer-footer .page-settings-meta {
+  display: flex !important;
+}
+
+.mobile-drawer-footer .page-settings-link {
+  justify-content: flex-start !important;
+  padding: 12px 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}

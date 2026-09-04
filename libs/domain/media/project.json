@@ -1,0 +1,28 @@
+{
+  "name": "domain-media",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain/media/src",
+  "prefix": "domain-media",
+  "projectType": "library",
+  "tags": ["type:domain", "scope:media"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/domain/media/ng-package.json",
+        "tsConfig": "libs/domain/media/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/domain/media/tsconfig.lib.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

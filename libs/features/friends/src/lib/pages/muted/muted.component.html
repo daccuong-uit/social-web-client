@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h1 class="page-title">Đã tắt tiếng</h1>
+  <p class="page-subtitle">{{ users().length }} người đã bị tắt tiếng</p>
+
+  <div class="card-list">
+    @for (user of users(); track user.id) {
+      <fe-friend-card variant="list-row" [user]="user" [context]="'muted'" (actionRequested)="onAction($event)" (menuItemClick)="onMenuItemClick($event, user)"></fe-friend-card>
+    }
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 class="modal-title">Tạo bài viết</h2>
+      <button class="close-btn" (click)="onClose()" aria-label="Đóng">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Author & Privacy -->
+    <div class="modal-author">
+      <div class="author-info-block">
+        <div class="author-avatar" [style.background-image]="authorAvatar ? 'url(' + authorAvatar + ')' : 'none'"
+          [class.no-avatar]="!authorAvatar">
+          <span *ngIf="!authorAvatar">{{ authorName.charAt(0) }}</span>
+        </div>
+        <div class="author-details">
+          <span class="author-name">{{ authorName }}</span>
+          <span class="author-username" *ngIf="authorUsername">@{{ authorUsername }}</span>
+        </div>
+      </div>
+      <div class="privacy-selector">
+        <lib-button variant="outline" class="privacy-chip" type="button" (click)="cyclePrivacy()"
+          aria-label="Thay đổi chế độ hiển thị">
+          {{ getPrivacyOptionLabel(privacy()) }}
+        </lib-button>
+      </div>
+    </div>
+
+    <!-- Text Area -->
+    <div class="modal-body">
+      <textarea class="post-input" [class.has-content]="content().length > 0" placeholder="Bạn đang nghĩ gì thế?"
+        [ngModel]="content()" (ngModelChange)="content.set($event)" rows="4" autofocus>
+      </textarea>
+
+      <!-- Share Now Action -->
+      <div class="share-actions-inline" *ngIf="sharedPost"
+        style="display: flex; justify-content: flex-end; margin-bottom: 2px; margin-top: 2px;">
+        <lib-button variant="primary" [disabled]="!canSubmit()" (click)="onSubmit()">
+          {{ isSubmitting() ? 'Đang chia sẻ...' : 'Chia sẻ ngay' }}
+        </lib-button>
+      </div>
+
+      <!-- Shared Post Preview -->
+      <div class="shared-post-preview" *ngIf="sharedPost"
+        style="margin-top: 8px; border: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24)); border-radius: 8px; overflow: hidden; pointer-events: none;">
+        <app-post-card [post]="sharedPost" [isCompactMode]="true"></app-post-card>
+      </div>
+
+      <!-- Media Grid Preview (Facebook-style) -->
+      <div class="media-preview-grid" *ngIf="mediaPreviews().length > 0" [class.grid-1]="mediaPreviews().length === 1"
+        [class.grid-2]="mediaPreviews().length === 2" [class.grid-3]="mediaPreviews().length === 3"
+        [class.grid-4plus]="mediaPreviews().length >= 4">
+        <div class="preview-item" *ngFor="let preview of mediaPreviews(); let i = index"
+          [class.hidden]="mediaPreviews().length > 4 && i >= 4">
+          <img [src]="preview" alt="Preview ảnh {{ i + 1 }}" />
+          <button class="remove-media-btn" (click)="removeMedia(i)" type="button" aria-label="Xóa ảnh">✕</button>
+          <!-- Show +N overlay on 4th image if more than 4 -->
+          <div class="overlay-count" *ngIf="mediaPreviews().length > 4 && i === 3">
+            +{{ mediaPreviews().length - 4 }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hashtag Input -->
+    <div class="modal-hashtags" *ngIf="!sharedPost">
+      <span style="font-size: 16px; color: var(--color-brand-primary, #1d9bf0);">#</span>
+      <input type="text" class="hashtag-input"
+        placeholder="Thêm hashtag (ví dụ: du lich, am thuc - cách nhau bởi dấu phẩy)" [ngModel]="hashtagsInput()"
+        (ngModelChange)="hashtagsInput.set($event)" />
+    </div>
+
+    <!-- Add-on Toolbar -->
+    <div class="modal-addons" *ngIf="!sharedPost">
+      <span class="addons-label">Thêm vào bài viết của bạn</span>
+      <div class="addon-buttons">
+        <input type="file" #fileInput multiple accept="image/*,video/*" style="display:none"
+          (change)="onFileSelected($event)">
+        <button class="addon-btn" title="Ảnh/Video" (click)="fileInput.click()" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="#45bd62" stroke-width="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" fill="#45bd62" />
+            <path d="M21 15L16 10L5 21" stroke="#45bd62" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Gắn thẻ người dùng" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#1877f2" stroke-width="2"
+              stroke-linecap="round" />
+            <circle cx="12" cy="7" r="4" stroke="#1877f2" stroke-width="2" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Cảm xúc/Hoạt động" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#f7b928" stroke-width="2" />
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#f7b928" stroke-width="2" stroke-linecap="round" />
+            <circle cx="9" cy="9" r="1" fill="#f7b928" />
+            <circle cx="15" cy="9" r="1" fill="#f7b928" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Check in" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#f5533d" stroke-width="2" />
+            <circle cx="12" cy="10" r="3" stroke="#f5533d" stroke-width="2" />
+          </svg>
+        </button>
+        <button class="addon-btn" title="Thêm" type="button">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#65676b" stroke-width="2" />
+            <line x1="12" y1="8" x2="12" y2="16" stroke="#65676b" stroke-width="2" stroke-linecap="round" />
+            <line x1="8" y1="12" x2="16" y2="12" stroke="#65676b" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer" [ngClass]="{'share-mode': !!sharedPost}">
+      <ng-container *ngIf="!sharedPost; else shareIcons">
+        <lib-button id="submit-post-btn" variant="primary" [disabled]="!canSubmit()" (click)="onSubmit()">
+          {{ isSubmitting() ? 'Đang đăng...' : 'Đăng' }}
+        </lib-button>
+      </ng-container>
+
+      <ng-template #shareIcons>
+        <div class="share-icons-row">
+          <button class="share-icon-btn copy" title="Sao chép liên kết" (click)="onCopyLink()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <span>Copy link</span>
+          </button>
+
+          <button class="share-icon-btn messenger" title="Gửi qua tin nhắn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.14 2 11.25c0 2.923 1.54 5.513 3.923 7.153a.75.75 0 0 1 .324.596v2.109c0 .64.714 1.01 1.252.665l2.493-1.597a.75.75 0 0 1 .45-.152 10.36 10.36 0 0 0 1.558.118c5.523 0 10-4.14 10-9.25S17.523 2 12 2Zm.82 12.386a.75.75 0 0 1-.954-.1l-2.14-2.14a1 1 0 0 0-1.414 0l-2.7 2.7c-.527.527-1.353-.19-.974-.805l3.242-5.263a.75.75 0 0 1 .954-.1l2.14 2.14a1 1 0 0 0 1.414 0l2.7-2.7c.527-.527 1.353.19.974.805l-3.242 5.263Z" />
+            </svg>
+            <span>Nhắn tin</span>
+          </button>
+
+          <button class="share-icon-btn facebook" title="Chia sẻ qua Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5Z" />
+            </svg>
+            <span>Facebook</span>
+          </button>
+
+          <button class="share-icon-btn twitter" title="Chia sẻ qua X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>X (Twitter)</span>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

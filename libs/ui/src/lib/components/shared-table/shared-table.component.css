@@ -1,0 +1,4 @@
+.shared-table table { width: 100%; border-collapse: collapse; }
+.shared-table th, .shared-table td { border: 1px solid #eee; padding: 8px; text-align: left; }
+.shared-table th.sortable { cursor: pointer; }
+.shared-table .pagination { margin-top: 8px; }

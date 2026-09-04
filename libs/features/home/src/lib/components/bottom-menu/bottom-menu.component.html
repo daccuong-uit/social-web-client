@@ -1,0 +1,27 @@
+<nav class="home-sidebar-panel">
+  <a routerLink="/home" class="sidebar-brand">
+    <div class="sidebar-brand-icon">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
+        <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
+        <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800" font-family="inherit" fill="var(--color-brand-primary)">C</text>
+      </svg>
+    </div>
+    <span class="sidebar-brand-title">Reals</span>
+  </a>
+
+  <ui-sidebar-menu [items]="items"></ui-sidebar-menu>
+
+  <a routerLink="/settings" class="user-profile-mini">
+    <div class="avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="3"></circle>
+        <path d="M5.5 20.5c1.5-2.5 4-4 6.5-4s5 1.5 6.5 4"></path>
+      </svg>
+    </div>
+    <div class="user-meta">
+      <span class="user-meta-name">Cài đặt</span>
+      <span class="user-meta-hint">Chung & giao diện</span>
+    </div>
+  </a>
+</nav>

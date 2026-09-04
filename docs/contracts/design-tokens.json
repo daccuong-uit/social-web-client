@@ -1,0 +1,199 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$id": "reals-platform-design-tokens",
+  "description": "Design Tokens — Cross-Platform Social Creator Platform. Đây là nguồn sự thật duy nhất (Single Source of Truth) cho tất cả quyết định thiết kế. AI phải dùng các token này khi sinh code CSS/style.",
+  "version": "2.0",
+  "updated": "June 2026",
+
+  "usage": {
+    "in_tailwind_classes": "bg-brand-primary, text-text-base, shadow-premium (Tailwind scans app-shell)",
+    "in_angular_libs": "var(--color-brand-primary) — raw CSS variables (libs/ui dùng ng-packagr riêng)",
+    "definition_location": "apps/app-shell/src/styles.css — @theme block"
+  },
+
+  "color": {
+    "$type": "color",
+    "primitive": {
+      "primary": {
+        "400": { "$value": "oklch(0.62 0.24 276)", "$description": "Indigo light — hover states" },
+        "500": { "$value": "oklch(0.55 0.22 276)", "$description": "Indigo mid — focus ring" },
+        "600": { "$value": "oklch(0.48 0.20 276)", "$description": "Indigo base — primary action" },
+        "700": { "$value": "oklch(0.42 0.18 276)", "$description": "Indigo deep — pressed state" }
+      },
+      "accent": {
+        "pink": { "$value": "oklch(0.65 0.30 340)", "$description": "Hot pink — highlight accent" },
+        "cyan": { "$value": "oklch(0.70 0.20 200)", "$description": "Cyan — secondary accent" },
+        "amber": { "$value": "oklch(0.75 0.18 80)", "$description": "Amber — warning/alert" }
+      },
+      "neutral": {
+        "50": { "$value": "oklch(0.99 0.005 260)", "$description": "Almost white" },
+        "100": { "$value": "oklch(0.97 0.01 260)", "$description": "Off white — card backgrounds" },
+        "200": { "$value": "oklch(0.93 0.01 260)", "$description": "Light gray — borders" },
+        "400": { "$value": "oklch(0.70 0.02 260)", "$description": "Mid gray — placeholder text" },
+        "600": { "$value": "oklch(0.45 0.02 260)", "$description": "Dark gray — secondary text" },
+        "800": { "$value": "oklch(0.25 0.04 260)", "$description": "Very dark — body text" },
+        "900": { "$value": "oklch(0.15 0.04 260)", "$description": "Near black" }
+      },
+      "semantic_dark": {
+        "surface": { "$value": "oklch(0.14 0.02 260)", "$description": "Dark mode base surface" },
+        "surface_raised": { "$value": "oklch(0.18 0.02 260)", "$description": "Dark mode card surface" },
+        "surface_overlay": { "$value": "oklch(0.22 0.02 260)", "$description": "Dark mode overlay" }
+      }
+    },
+    "semantic": {
+      "brand": {
+        "primary": { "$value": "{color.primitive.primary.600}", "$description": "Màu chủ đạo — dùng cho button, link, accent" },
+        "primary_hover": { "$value": "{color.primitive.primary.500}", "$description": "Hover state của brand primary" },
+        "primary_active": { "$value": "{color.primitive.primary.700}", "$description": "Active/pressed state" }
+      },
+      "surface": {
+        "base": { "$value": "{color.primitive.neutral.50}", "$description": "Nền trang chính" },
+        "subtle": { "$value": "{color.primitive.neutral.100}", "$description": "Nền cards, inputs" },
+        "overlay": { "$value": "oklch(0.99 0 0 / 0.75)", "$description": "Glass effect background — 75% opacity white" },
+        "invert": { "$value": "{color.primitive.semantic_dark.surface}", "$description": "Dark mode surface" }
+      },
+      "text": {
+        "base": { "$value": "{color.primitive.neutral.800}", "$description": "Text chính — headings, body" },
+        "muted": { "$value": "{color.primitive.neutral.600}", "$description": "Text phụ — labels, captions" },
+        "placeholder": { "$value": "{color.primitive.neutral.400}", "$description": "Placeholder text" },
+        "inverse": { "$value": "{color.primitive.neutral.50}", "$description": "Text trên nền tối" }
+      },
+      "border": {
+        "default": { "$value": "{color.primitive.neutral.200}", "$description": "Viền thông thường" },
+        "strong": { "$value": "{color.primitive.neutral.400}", "$description": "Viền đậm hơn — focus states" },
+        "glass": { "$value": "oklch(1 0 0 / 0.30)", "$description": "Viền glassmorphism" }
+      },
+      "status": {
+        "success": { "$value": "oklch(0.65 0.20 142)", "$description": "Xanh lá — thành công" },
+        "warning": { "$value": "{color.primitive.accent.amber}", "$description": "Vàng cam — cảnh báo" },
+        "error": { "$value": "oklch(0.60 0.25 25)", "$description": "Đỏ — lỗi" },
+        "info": { "$value": "{color.primitive.accent.cyan}", "$description": "Xanh — thông tin" }
+      },
+      "social": {
+        "like": { "$value": "oklch(0.62 0.28 15)", "$description": "Màu heart/like — đỏ hồng" },
+        "like_active": { "$value": "oklch(0.55 0.30 15)", "$description": "Like đã active — đậm hơn" }
+      }
+    }
+  },
+
+  "spacing": {
+    "$type": "dimension",
+    "base": { "$value": "4px", "$description": "Đơn vị cơ sở — mọi spacing đều là bội số của 4px" },
+    "scale": {
+      "0": { "$value": "0px" },
+      "1": { "$value": "4px", "$description": "= 1 × base" },
+      "2": { "$value": "8px", "$description": "= 2 × base" },
+      "3": { "$value": "12px", "$description": "= 3 × base" },
+      "4": { "$value": "16px", "$description": "= 4 × base — default padding" },
+      "5": { "$value": "20px" },
+      "6": { "$value": "24px", "$description": "Card padding" },
+      "8": { "$value": "32px", "$description": "Section gap" },
+      "10": { "$value": "40px" },
+      "12": { "$value": "48px" },
+      "16": { "$value": "64px", "$description": "Large section spacing" },
+      "20": { "$value": "80px" },
+      "24": { "$value": "96px" }
+    }
+  },
+
+  "typography": {
+    "font_family": {
+      "sans": { "$value": "'Inter', 'system-ui', sans-serif", "$description": "Font chính — dùng cho mọi text" },
+      "mono": { "$value": "'JetBrains Mono', 'Fira Code', monospace", "$description": "Font code" }
+    },
+    "font_size": {
+      "$description": "Hệ thống cỡ chữ cascade từ gốc 18px (--font-size-body). KHÔNG hardcode px trực tiếp.",
+      "body": { "$value": "18px", "$description": "★ Gốc cascade — body text, nav items, row labels" },
+      "label": { "$value": "calc(body - 2px) = 16px", "$description": "Labels, username phụ → --font-size-label" },
+      "caption": { "$value": "calc(body - 4px) = 14px", "$description": "Timestamp, mô tả nhỏ, meta → --font-size-caption" },
+      "heading_sm": { "$value": "calc(body + 2px) = 20px", "$description": "Tiêu đề widget sidebar, setting name → --font-size-heading-sm" },
+      "heading_md": { "$value": "calc(body + 4px) = 22px", "$description": "Tiêu đề card, xu hướng, brand logo → --font-size-heading-md" },
+      "heading_lg": { "$value": "calc(body + 8px) = 26px", "$description": "Tên profile, tiêu đề Cài đặt → --font-size-heading-lg" }
+    },
+    "font_weight": {
+      "normal": { "$value": "400" },
+      "medium": { "$value": "500" },
+      "semibold": { "$value": "600" },
+      "bold": { "$value": "700" },
+      "extrabold": { "$value": "800" }
+    },
+    "line_height": {
+      "tight": { "$value": "1.25" },
+      "normal": { "$value": "1.5" },
+      "relaxed": { "$value": "1.75" }
+    }
+  },
+
+  "border_radius": {
+    "none": { "$value": "0px" },
+    "sm": { "$value": "4px" },
+    "md": { "$value": "8px", "$description": "Inputs, small buttons" },
+    "lg": { "$value": "12px", "$description": "Cards" },
+    "xl": { "$value": "16px", "$description": "Large cards" },
+    "2xl": { "$value": "24px", "$description": "Modal, overlay panels" },
+    "full": { "$value": "9999px", "$description": "Pills, avatar, chips" }
+  },
+
+  "shadow": {
+    "sm": { "$value": "0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06)" },
+    "md": { "$value": "0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06)" },
+    "lg": { "$value": "0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04)" },
+    "premium": { "$value": "0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.06)", "$description": "Card hover elevation" },
+    "glow_brand": { "$value": "0 0 20px 0 oklch(0.55 0.22 276 / 0.25)", "$description": "Focus/active glow — brand color" },
+    "glow_like": { "$value": "0 0 15px 0 oklch(0.62 0.28 15 / 0.30)", "$description": "Like button glow" },
+    "inset": { "$value": "inset 0 2px 4px 0 rgb(0 0 0 / 0.06)" }
+  },
+
+  "animation": {
+    "duration": {
+      "instant": { "$value": "100ms" },
+      "fast": { "$value": "150ms" },
+      "normal": { "$value": "250ms", "$description": "Default transition" },
+      "slow": { "$value": "400ms", "$description": "Enter/exit animations" },
+      "slower": { "$value": "600ms" }
+    },
+    "easing": {
+      "default": { "$value": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "in": { "$value": "cubic-bezier(0.4, 0, 1, 1)" },
+      "out": { "$value": "cubic-bezier(0, 0, 0.2, 1)" },
+      "bounce": { "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "$description": "Dùng cho like button animation" }
+    }
+  },
+
+  "z_index": {
+    "base": { "$value": "0" },
+    "raised": { "$value": "10" },
+    "dropdown": { "$value": "100" },
+    "sticky": { "$value": "200" },
+    "overlay": { "$value": "300", "$description": "Comment overlay, modals" },
+    "modal": { "$value": "400" },
+    "toast": { "$value": "500" },
+    "tooltip": { "$value": "600" }
+  },
+
+  "glassmorphism": {
+    "description": "Preset glassmorphism styles — dùng class .glass-effect trong styles.css",
+    "light_glass": {
+      "background": "rgb(255 255 255 / 0.75)",
+      "backdrop_filter": "blur(20px) saturate(180%)",
+      "border": "1px solid rgb(255 255 255 / 0.30)",
+      "shadow": "{shadow.premium}"
+    },
+    "dark_glass": {
+      "background": "rgb(15 15 25 / 0.70)",
+      "backdrop_filter": "blur(20px) saturate(180%)",
+      "border": "1px solid rgb(255 255 255 / 0.08)",
+      "shadow": "0 20px 25px -5px rgb(0 0 0 / 0.40)"
+    }
+  },
+
+  "layout": {
+    "max_content_width": { "$value": "1280px" },
+    "feed_width": { "$value": "680px", "$description": "Chiều rộng feed chính" },
+    "sidebar_width": { "$value": "320px", "$description": "Chiều rộng sidebar phải" },
+    "nav_width": { "$value": "280px", "$description": "Chiều rộng nav sidebar trái" },
+    "mobile_breakpoint": { "$value": "768px" },
+    "tablet_breakpoint": { "$value": "1024px" },
+    "desktop_breakpoint": { "$value": "1280px" }
+  }
+}
