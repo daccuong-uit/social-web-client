@@ -1,34 +1,32 @@
-name: Frontend CI
+name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
-    - name: Lint
-      run: npx nx lint
+      - name: Run lint
+        run: npm run lint --if-present
 
-    - name: Test
-      run: npx nx test
+      - name: Run build
+        run: npm run build --if-present
 
-    - name: Build
-      run: npx nx build
+      - name: Run test
+        run: npm test --if-present
