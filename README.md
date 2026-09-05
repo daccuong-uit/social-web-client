@@ -79,6 +79,30 @@ import { UiButton }    from '@fe/ui';
 
 ## Getting Started
 
+## Docker-first startup
+
+From the Agent repository, build and start the full stack:
+
+```powershell
+docker compose build frontend
+docker compose up -d frontend gateway
+```
+
+Open `http://localhost:4200`. Nginx serves the Angular bundle and proxies `/api/` to Gateway. The client therefore does not need a host Node installation to run the production image.
+
+## Changes and deployment
+
+This is an independent frontend repository. A Git push runs frontend CI; it does not update a running container. Build and recreate the image after code changes:
+
+```powershell
+docker compose build frontend
+docker compose up -d frontend
+```
+
+In production, publish the frontend image and update its Docker Compose service or Kubernetes Deployment image tag. Kubernetes then rolls out the new pods.
+
+## Local tooling
+
 ```bash
 # Install dependencies
 npm install
@@ -95,6 +119,8 @@ npx nx run-many -t lint
 # Test all
 npx nx run-many -t test
 ```
+
+The commands above are for repository development and CI only. The supported application runtime is the Docker image.
 
 ## Phase Status
 

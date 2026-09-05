@@ -1,0 +1,8 @@
+node_modules
+dist
+.angular
+.nx
+tmp
+.git
+.github
+*.log
