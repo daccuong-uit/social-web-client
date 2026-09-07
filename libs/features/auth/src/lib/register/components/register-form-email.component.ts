@@ -23,8 +23,8 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       flex: 1;
       text-align: center;
       padding: 10px 0;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
       color: var(--color-text-muted);
       cursor: pointer;
       border-bottom: 2px solid transparent;
@@ -63,10 +63,10 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       background: transparent;
       border: none;
       outline: none;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
       color: var(--color-text-base);
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-family);
       cursor: pointer;
     }
     .phone-input {
@@ -76,9 +76,9 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       background: transparent;
       border: none;
       outline: none;
-      font-size: 14px;
+      font-size: var(--type-small);
       color: var(--color-text-base);
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-family);
     }
     .phone-input::placeholder { color: var(--color-text-muted); }
 
@@ -98,9 +98,9 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       background: transparent;
       border: none;
       outline: none;
-      font-size: 14px;
+      font-size: var(--type-small);
       color: var(--color-text-base);
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-family);
     }
     .otp-input::placeholder { color: var(--color-text-muted); }
     .otp-send-btn {
@@ -110,9 +110,9 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       border: none;
       border-left: 1px solid var(--color-border-subtle);
       color: var(--color-text-base);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
+      font-family: var(--font-family);
       cursor: pointer;
       white-space: nowrap;
     }
@@ -126,8 +126,8 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       border-radius: 4px;
       background: var(--color-surface-subtle);
       color: var(--color-text-base);
-      font-size: 14px;
-      font-family: 'Outfit', sans-serif;
+      font-size: var(--type-small);
+      font-family: var(--font-family);
       outline: none;
       box-sizing: border-box;
       margin-bottom: 8px;
@@ -141,9 +141,9 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       height: 48px;
       border-radius: 4px;
       border: none;
-      font-size: var(--button-font-size, 0.8125rem);
-      font-weight: var(--button-font-weight, 400);
-      font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
+      font-family: var(--font-family-ui);
       cursor: pointer;
       transition: opacity 0.2s;
       background: var(--color-btn-bg);
@@ -173,19 +173,19 @@ import { UiInlineLoaderComponent } from '@fe/ui';
       justify-content: center;
       gap: 4px;
       margin-top: 20px;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
       color: var(--color-text-base);
       cursor: pointer;
       background: none;
       border: none;
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-family);
     }
     .back-link:hover { opacity: 0.7; }
 
     /* ── Error text ── */
     .error-text {
-      font-size: 12px;
+      font-size: var(--type-caption);
       color: #fe2c55;
       margin-top: 4px;
       display: block;
@@ -196,7 +196,7 @@ import { UiInlineLoaderComponent } from '@fe/ui';
     <div class="form-wrap fade-in">
       <div class="form-content" [class.loading-active]="isLoading">
         <!-- Title -->
-        <h1 style="font-size:1.75rem; font-weight:700; text-align:center; margin-bottom:20px; color: var(--color-text-base);">
+        <h1 style="font-size: var(--type-title); font-weight: var(--font-weight-strong); text-align:center; margin-bottom:20px; color: var(--color-text-base);">
           Đăng ký
         </h1>
 

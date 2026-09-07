@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
         border: none;
         padding: 4px;
         cursor: pointer;
-        font-size: 20px;
+        font-size: var(--type-body-lg);
         transition: transform 0.2s ease;
         display: flex;
         align-items: center;
@@ -68,9 +68,9 @@ import { CommonModule } from '@angular/common';
       }
 
       .like-count {
-        font-size: 14px;
+        font-size: var(--type-small);
         color: #666;
-        font-weight: var(--font-weight-regular, 500);
+        font-weight: var(--font-weight-regular);
       }
 
       @keyframes heartBeat {

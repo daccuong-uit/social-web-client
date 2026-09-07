@@ -48,7 +48,7 @@
 .friend-name {
   margin: 0 0 var(--spacing-1);
   font-size: var(--font-size-heading-sm);
-  font-weight: 800;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-base);
 }
 
@@ -115,5 +115,5 @@
 .empty-state p {
   margin: 0;
   font-size: var(--font-size-sm);
-  line-height: 1.5;
+  line-height: var(--type-leading-normal);
 }

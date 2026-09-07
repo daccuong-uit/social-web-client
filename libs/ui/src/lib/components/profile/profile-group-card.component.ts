@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileGroup } from '@fe/domain/profile';
+import { ProfileGroup } from '@fe/entities/profile';
 
 @Component({
   selector: 'app-profile-group-card',
@@ -30,7 +30,7 @@ import { ProfileGroup } from '@fe/domain/profile';
     h3 {
       margin: 0;
       font-size: var(--font-size-md);
-      font-weight: 700;
+      font-weight: var(--font-weight-strong);
       color: var(--color-text-base);
     }
 
@@ -44,7 +44,7 @@ import { ProfileGroup } from '@fe/domain/profile';
       margin: var(--spacing-3) 0 0;
       color: var(--color-text-base);
       font-size: var(--font-size-body);
-      line-height: 1.6;
+      line-height: var(--type-leading-normal);
       max-width: 55ch;
     }
 

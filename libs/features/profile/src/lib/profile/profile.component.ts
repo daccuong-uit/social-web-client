@@ -22,9 +22,9 @@ import {
   ProfilePost,
   ProfileFriend,
   ProfileGroup,
-} from '@fe/domain/profile';
-import { Comment, CreateCommentPayload, Post, SocialCommentService } from '@fe/domain/social';
-import { insertCommentIntoTree, mergeCommentsWithServer, replaceOptimisticComment } from '@fe/domain/social';
+} from '@fe/entities/profile';
+import { Comment, CreateCommentPayload, Post, SocialCommentService } from '@fe/entities/social';
+import { insertCommentIntoTree, mergeCommentsWithServer, replaceOptimisticComment } from '@fe/entities/social';
 import { ProfileFacade } from '../data-access/profile.facade';
 import { AboutComponent } from './about/about.component';
 import { RelativeTimePipe } from '@fe/core';

@@ -14,7 +14,7 @@ import {
   CreateCommentPayload,
   parseCommentContentFragments,
   CommentContentFragment,
-} from '@fe/domain/social';
+} from '@fe/entities/social';
 
 @Component({
   standalone: true,

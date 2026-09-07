@@ -25,10 +25,10 @@
 
 .friends-page-title {
   font-size: var(--font-size-heading-md);
-  font-weight: 900;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-base);
   margin: 0 0 var(--spacing-4) 0;
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
 }
 
 .friends-tabs-wrapper {

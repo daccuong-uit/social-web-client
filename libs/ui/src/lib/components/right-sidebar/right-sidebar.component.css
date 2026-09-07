@@ -81,14 +81,14 @@
   font-weight: var(--font-weight-heavy);
   font-size: var(--font-size-subtitle);
   color: var(--color-text-base, #0f172a);
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
 }
 
 .profile-handle {
   margin: 2px 0 0;
   color: var(--color-text-muted, rgba(255, 255, 255, 0.64));
   font-size: var(--font-size-caption);
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
 }
 
 .profile-menu-btn {
@@ -283,7 +283,7 @@
 
 .promo-card p {
   color: var(--color-text-muted, rgba(255, 255, 255, 0.72));
-  line-height: 1.5;
+  line-height: var(--type-leading-normal);
   margin: 0 0 calc(20px * var(--padding-scale, 1));
   font-size: var(--font-size-body);
   position: relative;
@@ -325,7 +325,7 @@
   font-size: var(--font-size-body);
   color: var(--color-text-base, #0f172a);
   font-weight: var(--font-weight-strong);
-  line-height: 1.4;
+  line-height: var(--type-leading-tight);
 }
 
 .trend-stats {
@@ -343,8 +343,8 @@
   background: transparent;
   border: none;
   color: var(--color-text-muted, #64748b);
-  font-size: var(--font-size-body, 0.875rem);
-  font-weight: var(--font-weight-medium, 600);
+  font-size: var(--type-body);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: color 0.2s ease;
   text-decoration: none;
@@ -362,7 +362,7 @@
 .profile-quick-text {
   margin: 0;
   color: var(--color-text-muted, rgba(255, 255, 255, 0.72));
-  line-height: 1.6;
+  line-height: var(--type-leading-normal);
   font-size: var(--font-size-body);
 }
 

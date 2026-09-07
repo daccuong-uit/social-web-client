@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService, ApiService } from '@fe/core';
-import { SocialReelFacade } from '@fe/domain/social';
+import { SocialReelFacade } from '@fe/entities/social';
 import { ReelsCommentsComponent } from '../reels-comments/reels-comments.component';
 
 @Component({

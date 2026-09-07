@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UiButton, UiCard } from '@fe/ui';
+import { MediaService } from '@fe/entities/media';
+import { firstValueFrom, switchMap, takeWhile, timer } from 'rxjs';
 
 export interface MediaItem {
   id: string;
@@ -59,7 +61,7 @@ const MOCK_MEDIA_ITEMS: MediaItem[] = [
               <div class="flex items-center justify-between gap-3">
                 <div>
                   <h2 class="text-xl font-semibold text-text-base">Upload new media</h2>
-                  <p class="text-sm text-text-muted">Mock mode enabled. Uploads are simulated locally and do not call a backend service.</p>
+                  <p class="text-sm text-text-muted">Files are uploaded directly to storage, then processed by the media worker.</p>
                 </div>
                 <lib-button type="button" class="!px-5 !py-3" [disabled]="isUploading" (click)="selectFile(fileInput)">{{ isUploading ? 'Uploading...' : 'Upload file' }}</lib-button>
               </div>
@@ -112,6 +114,7 @@ const MOCK_MEDIA_ITEMS: MediaItem[] = [
   `,
 })
 export class MediaPlatformComponent {
+  private readonly mediaService = inject(MediaService);
   mediaItems: MediaItem[] = [...MOCK_MEDIA_ITEMS];
   isUploading = false;
   message = '';
@@ -121,7 +124,7 @@ export class MediaPlatformComponent {
     return localStorage.getItem('token') ? 'stored in localStorage' : 'not available';
   }
 
-  onFileSelected(event: Event) {
+  async onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
 
@@ -133,23 +136,53 @@ export class MediaPlatformComponent {
     this.message = '';
     this.error = '';
 
-    setTimeout(() => {
+    try {
+      const upload = await firstValueFrom(this.mediaService.getPresignedUpload({
+        originalName: file.name,
+        mimeType: file.type || 'application/octet-stream',
+        fileSize: file.size,
+      }));
+
+      const uploadResponse = await this.mediaService.uploadRawFileToMinio(
+        upload.uploadUrl,
+        file,
+        file.type || 'application/octet-stream',
+      );
+      if (!uploadResponse.ok) {
+        throw new Error(`Storage upload failed (${uploadResponse.status})`);
+      }
+
+      await firstValueFrom(this.mediaService.completeUpload(upload.mediaId));
+      const finalStatus = await firstValueFrom(
+        timer(0, 2000).pipe(
+          switchMap(() => this.mediaService.getMediaStatus(upload.mediaId)),
+          takeWhile(result => result.status === 'pending' || result.status === 'processing', true),
+        ),
+      );
+
+      if (finalStatus.status === 'failed') {
+        throw new Error('Media processing failed');
+      }
+
       this.mediaItems = [
         {
-          id: `media_${Date.now()}`,
+          id: upload.mediaId,
           originalName: file.name,
           type: file.type || 'file',
-          status: 'ready',
+          status: finalStatus.status,
           createdAt: new Date().toISOString(),
         },
         ...this.mediaItems,
       ];
-      this.message = 'Upload thành công. Media đã được thêm tạm thời.';
+      this.message = 'Upload thành công. Media đã được worker xử lý.';
+    } catch (uploadError) {
+      this.error = uploadError instanceof Error ? uploadError.message : 'Upload failed';
+    } finally {
       this.isUploading = false;
       if (target) {
         target.value = '';
       }
-    }, 600);
+    }
   }
 
   removeItem(mediaId: string) {

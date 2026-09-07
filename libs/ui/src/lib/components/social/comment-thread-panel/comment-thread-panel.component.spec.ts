@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { CommentThreadPanelComponent, CommentThreadTarget } from './comment-thread-panel.component';
-import { Comment, SocialCommentService } from '@fe/domain/social';
+import { Comment, SocialCommentService } from '@fe/entities/social';
 
 describe('CommentThreadPanelComponent', () => {
   let component: CommentThreadPanelComponent;

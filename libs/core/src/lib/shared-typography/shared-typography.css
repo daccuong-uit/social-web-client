@@ -6,22 +6,26 @@
 :root {
   --std-font-scale: calc(var(--font-size-scale, 1));
   --std-padding-scale: calc(var(--padding-scale, 1));
-  --button-font-family: var(--font-family, system-ui, sans-serif);
-  --button-height: calc(var(--padding-scale, 1) * 1.625rem);
-  --button-padding-y: calc(var(--padding-scale, 1) * 0.15rem);
-  --button-padding-x: calc(var(--padding-scale, 1) * 0.5rem);
-  --button-font-size: calc(var(--font-size-scale, 1) * 0.8125rem);
-  --button-font-weight: 400;
-  --button-radius: calc(var(--padding-scale, 1) * 0.375rem);
-  --std-section-title-size: calc(var(--std-font-scale) * 2rem);
-  --std-section-title-weight: 700;
-  --std-group-label-size: calc(var(--std-font-scale) * 0.75rem);
-  --std-group-label-weight: 700;
-  --std-row-name-size: calc(var(--std-font-scale) * 0.9375rem);
-  --std-row-name-weight: 600;
-  --std-row-desc-size: calc(var(--std-font-scale) * 0.8125rem);
+  --button-font-family: var(--font-family);
+  --button-height: 2.5rem;
+  --button-padding-y: 0;
+  --button-padding-x: 1rem;
+  --button-padding-inline: 1rem;
+  --button-min-width: 5rem;
+  --button-gap: 0.5rem;
+  --button-radius: 0.5rem;
+  --button-font-size: var(--type-small);
+  --button-font-weight: var(--font-weight-regular);
+  --button-transition: 160ms cubic-bezier(0.2, 0, 0, 1);
+  --std-section-title-size: var(--type-title);
+  --std-section-title-weight: var(--font-weight-strong);
+  --std-group-label-size: var(--type-caption);
+  --std-group-label-weight: var(--font-weight-strong);
+  --std-row-name-size: var(--type-body);
+  --std-row-name-weight: var(--font-weight-medium);
+  --std-row-desc-size: var(--type-small);
   --std-row-desc-color: var(--color-text-muted, #64748b);
-  --std-row-value-size: calc(var(--std-font-scale) * 0.875rem);
+  --std-row-value-size: var(--type-small);
   --std-icon-size-xs: calc(var(--std-font-scale) * 0.875rem);
   --std-icon-size-sm: calc(var(--std-font-scale) * 1rem);
   --std-icon-size-md: calc(var(--std-font-scale) * 1.25rem);
@@ -47,21 +51,61 @@ input[type="submit"],
 button[type="button"],
 button[type="submit"] {
   font-family: var(--button-font-family);
-  height: var(--button-height, calc(var(--padding-scale, 1) * 1.75rem));
-  min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.75rem));
-  font-size: var(--button-font-size, calc(var(--font-size-scale, 1) * 0.8125rem));
-  font-weight: var(--button-font-weight, 400);
-  padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.2rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.5rem));
-  border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+  min-width: var(--button-min-width);
+  height: var(--button-height);
+  min-height: var(--button-height);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  padding: var(--button-padding-y) var(--button-padding-x);
+  border-radius: var(--button-radius);
   box-sizing: border-box;
-  line-height: 1;
+  line-height: var(--type-leading-tight);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: var(--button-gap);
+  transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
   cursor: pointer;
   white-space: nowrap;
+}
+
+.std-button:focus-visible,
+button:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgb(42 171 238 / 0.28);
+}
+
+.std-button > svg,
+.std-button > img,
+button > svg,
+button > img {
+  display: block;
+  flex: 0 0 auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+.ui-button__spinner {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ui-button-spin 600ms linear infinite;
+}
+
+.tiktok-btn-icon.hidden {
+  display: none;
+}
+
+@keyframes ui-button-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Generic section title used in settings */
@@ -71,7 +115,7 @@ button[type="submit"] {
   font-weight: var(--std-section-title-weight);
   color: var(--color-text-base);
   margin: 0 0 28px 0;
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
 }
 
 /* Group labels */
@@ -105,7 +149,7 @@ button[type="submit"] {
 .activity-details span {
   font-size: var(--std-row-desc-size);
   color: var(--std-row-desc-color);
-  line-height: 1.5;
+  line-height: var(--type-leading-normal);
 }
 
 .settings-row-value,
@@ -127,9 +171,3 @@ button[type="submit"] {
 }
 
 /* Small responsive adjustments */
-@media (max-width: 768px) {
-  :root {
-    --std-section-title-size: 22px;
-    --std-row-name-size: 14px;
-  }
-}

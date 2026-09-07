@@ -14,7 +14,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '@fe/core';
 import { filter } from 'rxjs/operators';
-import { SocialFacade } from '@fe/domain/social';
+import { SocialFacade } from '@fe/entities/social';
 import { UserCardComponent } from '@fe/ui';
 
 @Component({

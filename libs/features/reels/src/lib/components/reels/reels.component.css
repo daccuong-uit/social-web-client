@@ -135,9 +135,9 @@
 
 .action-count {
   font-size: var(--font-size-caption);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
-  line-height: 1;
+  line-height: var(--type-leading-normal);
 }
 
 .action-btn.active .action-count {

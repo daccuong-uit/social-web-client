@@ -43,7 +43,7 @@
 }
 
 .comments-title {
-  font-size: var(--font-size-md, 16px);
+  font-size: var(--type-body);
   font-weight: var(--font-weight-heavy);
   color: var(--color-text-base);
   margin: 0;
@@ -53,7 +53,7 @@
 }
 
 .comments-count {
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
   background: var(--color-surface-subtle);
@@ -166,7 +166,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: var(--type-small);
   font-weight: var(--font-weight-heavy);
   flex-shrink: 0;
 }
@@ -184,25 +184,25 @@
 }
 
 .comment-author {
-  font-size: var(--font-size-label, 13px);
+  font-size: var(--type-small);
   font-weight: var(--font-weight-strong);
   color: var(--color-text-base);
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-family-ui);
 }
 
 .comment-time {
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   color: var(--color-text-muted);
 }
 
 .comment-content {
   margin: 0 0 6px;
   color: var(--color-text-base);
-  font-size: var(--font-size-label, 13px);
-  line-height: 1.5;
+  font-size: var(--type-small);
+  line-height: var(--type-leading-normal);
   word-break: break-word;
   white-space: pre-wrap;
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-family-ui);
 }
 
 /* @mention highlight inside comment */
@@ -228,7 +228,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   color: var(--color-text-muted);
   background: transparent;
   border: none;
@@ -261,14 +261,14 @@
 }
 
 .like-count {
-  font-size: var(--font-size-caption, 12px);
-  line-height: 1;
+  font-size: var(--type-caption);
+  line-height: var(--type-leading-normal);
   color: inherit;
 }
 
 /* Reply / expand-replies buttons */
 .comment-reply-btn {
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   font-weight: var(--font-weight-strong);
   color: var(--color-text-muted);
   background: transparent;
@@ -283,7 +283,7 @@
 }
 
 .comment-reply-count-btn {
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   color: var(--color-text-muted);
   background: transparent;
   border: none;
@@ -339,9 +339,9 @@
   padding: 6px 16px;
   background: color-mix(in srgb, var(--color-brand-primary, #1d9bf0) 8%, transparent);
   border-bottom: 1px solid var(--color-border-subtle);
-  font-size: var(--font-size-caption, 12px);
+  font-size: var(--type-caption);
   color: var(--color-text-muted);
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-family-ui);
 }
 
 .reply-context-bar strong {
@@ -353,10 +353,10 @@
   border: none;
   cursor: pointer;
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: var(--type-caption);
   padding: 2px 4px;
   border-radius: 4px;
-  line-height: 1;
+  line-height: var(--type-leading-normal);
   transition: color 0.15s ease;
 }
 
@@ -392,7 +392,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--type-caption);
   font-weight: var(--font-weight-heavy);
   flex-shrink: 0;
   margin-bottom: 2px;
@@ -455,16 +455,16 @@
 }
 
 .mention-suggestion-name {
-  font-size: 13px;
+  font-size: var(--type-small);
   font-weight: var(--font-weight-strong);
   color: var(--color-text-base);
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-family-ui);
 }
 
 .mention-suggestion-handle {
-  font-size: 12px;
+  font-size: var(--type-caption);
   color: var(--color-text-muted);
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-family-ui);
 }
 
 .comment-input {
@@ -475,8 +475,8 @@
   resize: none;
   font-size: var(--font-size-body);
   color: var(--color-text-base);
-  font-family: var(--font-family, 'Outfit', sans-serif);
-  line-height: 1.5;
+  font-family: var(--font-family);
+  line-height: var(--type-leading-normal);
   min-height: 20px;
   max-height: 80px;
   overflow-y: auto;
@@ -505,12 +505,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--type-small);
   padding: 4px 6px;
   border-radius: 6px;
   color: var(--color-text-muted);
   transition: background 0.15s ease;
-  line-height: 1;
+  line-height: var(--type-leading-normal);
 }
 
 .composer-icon-btn:hover {

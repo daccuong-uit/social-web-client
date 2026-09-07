@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SocialReelFacade, ReelItem } from '@fe/domain/social';
+import { SocialReelFacade, ReelItem } from '@fe/entities/social';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({

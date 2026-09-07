@@ -78,7 +78,7 @@
   background: transparent;
   color: var(--color-text-muted, #536471);
   font-size: var(--font-size-md);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   font-family: inherit;
   white-space: nowrap;
   text-decoration: none;
@@ -100,7 +100,7 @@
 
 .ui-tabs__tab.is-active {
   color: var(--color-brand-primary, #1d9bf0);
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
 }
 
 .ui-tabs__label {
@@ -119,8 +119,8 @@
   background: var(--color-surface-subtle);
   color: inherit;
   font-size: var(--font-size-sm);
-  font-weight: 700;
-  line-height: 1;
+  font-weight: var(--font-weight-strong);
+  line-height: var(--type-leading-normal);
 }
 
 .ui-tabs__indicator {

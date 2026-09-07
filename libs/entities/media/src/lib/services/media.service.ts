@@ -57,20 +57,20 @@ export class MediaService {
   }
 
   getPresignedUpload(payload: { originalName: string; mimeType: string; fileSize: number; userId?: string }): Observable<{ mediaId: string; uploadUrl: string }> {
-    return this.api.post<{ data: { mediaId: string; uploadUrl: string } }>(`${urlConfig.media.list}/presigned-upload`, payload).pipe(
-      map(res => res.data.data) // Assuming standard response wrapper
+    return this.api.post<{ mediaId: string; uploadUrl: string }>(`${urlConfig.media.list}/presigned-upload`, payload).pipe(
+      map(res => res.data)
     );
   }
 
   completeUpload(mediaId: string): Observable<any> {
-    return this.api.post<{ data: any }>(`${urlConfig.media.list}/${mediaId}/complete`, {}).pipe(
-      map(res => res.data.data)
+    return this.api.post<any>(`${urlConfig.media.list}/${mediaId}/complete`, {}).pipe(
+      map(res => res.data)
     );
   }
 
   getMediaStatus(mediaId: string): Observable<{ status: string }> {
-    return this.api.get<{ data: { status: string } }>(`${urlConfig.media.list}/${mediaId}/status`).pipe(
-      map(res => res.data.data)
+    return this.api.get<{ status: string }>(`${urlConfig.media.list}/${mediaId}/status`).pipe(
+      map(res => res.data)
     );
   }
 

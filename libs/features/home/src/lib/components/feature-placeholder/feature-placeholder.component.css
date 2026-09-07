@@ -52,7 +52,7 @@
 .placeholder-card p {
   margin: 4px 0 0;
   color: var(--color-text-muted, #475569);
-  line-height: 1.6;
+  line-height: var(--type-leading-normal);
 }
 .placeholder-card button {
   width: fit-content;

@@ -5,8 +5,8 @@ import { PostCardComponent, UiButton, CreatePostModalComponent, SkeletonCardComp
 import { Router } from '@angular/router';
 import { FeedFacade } from '../../data-access/feed.facade';
 import { AuthService, TabKeepAliveService } from '@fe/core';
-import { Comment, CreateCommentPayload, Post, SocialCommentService, SocialReelFacade, CreateReelPayload } from '@fe/domain/social';
-import { insertCommentIntoTree, mergeCommentsWithServer, replaceOptimisticComment } from '@fe/domain/social';
+import { Comment, CreateCommentPayload, Post, SocialCommentService, SocialReelFacade, CreateReelPayload } from '@fe/entities/social';
+import { insertCommentIntoTree, mergeCommentsWithServer, replaceOptimisticComment } from '@fe/entities/social';
 
 @Component({
   standalone: true,

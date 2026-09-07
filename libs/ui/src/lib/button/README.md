@@ -4,7 +4,7 @@ Hệ thống nút bấm chuẩn hóa (Button Design System) cho toàn bộ ứng
 
 ---
 
-## 🎨 3 Loại Nút Bấm Chuẩn (3 Button Variants)
+## 🎨 Button Variants
 
 Tất cả các nút bấm đều tuân thủ thông số kích thước và căn chỉnh thống nhất, chỉ khác nhau về phong cách hiển thị (Variant):
 
@@ -12,7 +12,9 @@ Tất cả các nút bấm đều tuân thủ thông số kích thước và că
 | :--- | :--- | :--- | :--- |
 | **`primary`** | Primary Action (Nút chính) | `lib-button button.primary`, `.btn-primary` | Solid background màu thương hiệu (`var(--color-brand-primary)`), chữ trắng, shadow nổi nhẹ. |
 | **`outline`** | Outline / Secondary (Nút phụ) | `lib-button button.outline`, `.btn-outline` | Nền bề mặt (`var(--color-surface-base)`), viền thanh lịch (`var(--color-border-subtle)`), chữ màu tối/sáng theo theme. |
-| **`ghost`** | Ghost / Text (Nút mờ) | `lib-button button.ghost`, `.btn-ghost`, `.btn-accent` | Nền trong suốt, không viền, chữ accent. Khi hover sẽ xuất hiện lớp tint mờ (`rgba(29, 155, 240, 0.08)`). |
+| **`ghost`** | Ghost / Text (Nút mờ) | `lib-button button.ghost`, `.btn-ghost`, `.btn-accent` | Nền trong suốt, không viền, chữ accent. |
+| **`danger`** | Destructive | `lib-button button.danger`, `.btn-danger` | Solid destructive action. |
+| **`link`** | Link | `lib-button button.link`, `.btn-link` | Text-only action with underline. |
 
 ---
 
@@ -22,14 +24,14 @@ Tất cả 3 loại nút sử dụng chung các CSS variables & layout metrics �
 
 ```css
 :root {
-  /* Dynamic Slim Button System — tất cả kích thước kết nối trực tiếp vào Settings scales */
-  --button-height:     calc(var(--padding-scale, 1) * 1.75rem);   /* ~28px — Slim & sleek */
-  --button-padding-y:  calc(var(--padding-scale, 1) * 0.2rem);    /* ~3.2px — Tight vertical */
-  --button-padding-x:  calc(var(--padding-scale, 1) * 0.5rem);    /* ~8px — Minimal horizontal */
-  --button-font-size:  calc(var(--font-size-scale, 1) * 0.8125rem); /* 13px — Balanced text */
-  --button-font-weight: 400;                                        /* Regular — không in đậm */
-  --button-radius:     calc(var(--padding-scale, 1) * 0.375rem);   /* 6px — Subtle radius */
-  --button-font-family: var(--font-family, system-ui, sans-serif);
+  --button-height: 2.5rem;
+  --button-min-width: 5rem;
+  --button-padding-inline: 1rem;
+  --button-gap: 0.5rem;
+  --button-font-size: var(--type-small);
+  --button-font-weight: var(--font-weight-medium);
+  --button-radius: 0.5rem;
+  --button-font-family: var(--font-family);
 }
 ```
 
@@ -58,6 +60,14 @@ Tất cả 3 loại nút sử dụng chung các CSS variables & layout metrics �
 <lib-button variant="ghost" (click)="onMoreInfo()">
   Xem thêm
 </lib-button>
+
+<lib-button variant="danger" [loading]="isDeleting" (click)="onDelete()">
+  Xóa
+</lib-button>
+
+<lib-button variant="ghost" [iconOnly]="true" aria-label="Mở menu">
+  <img src="menu.svg" alt="" />
+</lib-button>
 ```
 
 ### 2. Sử dụng Utility Class CSS (`.btn`)
@@ -76,16 +86,18 @@ Dành cho các `<button>` HTML nguyên bản hoặc thẻ `<a>` ở các trang:
 
 | Property | Type | Default | Mô tả |
 | :--- | :--- | :--- | :--- |
-| `variant` | `'primary' \| 'outline' \| 'ghost'` | `'primary'` | Kiểu hiển thị nút bấm |
+| `variant` | `'primary' \| 'outline' \| 'ghost' \| 'danger' \| 'link'` | `'primary'` | Kiểu hiển thị, không thay đổi kích thước |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Type attribute của nút HTML |
 | `disabled` | `boolean` | `false` | Trạng thái vô hiệu hóa nút bấm |
+| `loading` | `boolean` | `false` | Khóa nút và hiển thị spinner đồng bộ |
+| `iconOnly` | `boolean` | `false` | Chuyển nút thành control vuông/tròn chứa icon |
 
 ---
 
 ## 📐 Quy Tắc Bắt Buộc (Coding Rules)
 
-1. **Không hard-code font-weight trong nút** — luôn dùng `var(--button-font-weight, 400)`
-2. **Không hard-code padding/height trong nút** — luôn dùng `var(--button-padding-y)`, `var(--button-padding-x)`, `var(--button-height)`
-3. **Không hard-code font-size trong nút** — luôn dùng `var(--button-font-size)`
-4. **Không hard-code border-radius trong nút** — luôn dùng `var(--button-radius)`
-5. Các heading/title dùng `var(--font-weight-strong, 700)` hoặc `var(--font-weight-medium, 600)` từ design system
+1. **Không hard-code font-weight trong nút** — dùng `var(--button-font-weight)`.
+2. **Không hard-code kích thước nút** — dùng `var(--button-height)`, `var(--button-padding-inline)`, `var(--button-gap)`.
+3. **Icon/image phải là flex item không co**, có `aspect-ratio: 1` và kích thước `1.125rem`.
+4. **Icon-only dùng `iconOnly`**, không tự đặt width/padding riêng.
+5. **Loading dùng `loading`**, không tự tạo spinner cho từng feature.

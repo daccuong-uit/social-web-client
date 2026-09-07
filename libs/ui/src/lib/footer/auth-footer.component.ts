@@ -35,7 +35,7 @@ export type AuthContext = 'login' | 'register';
           @if (context !== 'login' && context !== 'register') {
             <!-- Theme selector dropdown -->
             <div class="flex items-center gap-1">
-              <span style="font-size: 14px;">🎨</span>
+              <span style="font-size: var(--type-small);">🎨</span>
               <select
                 [value]="currentTheme()"
                 (change)="changeTheme($event)"
@@ -45,8 +45,8 @@ export type AuthContext = 'login' | 'register';
                   outline: none;
                   cursor: pointer;
                   font-family: inherit;
-                  font-size: 14px;
-                  font-weight: 600;
+                  font-size: var(--type-small);
+                  font-weight: var(--font-weight-medium);
                   color: var(--color-text-base);
                   appearance: auto;
                   -webkit-appearance: auto;
@@ -62,7 +62,7 @@ export type AuthContext = 'login' | 'register';
 
             <!-- Font selector dropdown -->
             <div class="flex items-center gap-1">
-              <span style="font-size: 14px;">🔤</span>
+              <span style="font-size: var(--type-small);">🔤</span>
               <select
                 [value]="currentFont()"
                 (change)="changeFont($event)"
@@ -72,8 +72,8 @@ export type AuthContext = 'login' | 'register';
                   outline: none;
                   cursor: pointer;
                   font-family: inherit;
-                  font-size: 14px;
-                  font-weight: 600;
+                  font-size: var(--type-small);
+                  font-weight: var(--font-weight-medium);
                   color: var(--color-text-base);
                   appearance: auto;
                   -webkit-appearance: auto;

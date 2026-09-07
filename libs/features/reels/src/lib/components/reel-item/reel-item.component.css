@@ -232,8 +232,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--type-caption);
+  font-weight: var(--font-weight-strong);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -252,7 +252,7 @@
 
 .reel-author-name {
   font-size: var(--font-size-body);
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
   color: white;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
@@ -264,10 +264,10 @@
   background: transparent;
   color: white;
   font-size: var(--font-size-label);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
-  line-height: 1.5;
+  line-height: var(--type-leading-normal);
 }
 
 .reel-follow-btn:hover {
@@ -282,7 +282,7 @@
 .reel-description {
   font-size: var(--font-size-body);
   color: rgba(255, 255, 255, 0.95);
-  line-height: 1.5;
+  line-height: var(--type-leading-normal);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   margin: 0;
   display: -webkit-box;

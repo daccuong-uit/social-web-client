@@ -16,7 +16,7 @@ import { UiActionButton } from '@fe/ui';
             <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800" font-family="inherit" fill="var(--color-brand-primary, #1d9bf0)">C</text>
           </svg>
         </div>
-        <h1 class="text-h1 mb-3 text-text-base font-bold" style="font-size:2rem;">Đăng nhập vào Reals</h1>
+        <h1 class="text-h1 mb-3 text-text-base font-bold" style="font-size: var(--type-title);">Đăng nhập vào Reals</h1>
         <p class="text-muted text-sm leading-relaxed">Quản lý tài khoản, kiểm tra thông báo, bình luận<br>trên các video, v.v.</p>
       </div>
 

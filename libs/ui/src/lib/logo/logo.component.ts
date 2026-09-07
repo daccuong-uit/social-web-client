@@ -23,12 +23,12 @@ import { ASSETS_CONFIG } from '@fe/core';
         class="object-contain"
       />
       <span
-        [style.font-family]="'Syne, sans-serif'"
-        [style.font-weight]="700"
-        [style.font-size.px]="fontSize"
-        [style.letter-spacing.px]="letterSpacing"
+        [style.font-family]="'var(--font-family)'"
+        [style.font-weight]="'var(--font-weight-strong)'"
+        [style.font-size]="'var(--type-body-lg)'"
+        [style.letter-spacing]="'0'"
         [style.color]="'var(--color-text-base)'"
-        [style.line-height]="1"
+        [style.line-height]="'var(--type-leading-tight)'"
         [style.user-select]="'none'"
       >
         REALS
@@ -39,8 +39,6 @@ import { ASSETS_CONFIG } from '@fe/core';
 export class LogoComponent {
   @Output() clicked = new EventEmitter<void>();
   @Input() logoSize = 40;
-  @Input() fontSize = 20;
-  @Input() letterSpacing = 1.5;
 
   logoSrc = ASSETS_CONFIG.images.logo.main;
   logoAlt = ASSETS_CONFIG.images.logo.alt;

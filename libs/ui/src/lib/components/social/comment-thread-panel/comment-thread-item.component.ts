@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment } from '@fe/domain/social';
+import { Comment } from '@fe/entities/social';
 
 @Component({
   selector: 'lib-comment-thread-item',
@@ -76,19 +76,19 @@ import { Comment } from '@fe/domain/social';
         margin-bottom: 4px;
       }
       .comment-author {
-        font-weight: 700;
+        font-weight: var(--font-weight-strong);
         color: #111827;
-        font-size: 14px;
+        font-size: var(--type-small);
       }
       .comment-time {
         color: #94a3b8;
-        font-size: 12px;
+        font-size: var(--type-caption);
       }
       .comment-content {
         margin: 0;
         color: #334155;
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: var(--type-small);
+        line-height: var(--type-leading-normal);
       }
       .comment-actions {
         display: flex;
@@ -99,8 +99,8 @@ import { Comment } from '@fe/domain/social';
         background: none;
         border: none;
         color: #2563eb;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: var(--type-caption);
+        font-weight: var(--font-weight-medium);
         cursor: pointer;
         padding: 0;
       }
@@ -125,12 +125,12 @@ import { Comment } from '@fe/domain/social';
         color: #ef4444;
       }
       .like-count {
-        font-size: 12px;
-        line-height: 1;
+        font-size: var(--type-caption);
+        line-height: var(--type-leading-normal);
         color: inherit;
       }
       .comment-stats {
-        font-size: 12px;
+        font-size: var(--type-caption);
         color: #64748b;
       }
       .reply-list {

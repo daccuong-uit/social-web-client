@@ -48,8 +48,8 @@
 
 .modal-title {
   margin: 0;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--type-body-lg);
+  font-weight: var(--font-weight-strong);
   color: var(--color-text-base, #050505);
 }
 
@@ -101,8 +101,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: var(--font-weight-strong);
+  font-size: var(--type-body);
   color: #fff;
 }
 
@@ -114,13 +114,13 @@
 }
 
 .author-name {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--type-body);
   color: var(--color-text-base, #050505);
 }
 
 .author-username {
-  font-size: 13px;
+  font-size: var(--type-small);
   color: var(--color-text-muted, #65676b);
 }
 
@@ -137,8 +137,8 @@
   min-height: 32px;
   padding: 0 12px;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--type-small);
+  font-weight: var(--font-weight-medium);
 }
 
 /* ─── Body ──────────────────────────────────────────────────────── */
@@ -157,16 +157,16 @@
   border: none;
   outline: none;
   resize: none;
-  font-size: 16px;
+  font-size: var(--type-body);
   font-family: inherit;
   background: transparent;
   color: var(--color-text-base, #050505);
-  line-height: 1.45;
+  line-height: var(--type-leading-tight)5;
   padding: 4px 0 8px;
 }
 
 .post-input.has-content {
-  font-size: 15px;
+  font-size: var(--type-body);
 }
 
 .post-input::placeholder {
@@ -235,7 +235,7 @@
   background: rgba(0, 0, 0, 0.65);
   border: none;
   color: #fff;
-  font-size: 13px;
+  font-size: var(--type-small);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,8 +255,8 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 28px;
-  font-weight: 700;
+  font-size: var(--type-title);
+  font-weight: var(--font-weight-strong);
 }
 
 /* ─── Add-on Toolbar ────────────────────────────────────────────── */
@@ -273,8 +273,8 @@
 }
 
 .addons-label {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--type-body);
   color: var(--color-text-base, #050505);
 }
 
@@ -330,7 +330,7 @@
   border: none;
   background: transparent;
   outline: none;
-  font-size: 14px;
+  font-size: var(--type-small);
   color: var(--color-text-base, #050505);
   font-family: inherit;
 }
@@ -391,9 +391,9 @@
 }
 
 .share-icon-btn span {
-  font-size: 13px;
+  font-size: var(--type-small);
   color: var(--color-text-base, #050505);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
 }
 

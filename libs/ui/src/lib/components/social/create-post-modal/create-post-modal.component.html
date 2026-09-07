@@ -69,7 +69,7 @@
 
     <!-- Hashtag Input -->
     <div class="modal-hashtags" *ngIf="!sharedPost">
-      <span style="font-size: 16px; color: var(--color-brand-primary, #1d9bf0);">#</span>
+      <span style="font-size: var(--type-body); color: var(--color-brand-primary, #1d9bf0);">#</span>
       <input type="text" class="hashtag-input"
         placeholder="Thêm hashtag (ví dụ: du lich, am thuc - cách nhau bởi dấu phẩy)" [ngModel]="hashtagsInput()"
         (ngModelChange)="hashtagsInput.set($event)" />

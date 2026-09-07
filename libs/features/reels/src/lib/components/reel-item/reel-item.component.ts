@@ -14,7 +14,7 @@ import {
   inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocialReelFacade } from '@fe/domain/social';
+import { SocialReelFacade } from '@fe/entities/social';
 import Hls from 'hls.js';
 
 @Component({

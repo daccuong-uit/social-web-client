@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;500;700&family=Nunito:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap');
 
 /* 
   NOTE: Manual CSS variables as fallback for Tailwind v4 
@@ -12,64 +12,50 @@
   --color-danger: oklch(0.55 0.22 25);
   --color-info: oklch(0.6 0.18 210);
 
-  /* Dynamic Typography System 
-     ─────────────────────────────────────────────────────────
-     Base System: All font sizes calculated from --font-size-body
-     When user adjusts Typography in Settings, only --font-size-body 
-     changes, and ALL other sizes scale proportionally.
-     ─────────────────────────────────────────────────────────── */
-  --font-family: 'Outfit', sans-serif;
-
-  /* Scaling Factors (set by UiSettingsService) */
-  --font-size-scale: 1;
-  --padding-scale: 1;
-  --line-height: 1.5;
-
-  /* ▌ BASE TYPOGRAPHY TIERS — Dynamic System (Root: 14.4px) ▌
-     Khóa cứng gốc 18px. Mọi cỡ chữ cascade từ biến này.
-     Khi UiSettingsService thay --font-size-body, toàn hệ thống scale theo. */
-  --font-size-body: 18px;
-  /* Gốc: Body text, nav items, row labels     */
-
-  /* ── Hạ bậc (Sub-scale) ─────────────────────────────────── */
-  --font-size-label: calc(var(--font-size-body) - 2px);
-  /* 16px — label, username phụ    */
-  --font-size-caption: calc(var(--font-size-body) - 4px);
-  /* 14px — timestamp, mô tả nhỏ  */
-
-  /* ── Tăng bậc (Up-scale) ────────────────────────────────── */
-  --font-size-heading-sm: calc(var(--font-size-body) + 2px);
-  /* 20px — tiêu đề khối con, setting name  */
-  --font-size-heading-md: calc(var(--font-size-body) + 4px);
-  /* 22px — tiêu đề card, xu hướng          */
-  --font-size-heading-lg: calc(var(--font-size-body) + 8px);
-  /* 26px — tên profile, chữ Cài đặt        */
-
-  /* ── Alias nội bộ (Internal aliases — giữ backward-compat) ─ */
-  --font-size-sm: var(--font-size-label);
-  /* 16px */
-  --font-size-xs: var(--font-size-caption);
-  /* 14px */
-  --font-size-md: calc(var(--font-size-body) + 1px);
-  /* 19px — subtitle nhỏ */
-  --font-size-lg: calc(var(--font-size-body) + 2px);
-  /* 20px — alias cho heading-sm */
-  --font-size-xl: var(--font-size-heading-md);
-  /* 22px */
-  --font-size-heading: var(--font-size-heading-lg);
-  /* 26px — max page title */
-  --font-size-title: var(--font-size-heading-md);
-  /* 22px */
-  --font-size-subtitle: var(--font-size-heading-sm);
-  /* 20px */
-  --font-size-subtitle-sm: var(--font-size-label);
-  /* 16px */
-
-  /* ▌ TYPOGRAPHY WEIGHTS ▌ */
-  --font-weight-heavy: 800;
-  --font-weight-strong: 700;
-  --font-weight-medium: 600;
-  --font-weight-regular: 500;
+    /* Typography scale: one family, eight sizes, three weights. */
+    --font-family: 'Outfit', sans-serif;
+    --font-family-ui: var(--font-family);
+    --font-size-scale: 1;
+    --padding-scale: 1;
+    --type-leading-tight: 1.25;
+    --type-leading-normal: 1.5;
+    --type-leading-relaxed: 1.75;
+    --line-height: var(--type-leading-normal);
+    --type-micro: calc(0.625rem * var(--font-size-scale));
+    --type-caption: calc(0.75rem * var(--font-size-scale));
+    --type-small: calc(0.875rem * var(--font-size-scale));
+    --type-body: calc(1rem * var(--font-size-scale));
+    --type-body-lg: calc(1.25rem * var(--font-size-scale));
+    --type-heading: calc(1.5rem * var(--font-size-scale));
+    --type-title: calc(2rem * var(--font-size-scale));
+    --type-display: calc(2.5rem * var(--font-size-scale));
+    --font-size-body: var(--type-body);
+    --font-size-label: var(--type-small);
+    --font-size-caption: var(--type-caption);
+    --font-size-heading-sm: var(--type-body-lg);
+    --font-size-heading-md: var(--type-heading);
+    --font-size-heading-lg: var(--type-title);
+    --font-size-sm: var(--type-small);
+    --font-size-xs: var(--type-caption);
+    --font-size-md: var(--type-body);
+    --font-size-lg: var(--type-body-lg);
+    --font-size-xl: var(--type-heading);
+    --font-size-heading: var(--type-title);
+    --font-size-title: var(--type-heading);
+    --font-size-subtitle: var(--type-body-lg);
+    --font-size-subtitle-sm: var(--type-small);
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-strong: 700;
+    --font-weight-heavy: 700;
+    --button-height: 2.5rem;
+    --button-min-width: 5rem;
+    --button-padding-inline: 1rem;
+    --button-gap: 0.5rem;
+    --button-radius: 0.5rem;
+    --button-font-size: var(--type-small);
+    --button-font-weight: var(--font-weight-medium);
+    --button-transition: 160ms cubic-bezier(0.2, 0, 0, 1);
 
   /* ▌ DYNAMIC SPACING SYSTEM ▌
      Base unit scales from 4px. User adjusts in Settings → spacing scale changes.
@@ -149,7 +135,7 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-family), sans-serif;
+  font-family: var(--font-family);
   background-color: var(--color-surface-base);
   color: var(--color-text-base);
   -webkit-font-smoothing: antialiased;
@@ -164,7 +150,7 @@ input,
 select,
 textarea,
 .tiktok-btn {
-  font-family: var(--font-family), sans-serif !important;
+  font-family: var(--font-family) !important;
 }
 
 /* Light Theme — Telegram Light */
@@ -274,16 +260,18 @@ textarea,
   display: flex;
   align-items: center;
   width: 100%;
-  height: auto;
-  padding: var(--std-button-padding-vertical) var(--std-button-padding-horizontal);
+  height: var(--button-height);
+  min-height: var(--button-height);
+  min-width: var(--button-min-width);
+  padding: 0 var(--button-padding-inline);
   border: 1px solid var(--color-btn-border);
   background-color: var(--color-btn-bg);
   color: var(--color-text-base);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size-body);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   /* Matching TikTok's rounded buttons */
-  border-radius: var(--std-button-border-radius);
+  border-radius: var(--button-radius);
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   position: relative;
@@ -298,20 +286,21 @@ input[type="submit"],
 .std-button,
 .btn,
 .button {
-  font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
-  font-size: var(--font-size-caption);
-  font-weight: var(--button-font-weight, 400);
-  height: var(--button-height, calc(var(--padding-scale, 1) * 1.3rem));
-  min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.3rem));
-  padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.1rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.5rem));
-  border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+  font-family: var(--font-family-ui);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  height: var(--button-height);
+  min-height: var(--button-height);
+  min-width: var(--button-min-width);
+  padding: 0 var(--button-padding-inline);
+  border-radius: var(--button-radius);
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
+  gap: var(--button-gap);
   line-height: 1;
-  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
   cursor: pointer;
 }
 
@@ -359,6 +348,27 @@ input[type="submit"] svg,
   flex-shrink: 0;
 }
 
+.tiktok-btn .ui-button__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1;
+}
+
+button.loading,
+.btn.loading,
+.button.loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+button.loading > .ui-button__content,
+.btn.loading > .ui-button__content,
+.button.loading > .ui-button__content {
+  visibility: hidden;
+}
+
 .tiktok-btn-icon svg {
   width: 1em !important;
   height: 1em !important;
@@ -385,14 +395,14 @@ input[type="submit"] svg,
 .text-h1 {
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-strong);
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
 }
 
 .std-section-title,
 .text-h1 {
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-strong);
-  line-height: 1.2;
+  line-height: var(--type-leading-tight);
   margin: 0 0 1rem 0;
   color: var(--color-text-base);
 }
@@ -426,7 +436,7 @@ input[type="submit"] svg,
 .std-caption {
   font-size: var(--font-size-caption);
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: var(--type-leading-normal);
   margin: 0.25rem 0 0 0;
 }
 
@@ -634,23 +644,23 @@ input[type="submit"] svg,
 }
 
 .font-bold {
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
 }
 
 .font-semibold {
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 
 .font-normal {
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
 }
 
 .text-sm {
-  font-size: 0.875rem;
+  font-size: var(--type-small);
 }
 
 .text-xs {
-  font-size: 0.75rem;
+  font-size: var(--type-caption);
 }
 
 .max-w-sm {
@@ -658,7 +668,7 @@ input[type="submit"] svg,
 }
 
 .leading-relaxed {
-  line-height: 1.625;
+  line-height: var(--type-leading-normal);
 }
 
 .border-t {

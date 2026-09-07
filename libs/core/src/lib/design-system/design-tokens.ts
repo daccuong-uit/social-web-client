@@ -10,64 +10,25 @@
 
 export const DesignTokens = {
   // ═══════════════════════════════════════════════════════════════
-  // Typography: Font families (shared across all components)
+  // Typography: one family, eight sizes, three weights
   // ═══════════════════════════════════════════════════════════════
   typography: {
-    fontFamily: {
-      ui: "'Outfit', 'Roboto', 'Nunito', sans-serif",           // Default UI font (buttons, inputs, body)
-      heading: "'Syne', 'Montserrat', sans-serif",        // Headlines, titles (h1-h2)
-      body: "'Inter', 'Roboto', 'Nunito', sans-serif",          // Article body, long text
-      display: "'Playfair Display', serif", // Large display text
-      roboto: "'Roboto', sans-serif",
-      nunito: "'Nunito', sans-serif",
-      montserrat: "'Montserrat', sans-serif",
+    family: "'Outfit', sans-serif",
+    size: {
+      micro: 'var(--type-micro)',
+      caption: 'var(--type-caption)',
+      small: 'var(--type-small)',
+      body: 'var(--type-body)',
+      bodyLarge: 'var(--type-body-lg)',
+      heading: 'var(--type-heading)',
+      title: 'var(--type-title)',
+      display: 'var(--type-display)',
     },
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // Font Sizes (8px base scale for consistency)
-  // ═══════════════════════════════════════════════════════════════
-  fontSize: {
-    // Display sizes (for hero sections, large titles)
-    display: {
-      lg: '2.5rem',    // 40px
-      md: '2rem',      // 32px
-      sm: '1.75rem',   // 28px
+    weight: {
+      regular: 400,
+      medium: 500,
+      bold: 700,
     },
-    // Heading sizes (for page/section titles)
-    heading: {
-      h1: '2rem',      // 32px - page title
-      h2: '1.75rem',   // 28px - section title
-      h3: '1.5rem',    // 24px - subsection
-      h4: '1.25rem',   // 20px - card title
-      h5: '1.125rem',  // 18px - item title
-      h6: '1rem',      // 16px - small title
-    },
-    // Body & UI sizes
-    body: {
-      lg: '1.125rem',  // 18px - large body text
-      md: '1rem',      // 16px - default body text (most common)
-      sm: '0.875rem',  // 14px - secondary text, labels
-      xs: '0.75rem',   // 12px - captions, help text
-    },
-    // Button/Form sizes
-    ui: {
-      lg: '1.125rem',  // 18px - large buttons
-      md: '1rem',      // 16px - standard buttons (most common)
-      sm: '0.875rem',  // 14px - small buttons
-      xs: '0.75rem',   // 12px - icon buttons
-    },
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // Font Weights (standard weights)
-  // ═══════════════════════════════════════════════════════════════
-  fontWeight: {
-    light: 300,       // Thin text
-    normal: 400,      // Default body text
-    medium: 500,      // Semi-bold (inputs, secondary text)
-    semibold: 600,    // Buttons, form labels
-    bold: 700,        // Headings, emphasis
   },
 
   // ═══════════════════════════════════════════════════════════════

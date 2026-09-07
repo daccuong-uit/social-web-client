@@ -4,7 +4,7 @@
 
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Post } from '@fe/domain/social';
+import { Post } from '@fe/entities/social';
 import { RelativeTimePipe } from '@fe/core';
 
 const CONTENT_LIMIT = 280; // chars before truncating
@@ -149,7 +149,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
       }
       .author-name {
         font-size: var(--font-size-body);
-        font-weight: 700;
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
       }
       .author-handle,
@@ -157,13 +157,13 @@ const CONTENT_LIMIT = 280; // chars before truncating
       .post-bullet {
         font-size: var(--font-size-caption);
         color: var(--color-text-muted, rgba(0, 0, 0, 0.6));
-        font-weight: 500;
+        font-weight: var(--font-weight-medium);
       }
       .author-secondary {
         margin: 0;
         color: var(--color-text-muted, rgba(0, 0, 0, 0.68));
         font-size: var(--font-size-caption);
-        line-height: 1.45;
+        line-height: var(--type-leading-tight)5;
       }
       .more-btn {
         border: none;
@@ -181,7 +181,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
       .post-text {
         margin: 0;
         font-size: var(--font-size-body);
-        line-height: 1.4;
+        line-height: var(--type-leading-tight);
         color: var(--color-text-base, #0f172a);
         word-break: break-word;
       }
@@ -242,8 +242,8 @@ const CONTENT_LIMIT = 280; // chars before truncating
         align-items: center;
         justify-content: center;
         color: #fff;
-        font-size: 28px;
-        font-weight: 700;
+        font-size: var(--type-title);
+        font-weight: var(--font-weight-strong);
       }
       .nested-post-wrapper {
         margin-top: calc(8px * var(--padding-scale, 1));
@@ -278,7 +278,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         color: var(--color-text-base, #0f172a);
       }
       .post-actions .action-count {
-        font-weight: 700;
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
       }
       .post-actions .action-btn .icon {
@@ -363,8 +363,8 @@ const CONTENT_LIMIT = 280; // chars before truncating
         display: inline-flex;
       }
       .reaction-icon {
-        font-size: 16px;
-        line-height: 1;
+        font-size: var(--type-body);
+        line-height: var(--type-leading-normal);
       }
       .stats-right {
         display: flex;
@@ -389,7 +389,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         border: none;
         background: transparent;
         color: var(--color-text-muted, #65676b);
-        font-weight: 600;
+        font-weight: var(--font-weight-medium);
         font-size: var(--font-size-caption);
         cursor: pointer;
         padding: 0;

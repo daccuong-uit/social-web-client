@@ -2,12 +2,11 @@
   "name": "cross_platform_software_daccuong_uit_fe",
   "version": "1.0.0",
   "description": "Frontend platform for social commerce creator platform.",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
-    "test": "echo \"Pass\""
+    "start": "nx serve app-shell",
+    "build": "nx build app-shell",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test --passWithNoTests"
   },
   "keywords": [],
   "author": "",

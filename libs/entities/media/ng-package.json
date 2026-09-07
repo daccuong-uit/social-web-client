@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/libs/domain/social",
+  "dest": "../../../dist/libs/entities/media",
   "lib": {
     "entryFile": "src/index.ts"
   }

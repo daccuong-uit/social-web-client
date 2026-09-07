@@ -11,7 +11,7 @@ import { DesignTokens } from './design-tokens';
 
 export interface UiSettings {
   // Typography
-  fontFamily: 'ui' | 'body' | 'heading' | 'display' | 'roboto' | 'nunito' | 'montserrat';
+  fontFamily: 'ui';
   fontSize: 'compact' | 'normal' | 'large' | 'xlarge';    // Scale multiplier
   lineHeight: 'tight' | 'normal' | 'relaxed' | 'loose';
 
@@ -146,7 +146,7 @@ export class UiSettingsService {
    * Get font family value
    */
   getFontFamily(): string {
-    return DesignTokens.typography.fontFamily[this.fontFamily$()];
+    return DesignTokens.typography.family;
   }
 
   /**
@@ -197,20 +197,8 @@ export class UiSettingsService {
     // 2. TYPOGRAPHY SCALING
     // ══════════════════════════════════════════════════════════════
     const fontScale = FONT_SIZE_SCALES[settings.fontSize];
-    const BASE_FONT_SIZE = 18; // pixels (from user requirements, new normal)
-    const scaledFontSizeBody = BASE_FONT_SIZE * fontScale;
-
-    // Set legacy scaling factor (for backward compatibility with existing calc() expressions)
+    // The eight CSS size tokens scale from this single multiplier.
     root.style.setProperty('--font-size-scale', String(fontScale));
-
-    // Set the DYNAMIC base font size (this cascades to all other font sizes)
-    root.style.setProperty('--font-size-body', `${scaledFontSizeBody}px`);
-
-    // All other font sizes (--font-size-sm, --font-size-heading-lg, etc.)
-    // will automatically scale because they use calc() with --font-size-body
-    // Example: --font-size-sm: calc(var(--font-size-body) - 2px)
-    //   When --font-size-body = 12px, --font-size-sm = 10px
-    //   When --font-size-body = 18px, --font-size-sm = 16px
 
     // ══════════════════════════════════════════════════════════════
     // 3. SPACING SCALING

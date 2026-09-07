@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UiButton } from '@fe/ui';
 import { PostCardComponent } from '@fe/ui';
 import { RelativeTimePipe } from '@fe/core';
-import { ProfileService } from '@fe/domain/profile';
-import { Post, SocialPostService } from '@fe/domain/social';
+import { ProfileService } from '@fe/entities/profile';
+import { Post, SocialPostService } from '@fe/entities/social';
 import { take, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 // No explicit Friend type exported; using any

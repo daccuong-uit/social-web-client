@@ -31,5 +31,5 @@ This feature contains two distinct media management pages:
 ## Notes
 
 - This feature is intentionally split into creator and admin UX to keep the two flows separate.
-- The media domain library is available via `@fe/domain/media` for backend contract and API helpers.
+- The media domain library is available via `@fe/entities/media` for backend contract and API helpers.
 - `@fe/ui` exports `SharedTableComponent` to keep list/table UI reusable across features.

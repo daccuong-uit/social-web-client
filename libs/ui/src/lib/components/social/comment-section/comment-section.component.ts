@@ -5,7 +5,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Comment } from '@fe/domain/social';
+import { Comment } from '@fe/entities/social';
 
 @Component({
   selector: 'app-comment-section',
@@ -121,7 +121,7 @@ import { Comment } from '@fe/domain/social';
         border: 1px solid #e0e0e0;
         border-radius: 20px;
         padding: 10px 16px;
-        font-size: 14px;
+        font-size: var(--type-small);
         transition: border-color 0.2s ease;
 
         &:focus {
@@ -136,7 +136,7 @@ import { Comment } from '@fe/domain/social';
         color: white;
         border: none;
         border-radius: 20px;
-        font-weight: 600;
+        font-weight: var(--font-weight-medium);
         cursor: pointer;
         transition: background 0.2s ease;
 
@@ -185,12 +185,12 @@ import { Comment } from '@fe/domain/social';
       .comment-header {
         display: flex;
         gap: 8px;
-        font-size: 13px;
+        font-size: var(--type-small);
         margin-bottom: 4px;
       }
 
       .author-name {
-        font-weight: 700;
+        font-weight: var(--font-weight-strong);
         color: #000;
       }
 
@@ -205,9 +205,9 @@ import { Comment } from '@fe/domain/social';
 
       .comment-text {
         margin: 0;
-        font-size: 14px;
+        font-size: var(--type-small);
         color: #000;
-        line-height: 1.4;
+        line-height: var(--type-leading-tight);
       }
 
       .comment-actions {
@@ -221,7 +221,7 @@ import { Comment } from '@fe/domain/social';
         border: none;
         color: #666;
         cursor: pointer;
-        font-size: 12px;
+        font-size: var(--type-caption);
         display: flex;
         align-items: center;
         gap: 4px;
@@ -233,14 +233,14 @@ import { Comment } from '@fe/domain/social';
         }
 
         .icon {
-          font-size: 14px;
+          font-size: var(--type-small);
         }
 
         &.sm {
-          font-size: 11px;
+          font-size: var(--type-micro);
 
           .icon {
-            font-size: 12px;
+            font-size: var(--type-caption);
           }
         }
       }
@@ -267,7 +267,7 @@ import { Comment } from '@fe/domain/social';
 
       .reply-content {
         flex: 1;
-        font-size: 13px;
+        font-size: var(--type-small);
       }
 
       .reply-header {
@@ -277,17 +277,17 @@ import { Comment } from '@fe/domain/social';
       }
 
       .reply-header .author-name {
-        font-weight: 700;
-        font-size: 12px;
+        font-weight: var(--font-weight-strong);
+        font-size: var(--type-caption);
       }
 
       .reply-header .author-username {
-        font-size: 12px;
+        font-size: var(--type-caption);
       }
 
       .reply-text {
         margin: 0;
-        font-size: 13px;
+        font-size: var(--type-small);
         color: #000;
       }
 
@@ -304,7 +304,7 @@ import { Comment } from '@fe/domain/social';
         border: none;
         border-radius: 8px;
         color: #0066cc;
-        font-weight: 600;
+        font-weight: var(--font-weight-medium);
         cursor: pointer;
         transition: background 0.2s ease;
 

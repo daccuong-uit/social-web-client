@@ -35,8 +35,8 @@
   border: none;
   background: transparent;
   color: var(--color-text-muted, #64748b);
-  font-size: var(--font-size-body, 15px);
-  font-weight: var(--font-weight-medium, 500);
+  font-size: var(--type-body);
+  font-weight: var(--font-weight-medium);
   font-family: inherit;
   cursor: pointer;
   position: relative;
@@ -53,7 +53,7 @@
 
 .home-tab-btn.active {
   color: var(--color-text-base, #0f172a);
-  font-weight: var(--font-weight-strong, 700);
+  font-weight: var(--font-weight-strong);
 }
 
 .home-tab-label {

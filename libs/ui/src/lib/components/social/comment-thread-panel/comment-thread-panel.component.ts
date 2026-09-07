@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Comment, CommentContentFragment, CreateCommentPayload, Post, SocialCommentService, parseCommentContentFragments } from '@fe/domain/social';
+import { Comment, CommentContentFragment, CreateCommentPayload, Post, SocialCommentService, parseCommentContentFragments } from '@fe/entities/social';
 import { ApiService } from '@fe/core';
 import { UiButton } from '../../../button/button';
 import { PostCardComponent } from '../post-card/post-card.component';
@@ -208,10 +208,10 @@ export interface CommentThreadTarget {
       }
       .panel-header-title {
         text-align: center;
-        font-size: calc(var(--font-size-caption, 0.875rem) + 0.1rem);
-        font-weight: var(--font-weight-strong, 700);
+        font-size: var(--type-small);
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-family: var(--font-family-ui);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -222,7 +222,7 @@ export interface CommentThreadTarget {
         border: none;
         background: transparent;
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
-        font-size: 1rem;
+        font-size: var(--type-body);
         cursor: pointer;
         border-radius: 999px;
       }
@@ -270,16 +270,16 @@ export interface CommentThreadTarget {
       }
       .source-info h3 {
         margin: 0 0 calc(var(--padding-scale, 1) * 0.375rem);
-        font-size: var(--font-size-body, 1rem);
+        font-size: var(--type-body);
         color: var(--color-text-base, #0f172a);
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-family: var(--font-family-ui);
       }
       .source-info p {
         margin: 0;
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
-        font-size: var(--font-size-caption, 0.875rem);
-        line-height: 1.5;
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-size: var(--type-caption);
+        line-height: var(--type-leading-normal);
+        font-family: var(--font-family-ui);
       }
       .source-badge {
         display: inline-flex;
@@ -288,12 +288,12 @@ export interface CommentThreadTarget {
         border-radius: 999px;
         background: color-mix(in srgb, var(--color-brand-primary, #1d9bf0) 12%, transparent);
         color: var(--color-brand-primary, #1d9bf0);
-        font-size: calc(var(--font-size-scale, 1) * 0.75rem);
-        font-weight: var(--font-weight-strong, 700);
+        font-size: var(--type-caption);
+        font-weight: var(--font-weight-strong);
       }
       .source-price {
         margin-top: calc(var(--padding-scale, 1) * 0.5rem);
-        font-weight: var(--font-weight-strong, 700);
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
       }
       .comments-root {
@@ -342,10 +342,10 @@ export interface CommentThreadTarget {
         margin-bottom: 4px;
       }
       .comment-author, .reply-author {
-        font-weight: var(--font-weight-strong, 700);
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
         font-size: var(--font-size-label);
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-family: var(--font-family-ui);
       }
       .comment-time, .reply-time {
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
@@ -355,8 +355,8 @@ export interface CommentThreadTarget {
         margin: 0;
         color: var(--color-text-base, #0f172a);
         font-size: var(--font-size-label);
-        line-height: 1.4;
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        line-height: var(--type-leading-tight);
+        font-family: var(--font-family-ui);
         white-space: pre-wrap;
       }
       .comment-actions, .reply-actions {
@@ -371,10 +371,10 @@ export interface CommentThreadTarget {
         border: none;
         color: var(--color-brand-primary, #1d9bf0);
         font-size: var(--font-size-label);
-        font-weight: 400;
+        font-weight: var(--font-weight-regular);
         cursor: pointer;
         padding: 0;
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-family: var(--font-family-ui);
       }
       .like-action {
         display: inline-flex;
@@ -398,7 +398,7 @@ export interface CommentThreadTarget {
       }
       .like-count {
         font-size: var(--font-size-label);
-        line-height: 1;
+        line-height: var(--type-leading-normal);
         color: inherit;
       }
       .reply-count-link {
@@ -410,7 +410,7 @@ export interface CommentThreadTarget {
       }
       .mention {
         color: var(--color-brand-primary, #1d9bf0);
-        font-weight: var(--font-weight-strong, 700);
+        font-weight: var(--font-weight-strong);
       }
       .mention-suggestions {
         display: flex;
@@ -444,7 +444,7 @@ export interface CommentThreadTarget {
         object-fit: cover;
       }
       .mention-suggestion-name {
-        font-weight: var(--font-weight-strong, 700);
+        font-weight: var(--font-weight-strong);
         color: var(--color-text-base, #0f172a);
       }
       .mention-suggestion-handle {
@@ -458,8 +458,8 @@ export interface CommentThreadTarget {
       .reply-context {
         margin-bottom: calc(var(--padding-scale, 1) * 0.5rem);
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
-        font-size: var(--font-size-caption, 0.875rem);
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-size: var(--type-caption);
+        font-family: var(--font-family-ui);
       }
       .composer {
         display: flex;
@@ -492,12 +492,12 @@ export interface CommentThreadTarget {
         resize: none;
         min-height: 44px;
         max-height: 80px;
-        line-height: 1.5;
+        line-height: var(--type-leading-normal);
         font: inherit;
         background: transparent;
         color: var(--color-text-base, #0f172a);
         font-size: var(--font-size-label);
-        font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
+        font-family: var(--font-family-ui);
         padding: 0;
       }
       textarea::placeholder {
@@ -521,7 +521,7 @@ export interface CommentThreadTarget {
         min-height: 2rem;
         padding: 0.25rem;
         border-radius: calc(var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem)));
-        font-size: 0.95rem;
+        font-size: var(--type-small);
       }
       .composer-send-btn {
         position: absolute;

@@ -7,8 +7,8 @@ import {
   ProfileGroup,
   ProfilePost,
   ProfileTab,
-} from '@fe/domain/profile';
-import { Post, SocialPostService, SocialUserService, UserStatistics } from '@fe/domain/social';
+} from '@fe/entities/profile';
+import { Post, SocialPostService, SocialUserService, UserStatistics } from '@fe/entities/social';
 import { take, catchError } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 

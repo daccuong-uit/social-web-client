@@ -5,7 +5,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UiButton } from '../../../button/button';
-import { CreateReelPayload } from '@fe/domain/social';
+import { CreateReelPayload } from '@fe/entities/social';
 import { AuthService } from '@fe/core';
 
 type ReelPrivacy = 'public' | 'friends' | 'private';

@@ -1,21 +1,21 @@
 {
-  "name": "domain-social",
+  "name": "entity-profile",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/domain/social/src",
-  "prefix": "domain-social",
+  "sourceRoot": "libs/entities/profile/src",
+  "prefix": "entity-profile",
   "projectType": "library",
-  "tags": ["type:domain", "scope:social"],
+  "tags": ["type:entity", "scope:profile"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/domain/social/ng-package.json",
-        "tsConfig": "libs/domain/social/tsconfig.lib.json"
+        "project": "libs/entities/profile/ng-package.json",
+        "tsConfig": "libs/entities/profile/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/domain/social/tsconfig.lib.json"
+          "tsConfig": "libs/entities/profile/tsconfig.lib.json"
         },
         "development": {}
       },

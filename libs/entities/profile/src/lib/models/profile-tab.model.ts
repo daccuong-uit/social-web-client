@@ -1,4 +1,4 @@
-import type { Post } from '@fe/domain/social';
+import type { Post } from '@fe/entities/social';
 
 export type ProfileTabId = 'posts' | 'about' | 'videos' | 'reels' | 'stories' | 'novels' | 'friends' | 'groups';
 

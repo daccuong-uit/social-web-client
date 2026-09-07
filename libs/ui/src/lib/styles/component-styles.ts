@@ -31,24 +31,24 @@ export const COMPONENT_STYLES = {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: calc(var(--padding-scale, 1) * 0.5rem);
+      gap: var(--button-gap);
       
-      padding: 0 calc(var(--padding-scale, 1) * 1rem);
-      height: calc(var(--padding-scale, 1) * 2.5rem);
-      min-width: 2.5rem;
+      padding: 0 var(--button-padding-inline);
+      height: var(--button-height);
+      min-width: var(--button-min-width);
       
-      font-family: var(--font-family, 'Outfit', sans-serif);
-      font-size: calc(var(--font-size-scale, 1) * 1rem);
-      font-weight: 600;
+      font-family: var(--font-family);
+      font-size: var(--type-body);
+      font-weight: var(--font-weight-medium);
       line-height: calc(var(--line-height, 1.5));
       
       border: 1px solid var(--color-btn-border);
-      border-radius: 0.5rem;
+      border-radius: var(--button-radius);
       background-color: var(--color-btn-bg);
       color: var(--color-text-base);
       
       cursor: pointer;
-      transition: all 0.15s ease-in-out;
+      transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
       white-space: nowrap;
       text-decoration: none;
       
@@ -98,8 +98,11 @@ export const COMPONENT_STYLES = {
     `,
 
     icon: `
-      width: calc(var(--padding-scale, 1) * 2.5rem);
+      width: var(--button-height);
+      height: var(--button-height);
       padding: 0;
+      min-width: var(--button-height);
+      border-radius: 50%;
     `,
   },
 
@@ -114,8 +117,8 @@ export const COMPONENT_STYLES = {
       padding: calc(var(--padding-scale, 1) * 0.75rem) calc(var(--padding-scale, 1) * 1rem);
       height: calc(var(--padding-scale, 1) * 2.5rem);
       
-      font-family: var(--font-family, 'Outfit', sans-serif);
-      font-size: calc(var(--font-size-scale, 1) * 1rem);
+      font-family: var(--font-family);
+      font-size: var(--type-body);
       line-height: calc(var(--line-height, 1.5));
       
       border: 1px solid var(--color-border-subtle);
@@ -200,36 +203,36 @@ export const COMPONENT_STYLES = {
   // ══════════════════════════════════════════════════════════════
   text: {
     h1: `
-      font-size: calc(var(--font-size-scale, 1) * 2rem);
-      font-weight: 700;
+      font-size: var(--type-title);
+      font-weight: var(--font-weight-strong);
       line-height: calc(var(--line-height, 1.5) * 1.2);
       margin: 0;
     `,
 
     h2: `
-      font-size: calc(var(--font-size-scale, 1) * 1.75rem);
-      font-weight: 700;
+      font-size: var(--type-title);
+      font-weight: var(--font-weight-strong);
       line-height: calc(var(--line-height, 1.5) * 1.2);
       margin: 0;
     `,
 
     h3: `
-      font-size: calc(var(--font-size-scale, 1) * 1.5rem);
-      font-weight: 700;
+      font-size: var(--type-heading);
+      font-weight: var(--font-weight-strong);
       line-height: calc(var(--line-height, 1.5) * 1.2);
       margin: 0;
     `,
 
     body: `
-      font-size: calc(var(--font-size-scale, 1) * 1rem);
-      font-weight: 400;
+      font-size: var(--type-body);
+      font-weight: var(--font-weight-regular);
       line-height: calc(var(--line-height, 1.5));
       margin: 0;
     `,
 
     caption: `
-      font-size: calc(var(--font-size-scale, 1) * 0.75rem);
-      font-weight: 400;
+      font-size: var(--type-caption);
+      font-weight: var(--font-weight-regular);
       line-height: calc(var(--line-height, 1.5));
       color: var(--color-text-muted);
       margin: 0;

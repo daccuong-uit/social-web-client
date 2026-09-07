@@ -1,5 +1,5 @@
 import { Injectable, signal, inject } from '@angular/core';
-import { SocialPostService, Post, CreatePostPayload } from '@fe/domain/social';
+import { SocialPostService, Post, CreatePostPayload } from '@fe/entities/social';
 import { take } from 'rxjs/operators';
 
 @Injectable({

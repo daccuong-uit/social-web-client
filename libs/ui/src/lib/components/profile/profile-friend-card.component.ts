@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiButton } from '../../button/button';
-import { ProfileFriend } from '@fe/domain/profile';
+import { ProfileFriend } from '@fe/entities/profile';
 
 @Component({
   selector: 'app-profile-friend-card',
@@ -75,16 +75,16 @@ import { ProfileFriend } from '@fe/domain/profile';
     h3 {
       margin: 0;
       font-size: var(--font-size-body);
-      font-weight: 700;
+      font-weight: var(--font-weight-strong);
       color: var(--color-text-base);
-      line-height: 1.2;
+      line-height: var(--type-leading-tight);
     }
 
     .profile-card-meta {
       margin: 0;
       font-size: var(--font-size-caption);
       color: var(--color-text-muted);
-      line-height: 1.2;
+      line-height: var(--type-leading-tight);
     }
 
     .friend-card-middle {

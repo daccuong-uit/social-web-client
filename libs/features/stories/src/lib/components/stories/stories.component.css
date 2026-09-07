@@ -24,8 +24,8 @@
 }
 
 .placeholder-icon {
-  font-size: 3rem;
-  line-height: 1;
+  font-size: var(--type-display);
+  line-height: var(--type-leading-normal);
 }
 
 .module-placeholder h2 {
@@ -40,5 +40,5 @@
   color: var(--color-text-muted);
   margin: 0;
   max-width: 320px;
-  line-height: 1.6;
+  line-height: var(--type-leading-normal);
 }

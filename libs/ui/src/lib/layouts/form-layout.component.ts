@@ -109,14 +109,14 @@ import { UiSettingsService } from '@fe/core';
     }
 
     .form-title {
-      font-size: calc(var(--font-size-scale, 1) * 1.75rem);
-      font-weight: 700;
+      font-size: var(--type-title);
+      font-weight: var(--font-weight-strong);
       margin: 0 0 0.5rem 0;
       color: var(--color-text-base);
     }
 
     .form-subtitle {
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
+      font-size: var(--type-small);
       color: var(--color-text-muted);
       margin: 0;
     }
@@ -143,8 +143,8 @@ import { UiSettingsService } from '@fe/core';
       padding: calc(var(--padding-scale, 1) * 0.75rem) calc(var(--padding-scale, 1) * 1.5rem);
       border-radius: 0.5rem;
       border: 1px solid;
-      font-size: calc(var(--font-size-scale, 1) * 1rem);
-      font-weight: 600;
+      font-size: var(--type-body);
+      font-weight: var(--font-weight-medium);
       cursor: pointer;
       transition: all 0.15s ease-in-out;
       white-space: nowrap;
@@ -184,7 +184,7 @@ import { UiSettingsService } from '@fe/core';
       border: 1px solid var(--color-danger);
       border-radius: 0.5rem;
       color: var(--color-danger);
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
+      font-size: var(--type-small);
     }
 
     .error-icon {
@@ -202,7 +202,7 @@ import { UiSettingsService } from '@fe/core';
       border: 1px solid var(--color-success);
       border-radius: 0.5rem;
       color: var(--color-success);
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
+      font-size: var(--type-small);
     }
 
     .success-icon {

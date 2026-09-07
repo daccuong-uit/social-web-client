@@ -9,7 +9,7 @@ import {
   DestroyRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocialReelFacade } from '@fe/domain/social';
+import { SocialReelFacade } from '@fe/entities/social';
 import { TabKeepAliveService } from '@fe/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReelItemComponent } from '../reel-item/reel-item.component';

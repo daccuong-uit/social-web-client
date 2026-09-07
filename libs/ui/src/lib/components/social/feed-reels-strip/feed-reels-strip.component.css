@@ -1,4 +1,4 @@
-﻿/* ══════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    Feed Reels Strip – Style đính kèm theo Featured Reels
 ══════════════════════════════════════════════════════ */
 
@@ -17,8 +17,8 @@
 }
 
 .strip-title {
-  font-size: var(--font-size-subtitle, 0.95rem);
-  font-weight: var(--font-weight-heavy, 700);
+  font-size: var(--type-body-lg);
+  font-weight: var(--font-weight-heavy);
   color: var(--color-text-base, #0f172a);
 }
 
@@ -26,8 +26,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: var(--font-size-caption, 0.8rem);
-  font-weight: var(--font-weight-medium, 500);
+  font-size: var(--type-caption);
+  font-weight: var(--font-weight-medium);
   color: var(--color-brand-primary, #fe2c55);
   padding: 0;
   transition: opacity 0.15s ease;
@@ -113,8 +113,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--type-micro);
+  font-weight: var(--font-weight-strong);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -128,8 +128,8 @@
 }
 
 .reel-avatar-letter {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--type-micro);
+  font-weight: var(--font-weight-strong);
   color: #ffffff;
   text-transform: uppercase;
 }
@@ -149,8 +149,8 @@
 }
 
 .reel-label-inside {
-  font-size: var(--font-size-caption, 0.78rem);
-  font-weight: 600;
+  font-size: var(--type-caption);
+  font-weight: var(--font-weight-medium);
   color: #ffffff;
   display: block;
   overflow: hidden;

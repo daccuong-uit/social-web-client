@@ -5,7 +5,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UiButton } from '../../../button/button';
-import { CreatePostPayload, PostPrivacy, Post } from '@fe/domain/social';
+import { CreatePostPayload, PostPrivacy, Post } from '@fe/entities/social';
 import { AuthService } from '@fe/core';
 import { PostCardComponent } from '../post-card/post-card.component';
 

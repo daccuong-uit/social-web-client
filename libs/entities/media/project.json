@@ -1,21 +1,21 @@
 {
-  "name": "domain-media",
+  "name": "entity-media",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/domain/media/src",
-  "prefix": "domain-media",
+  "sourceRoot": "libs/entities/media/src",
+  "prefix": "entity-media",
   "projectType": "library",
-  "tags": ["type:domain", "scope:media"],
+  "tags": ["type:entity", "scope:media"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/domain/media/ng-package.json",
-        "tsConfig": "libs/domain/media/tsconfig.lib.json"
+        "project": "libs/entities/media/ng-package.json",
+        "tsConfig": "libs/entities/media/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/domain/media/tsconfig.lib.json"
+          "tsConfig": "libs/entities/media/tsconfig.lib.json"
         },
         "development": {}
       },

@@ -26,8 +26,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
       gap: 0.5rem;
     }
     lib-input label {
-      font-size: 0.875rem;
-      font-weight: 500;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
       color: var(--color-text-muted);
       margin-left: 0.25rem;
     }
@@ -36,8 +36,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
       width: 100%;
       border-radius: 1rem;
       padding: 0 1.25rem;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1rem;
+      font-family: var(--font-family);
+      font-size: var(--type-body);
       background: var(--color-surface-subtle);
       border: 1px solid transparent;
       color: var(--color-text-base);
@@ -53,7 +53,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
       color: var(--color-text-muted / 0.5);
     }
     lib-input .error-message {
-      font-size: 0.75rem;
+      font-size: var(--type-caption);
       color: var(--color-danger);
       margin-top: 0.25rem;
       margin-left: 0.25rem;

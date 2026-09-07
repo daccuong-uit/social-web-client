@@ -12,6 +12,18 @@ import { CommonModule } from '@angular/common';
       min-width: fit-content;
     }
 
+    :root {
+      --button-height: 2rem;
+      --button-min-width: 5rem;
+      --button-padding-inline: 0.1rem;
+      --button-gap: 0.5rem;
+      --button-radius: 0.5rem;
+      --button-font-size: var(--type-small);
+      --button-font-weight: var(--font-weight-medium);
+      --button-focus-ring: 0 0 0 3px rgb(42 171 238 / 0.28);
+      --button-transition: 160ms cubic-bezier(0.2, 0, 0, 1);
+    }
+
     lib-button button,
     button.btn,
     .btn,
@@ -34,21 +46,69 @@ import { CommonModule } from '@angular/common';
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.75rem));
+      width: auto;
+      min-width: var(--button-min-width);
+      height: var(--button-height);
+      min-height: var(--button-height);
       box-sizing: border-box;
       border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
-      padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.375rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.75rem));
-      font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
-      font-size: var(--font-size-caption);
-      font-weight: var(--button-font-weight, 400);
+      padding: 0 var(--button-padding-inline);
+      font-family: var(--font-family);
+      font-size: var(--button-font-size);
+      font-weight: var(--button-font-weight);
       line-height: 1;
-      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
       cursor: pointer;
       border: 1px solid transparent;
       white-space: nowrap;
-      gap: 0.3rem;
+      gap: var(--button-gap);
       box-shadow: none;
       text-decoration: none;
+    }
+
+    lib-button button > .ui-button__content,
+    button.btn > .ui-button__content,
+    .btn > .ui-button__content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: inherit;
+      min-width: 0;
+      line-height: 1;
+    }
+
+    lib-button button svg,
+    lib-button button img,
+    button.btn svg,
+    button.btn img,
+    .btn svg,
+    .btn img {
+      display: block;
+      flex: 0 0 auto;
+      width: 1.125rem;
+      height: 1.125rem;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    lib-button button.icon-only,
+    button.btn.icon-only,
+    .btn.icon-only {
+      width: var(--button-height);
+      min-width: var(--button-height);
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    lib-button button:focus-visible,
+    button.btn:focus-visible,
+    .btn:focus-visible,
+    .option-btn:focus-visible,
+    .reset-btn:focus-visible,
+    .preview-btn:focus-visible {
+      outline: 2px solid var(--color-brand-primary);
+      outline-offset: 2px;
+      box-shadow: var(--button-focus-ring);
     }
 
     lib-button button {
@@ -133,11 +193,51 @@ import { CommonModule } from '@angular/common';
       border-color: currentColor;
     }
 
+    lib-button button.danger,
+    button.btn-danger,
+    .btn-danger {
+      background-color: var(--color-danger);
+      border-color: var(--color-danger);
+      color: var(--color-text-inverse, #fff);
+    }
+
+    lib-button button.link,
+    button.btn-link,
+    .btn-link {
+      min-width: 0;
+      padding-inline: 0.25rem;
+      background: transparent;
+      border-color: transparent;
+      color: var(--color-brand-primary);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
     /* Active & Disabled states */
     lib-button button:active:not(:disabled),
     button.btn:active:not(:disabled),
     .btn:active:not(:disabled) {
       transform: scale(0.98);
+    }
+
+    lib-button button.loading,
+    button.btn.loading,
+    .btn.loading {
+      cursor: wait;
+      pointer-events: none;
+    }
+
+    .ui-button__spinner {
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: ui-button-spin 600ms linear infinite;
+    }
+
+    @keyframes ui-button-spin {
+      to { transform: rotate(360deg); }
     }
 
     lib-button button:disabled,
@@ -152,21 +252,26 @@ import { CommonModule } from '@angular/common';
   template: `
     <button
       [type]="type"
-      [disabled]="disabled"
-      [class]="variant"
+      [disabled]="disabled || loading"
+      [class]="variant + (iconOnly ? ' icon-only' : '') + (loading ? ' loading' : '')"
+      [attr.aria-busy]="loading"
     >
-      <ng-content />
+      @if (loading) {
+        <span class="ui-button__spinner" aria-hidden="true"></span>
+      }
+      <span class="ui-button__content"><ng-content /></span>
     </button>
   `,
 })
 /**
  * `UiButton` — Standardized Button Component for the UI Library.
  * 
- * Supports 3 unified variants with standardized height (1.625rem), compact padding (0.15rem 0.5rem),
- * border-radius (0.5rem), font-size (0.875rem), and 500 font weight:
+ * Supports unified dimensions and variants with aligned icon/image content:
  * - `primary`: High-contrast solid brand action button.
  * - `outline`: Clean surface button with subtle border.
  * - `ghost`: Transparent accent/text button.
+ * - `danger`: Destructive solid action.
+ * - `link`: Text-only action.
  * 
  * @example
  * ```html
@@ -179,9 +284,15 @@ export class UiButton {
   /** Standard HTML button element type */
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
-  /** Visual variant type: 'primary' | 'outline' | 'ghost' */
-  @Input() variant: 'primary' | 'outline' | 'ghost' = 'primary';
+  /** Visual treatment only; dimensions remain shared across variants. */
+  @Input() variant: 'primary' | 'outline' | 'ghost' | 'danger' | 'link' = 'primary';
 
   /** Disabled state boolean */
   @Input() disabled = false;
+
+  /** Replaces projected content with a consistent spinner while preserving button width. */
+  @Input() loading = false;
+
+  /** Makes the button a circular icon-only control. */
+  @Input() iconOnly = false;
 }

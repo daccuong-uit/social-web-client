@@ -21,22 +21,6 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       <div class="settings-section">
         <h3 class="section-title">Typography</h3>
         
-        <!-- Font Family -->
-        <div class="setting-item">
-          <label class="setting-label">Font Family</label>
-          <div class="setting-options">
-            <button 
-              *ngFor="let font of fontFamilyOptions"
-              [class.active]="fontFamily$() === font.value"
-              (click)="updateFontFamily(font.value)"
-              class="option-btn"
-              [style.fontFamily]="font.style"
-            >
-              {{ font.label }}
-            </button>
-          </div>
-        </div>
-
         <!-- Font Size -->
         <div class="setting-item">
           <label class="setting-label">Font Size</label>
@@ -162,14 +146,14 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
 
     .settings-title {
       font-size: var(--font-size-subtitle);
-      font-weight: var(--button-font-weight, 500);
+      font-weight: var(--font-weight-regular);
       margin: 0 0 0.5rem 0;
       color: var(--color-text-base);
     }
 
     .settings-note {
-      font-size: calc(var(--font-size-scale, 1) * 0.8rem);
-      line-height: 1.65;
+      font-size: var(--type-small);
+      line-height: var(--type-leading-normal);
       margin: 0 0 1.3rem 0;
       color: var(--color-text-muted);
       max-width: 42rem;
@@ -182,7 +166,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
 
     .section-title {
       font-size: var(--font-size-subtitle);
-      font-weight: var(--font-weight-medium, 600);
+      font-weight: var(--font-weight-medium);
       margin: 0 0 1.5rem 0;
       color: var(--color-text-base);
     }
@@ -197,8 +181,8 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
 
     .setting-label {
       display: block;
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
-      font-weight: var(--font-weight-medium, 600);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-medium);
       margin-bottom: 0.75rem;
       color: var(--color-text-base);
     }
@@ -217,9 +201,9 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
       background-color: var(--color-surface-base);
       color: var(--color-text-base);
-      font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
-      font-size: var(--button-font-size, calc(var(--font-size-scale, 1) * 0.8125rem));
-      font-weight: var(--button-font-weight, 400);
+      font-family: var(--font-family-ui);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
       cursor: pointer;
       transition: all 0.15s ease-in-out;
       box-shadow: none;
@@ -244,9 +228,9 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
       background-color: var(--color-surface-base);
       color: var(--color-text-base);
-      font-family: var(--font-family-ui, 'Inter', system-ui, sans-serif);
-      font-size: var(--button-font-size, calc(var(--font-size-scale, 1) * 0.8125rem));
-      font-weight: var(--button-font-weight, 400);
+      font-family: var(--font-family-ui);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
       cursor: pointer;
       box-shadow: none;
     }
@@ -280,7 +264,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       align-items: center;
       gap: 0.75rem;
       cursor: pointer;
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
+      font-size: var(--type-small);
       color: var(--color-text-base);
     }
 
@@ -302,8 +286,8 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       color: var(--color-brand-primary);
       border: 1px solid currentColor;
       border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
-      font-size: var(--button-font-size, calc(var(--font-size-scale, 1) * 0.8125rem));
-      font-weight: var(--button-font-weight, 400);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
       cursor: pointer;
       transition: all 0.15s ease-in-out;
     }
@@ -325,20 +309,20 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
     }
 
     .preview-text-lg {
-      font-size: calc(var(--font-size-scale, 1) * 1.5rem);
-      font-weight: var(--font-weight-medium, 600);
+      font-size: var(--type-heading);
+      font-weight: var(--font-weight-medium);
       margin: 0 0 1rem 0;
     }
 
     .preview-text-md {
-      font-size: calc(var(--font-size-scale, 1) * 1rem);
-      font-weight: 400;
+      font-size: var(--type-body);
+      font-weight: var(--font-weight-regular);
       margin: 0 0 0.75rem 0;
     }
 
     .preview-text-sm {
-      font-size: calc(var(--font-size-scale, 1) * 0.875rem);
-      font-weight: 400;
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
       margin: 0 0 1.5rem 0;
       color: var(--color-text-muted);
     }
@@ -349,8 +333,8 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       color: var(--color-text-inverse, #ffffff);
       border: 1px solid var(--color-brand-primary);
       border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
-      font-size: var(--button-font-size, calc(var(--font-size-scale, 1) * 0.8125rem));
-      font-weight: var(--button-font-weight, 400);
+      font-size: var(--type-small);
+      font-weight: var(--font-weight-regular);
       cursor: pointer;
       transition: all 0.15s ease-in-out;
     }
@@ -377,16 +361,6 @@ export class UiSettingsComponent {
   // ══════════════════════════════════════════════════════════════
   // Options for UI
   // ══════════════════════════════════════════════════════════════
-  fontFamilyOptions = [
-    { value: 'ui' as const, label: 'Outfit', style: "'Outfit', sans-serif" },
-    { value: 'heading' as const, label: 'Syne', style: "'Syne', sans-serif" },
-    { value: 'body' as const, label: 'Inter', style: "'Inter', sans-serif" },
-    { value: 'display' as const, label: 'Playfair', style: "'Playfair Display', serif" },
-    { value: 'roboto' as const, label: 'Roboto', style: "'Roboto', sans-serif" },
-    { value: 'nunito' as const, label: 'Nunito', style: "'Nunito', sans-serif" },
-    { value: 'montserrat' as const, label: 'Montserrat', style: "'Montserrat', sans-serif" },
-  ];
-
   fontSizeOptions = [
     { value: 'compact' as const, label: 'Compact', preview: '-20%' },
     { value: 'normal' as const, label: 'Normal', preview: '100%' },
@@ -418,10 +392,6 @@ export class UiSettingsComponent {
   // ══════════════════════════════════════════════════════════════
   // Event Handlers
   // ══════════════════════════════════════════════════════════════
-  updateFontFamily(value: UiSettings['fontFamily']): void {
-    this.settingsService.updateSetting('fontFamily', value);
-  }
-
   updateFontSize(value: UiSettings['fontSize']): void {
     this.settingsService.updateSetting('fontSize', value);
   }

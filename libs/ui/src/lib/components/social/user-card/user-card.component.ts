@@ -4,7 +4,7 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from '@fe/domain/social';
+import { User } from '@fe/entities/social';
 import { FollowButtonComponent } from '../follow-button/follow-button.component';
 
 @Component({
@@ -86,22 +86,22 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
 
       .fullname {
         margin: 0;
-        font-size: 15px;
-        font-weight: 700;
+        font-size: var(--type-body);
+        font-weight: var(--font-weight-strong);
         color: #000;
       }
 
       .username {
         margin: 2px 0 0 0;
-        font-size: 13px;
+        font-size: var(--type-small);
         color: #666;
       }
 
       .bio {
         margin: 12px 0;
-        font-size: 14px;
+        font-size: var(--type-small);
         color: #555;
-        line-height: 1.4;
+        line-height: var(--type-leading-tight);
       }
 
       .stats {
@@ -120,13 +120,13 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
       }
 
       .stat-count {
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: var(--font-weight-strong);
+        font-size: var(--type-body);
         color: #000;
       }
 
       .stat-label {
-        font-size: 12px;
+        font-size: var(--type-caption);
         color: #666;
         margin-top: 2px;
       }
@@ -144,10 +144,10 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
         border: 1px solid #e0e0e0;
         background: #fff;
         color: #000;
-        font-weight: 600;
+        font-weight: var(--font-weight-medium);
         cursor: pointer;
         transition: all 0.2s ease;
-        font-size: 14px;
+        font-size: var(--type-small);
 
         &:hover {
           background: #f5f5f5;

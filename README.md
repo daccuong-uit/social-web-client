@@ -38,20 +38,21 @@
 │   │       ├── interceptors/   # HTTP auth + error interceptors
 │   │       └── guards/         # AuthGuard, GuestGuard
 │   │
-│   ├── ui/                     # tag: type:ui
+│   ├── ui/                     # tag: type:ui — reusable presentation components
 │   │   └── src/lib/
 │   │       ├── button/         # UiButton — raw CSS (no Tailwind dependency)
 │   │       └── card/           # UiCard — glassmorphism card
 │   │
-│   └── features/               # tag: type:feature
+│   ├── entities/               # tag: type:entity — domain models and data access
+│   │   ├── profile/
+│   │   ├── media/
+│   │   └── social/
+│   │
+│   └── features/               # tag: type:feature — user-facing vertical slices
 │       ├── auth/               # scope:auth — Login, Register (lazy loaded at /auth)
 │       ├── home/               # scope:home — Homepage and quick links
 │       ├── media/              # scope:media — Creator and admin media management
 │       └── dashboard/          # scope:dashboard — Dashboard (lazy loaded at /dashboard)
-│
-├── docs/
-│   ├── ai/                     # Playbook, agent roles (Strategic documentation)
-│   └── architecture/           # Design tokens, i18n, monorepo-structure (Technical specs)
 │
 └── nx.json, tsconfig.base.json, eslint.config.mjs
 ```
@@ -60,7 +61,7 @@
 
 ```
 type:app     → can use: type:core, type:ui, type:feature
-type:feature → can use: type:core, type:ui
+type:feature → can use: type:core, type:ui, type:entity
 type:ui      → can use: type:core
 type:core    → can use: type:core only
 ```
@@ -161,12 +162,10 @@ The commands above are for repository development and CI only. The supported app
 - **Shared Table Component**: reusable table in `libs/ui/src/lib/components/shared-table` for list views across media and future admin pages.
 - **Route organization**: `/media` lazy-loads `@fe/features/media`, preserving separate creator and admin flows.
 
-## Architecture Decisions
+## Architecture Rules
 
-See [`docs/architecture/`](./docs/architecture/) for:
-- Design Tokens specification
-- i18n guidelines
-- Monorepo structure and module boundaries
-- Media feature architecture and route design
-
-See [`docs/ai/frontend-ai-playbook.md`](./docs/ai/frontend-ai-playbook.md) for the full roadmap and FE philosophy.
+- `apps/app-shell` contains only bootstrap, global configuration, and top-level routes.
+- `libs/core` contains singleton infrastructure such as guards, interceptors, and services.
+- `libs/entities` contains domain models and data-access services without page composition.
+- `libs/features` owns routes, pages, feature-specific UI, and feature state.
+- `libs/ui` contains reusable presentation components and has no feature dependencies.
