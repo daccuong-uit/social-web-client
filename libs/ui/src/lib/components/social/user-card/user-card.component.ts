@@ -54,7 +54,7 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
       .user-card {
         background: #fff;
         border: 1px solid #e0e0e0;
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 16px;
         transition: all 0.2s ease;
 
@@ -74,7 +74,7 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
       .avatar {
         width: 48px;
         height: 48px;
-        border-radius: 50%;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }
@@ -140,7 +140,7 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
       .action-btn {
         flex: 1;
         padding: 8px 12px;
-        border-radius: 20px;
+        border-radius: 8px;
         border: 1px solid #e0e0e0;
         background: #fff;
         color: #000;

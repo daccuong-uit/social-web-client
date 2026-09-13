@@ -2,7 +2,7 @@
   display: block;
   position: sticky;
   top: 0;
-  z-index: 120;
+  z-index: var(--z-header, 120);
 }
 
 .shared-header {
@@ -61,7 +61,7 @@
   margin-inline-start: 2px;
   position: relative;
   left: 2px;
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   box-sizing: border-box;
 }
 
@@ -69,7 +69,7 @@
   display: block;
   width: 16px;
   height: 2px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: currentColor;
 }
 
@@ -79,7 +79,7 @@
   gap: var(--spacing-2);
   min-width: 0;
   padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   color: inherit;
   text-decoration: none;
 }
@@ -116,7 +116,7 @@
   transform: translateX(-50%);
   padding: 0 var(--spacing-3);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--color-surface-subtle);
   color: var(--color-text-muted);
 }
@@ -151,7 +151,7 @@
   width: 34px;
   height: 34px;
   padding: 0;
-  border-radius: 50%;
+  border-radius: 8px;
 }
 
 .header-user {
@@ -160,7 +160,7 @@
   gap: var(--spacing-2);
   position: relative;
   padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-1);
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
   user-select: none;
 }
@@ -169,7 +169,7 @@
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
-  border-radius: 50%;
+  border-radius: 8px;
   background-position: center;
   background-size: cover;
   background-color: var(--color-brand-primary);
@@ -207,7 +207,7 @@
   width: min(280px, 78vw);
   padding: var(--spacing-2);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--card-border-radius);
+  border-radius: 8px;
   background: var(--color-surface-base);
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
 }
@@ -219,7 +219,7 @@
   width: 100%;
   padding: var(--spacing-3) var(--spacing-2-5);
   border: 0;
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   background: transparent;
   color: var(--color-text-base);
   font-size: var(--type-body);
@@ -243,7 +243,7 @@
   width: 8px;
   height: 8px;
   flex: 0 0 8px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-brand-primary);
 }
 

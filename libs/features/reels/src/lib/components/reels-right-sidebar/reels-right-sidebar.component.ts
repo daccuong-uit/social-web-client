@@ -4,12 +4,11 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@fe/core';
 import { SocialReelFacade } from '@fe/entities/social';
-import { CurrentUserCardComponent } from '@fe/ui';
 import { ReelsCommentsComponent } from '../reels-comments/reels-comments.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReelsCommentsComponent, CurrentUserCardComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ReelsCommentsComponent],
   selector: 'fe-reels-right-sidebar',
   templateUrl: './reels-right-sidebar.component.html',
   styleUrls: ['./reels-right-sidebar.component.css'],

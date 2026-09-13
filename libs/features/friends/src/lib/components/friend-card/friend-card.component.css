@@ -88,7 +88,7 @@
   flex-direction: column;
   /* Light border, very slightly rounded — almost square */
   border: 1px solid var(--color-border-subtle);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .avatar-card:hover {
@@ -103,7 +103,7 @@
   overflow: hidden;
   flex-shrink: 0;
   /* Top corners match card radius */
-  border-radius: 6px 6px 0 0;
+  border-radius: 8px;
 }
 
 .avatar-img {
@@ -178,7 +178,7 @@
   box-sizing: border-box;
   /* BUG: Remove ALL borders from list-row cards */
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
 }
 
 .list-row:hover {
@@ -205,7 +205,7 @@
   width: 48px;
   height: 48px;
   min-width: 48px;
-  border-radius: 50%;
+  border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
 }

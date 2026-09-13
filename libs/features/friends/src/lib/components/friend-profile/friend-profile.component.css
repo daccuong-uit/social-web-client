@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100%;
   background: var(--color-surface-base);
-  border-radius: 0;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -46,7 +46,7 @@
 .profile-avatar-wrap {
   width: 72px; /* Reduced avatar size */
   height: 72px;
-  border-radius: 50%;
+  border-radius: 8px;
   border: 3px solid var(--color-surface-base);
   background-color: var(--color-surface-base);
   overflow: hidden;
@@ -177,7 +177,7 @@
 
 .featured-reel-card {
   width: 100%;
-  border-radius: calc(var(--spacing-scale-base) * 2);
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   background: var(--color-surface-subtle);
@@ -329,6 +329,6 @@
   width: 80%;
   max-width: 380px;
   min-height: 240px;
-  border-radius: 12px;
+  border-radius: 8px;
   background: transparent;
 }

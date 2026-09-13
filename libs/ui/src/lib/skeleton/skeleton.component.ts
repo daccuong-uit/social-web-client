@@ -31,28 +31,28 @@ import { CommonModule } from '@angular/common';
       );
       background-size: 200% 100%;
       animation: shimmer 2s infinite;
-      border-radius: 0.25rem;
+      border-radius: 8px;
     }
 
     .skeleton--text {
       height: 1rem;
       margin-bottom: 0.5rem;
-      border-radius: 0.25rem;
+      border-radius: 8px;
     }
 
     .skeleton--circle {
-      border-radius: 50%;
+      border-radius: 8px;
       width: 2.5rem;
       height: 2.5rem;
     }
 
     .skeleton--rect {
-      border-radius: 0.5rem;
+      border-radius: 8px;
       aspect-ratio: 16 / 9;
     }
 
     .skeleton--card {
-      border-radius: 0.5rem;
+      border-radius: 8px;
       padding: 1rem;
       background-color: rgba(0, 0, 0, 0.02);
     }

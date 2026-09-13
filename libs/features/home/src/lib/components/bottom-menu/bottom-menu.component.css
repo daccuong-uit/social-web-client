@@ -10,7 +10,7 @@
   padding: var(--home-sidebar-padding-top, var(--spacing-2)) var(--home-sidebar-padding-horizontal, var(--spacing-4)) var(--home-sidebar-padding-bottom, 0px);
   background: var(--color-surface-base, #ffffff);
   border: 1px solid var(--color-border-subtle, rgba(226, 232, 240, 0.8));
-  border-radius: 0;
+  border-radius: 8px;
   width: calc(var(--home-sidebar-width, 280px) * 1.3);
   box-sizing: border-box;
   min-height: 100vh;
@@ -27,7 +27,7 @@
   gap: var(--spacing-2-5);
   padding: var(--home-brand-padding-vertical, calc(var(--spacing-scale-base) * 1.5)) var(--home-brand-padding-horizontal, var(--spacing-3));
   margin-left: var(--home-brand-offset-left, -16px);
-  border-radius: 12px;
+  border-radius: 8px;
   background: transparent;
   color: inherit;
   text-decoration: none;
@@ -45,7 +45,7 @@
   min-width: var(--home-brand-icon-size, 44px);
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 8px;
   background: transparent;
   border: none;
   color: var(--color-text-base, #0f172a);
@@ -78,7 +78,7 @@
 }
 
 .home-sidebar-panel ::ng-deep .sidebar-menu a {
-  border-radius: 14px;
+  border-radius: 8px;
 }
 
 .user-profile-mini {
@@ -89,7 +89,7 @@
   gap: var(--spacing-2-5);
   padding: calc(var(--spacing-scale-base) * 2) var(--spacing-3);
   min-height: var(--home-menu-item-height, 44px);
-  border-radius: 12px;
+  border-radius: 8px;
   background: transparent;
   border: none;
   color: inherit;
@@ -107,7 +107,7 @@
   min-width: var(--home-profile-avatar-size, 28px);
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-brand-primary, #fe2c55);
   color: var(--color-surface-base, #ffffff);
 }

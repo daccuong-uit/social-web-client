@@ -5,7 +5,7 @@
   gap: 0;
   background: transparent;
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   overflow: visible;
   color: var(--color-text-base, #0f172a);
   font-family: inherit;
@@ -21,7 +21,7 @@
   padding: 0;
   background: var(--color-surface-base, #ffffff);
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   border-bottom: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24));
   box-sizing: border-box;
 }
@@ -33,7 +33,7 @@
   max-width: 100%;
   padding: 0 calc(12px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1));
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   background: transparent;
   gap: 0;
   box-sizing: border-box;
@@ -57,7 +57,7 @@
   min-height: calc(52px * var(--padding-scale, 1)) !important;
   padding: 0 0 0 calc(52px * var(--padding-scale, 1)) !important;
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   background: transparent;
   color: var(--color-text-muted, rgba(107, 114, 128, 0.72));
   text-align: left;
@@ -92,7 +92,7 @@
   z-index: 0;
   width: var(--avatar-size-md);
   height: var(--avatar-size-md);
-  border-radius: 50%;
+  border-radius: 8px;
   background: linear-gradient(135deg, var(--color-brand-primary, #fe2c55), rgba(254, 44, 85, 0.75));
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
@@ -201,7 +201,7 @@
   width: 100%;
   padding: calc(12px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1)) calc(42px * var(--padding-scale, 1));
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.12));
-  border-radius: calc(20px * var(--padding-scale, 1));
+  border-radius: 8px;
   background: var(--color-surface-base, #ffffff);
   color: var(--color-text-base, #0f172a);
   font-size: var(--font-size-body);
@@ -239,7 +239,7 @@
   height: var(--button-height);
   min-height: var(--button-height);
   border: 1px solid var(--color-border-subtle, #d0d7de);
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   background: var(--color-surface-base, #ffffff);
   color: var(--color-text-muted, #65676b);
   cursor: pointer;
@@ -298,7 +298,7 @@
   cursor: pointer;
   font-size: var(--font-size-caption);
   padding: calc(8px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
-  border-radius: 9999px;
+  border-radius: 8px;
   white-space: nowrap;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -345,7 +345,7 @@
 .post-btn {
   padding: calc(10px * var(--padding-scale, 1)) calc(22px * var(--padding-scale, 1));
   border: none;
-  border-radius: 9999px;
+  border-radius: 8px;
   background: var(--color-brand-primary, #fe2c55);
   color: var(--color-text-inverse, #fff);
   font-size: var(--font-size-label);
@@ -405,7 +405,7 @@
   min-width: calc(40px * var(--padding-scale, 1));
   width: calc(40px * var(--padding-scale, 1));
   height: calc(40px * var(--padding-scale, 1));
-  border-radius: 50%;
+  border-radius: 8px;
   background-color: var(--color-surface-subtle, #f3f4f6);
   background-size: cover;
   background-position: center;
@@ -454,7 +454,7 @@
   font-size: var(--font-size-caption);
   cursor: pointer;
   padding: calc(6px * var(--padding-scale, 1));
-  border-radius: 9999px;
+  border-radius: 8px;
   transition: background 0.2s ease, color 0.2s ease;
 }
 

@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styles: [`
     lib-card section {
       width: 100%;
-      border-radius: 1.5rem;
+      border-radius: 8px;
       padding: 2rem;
       background: var(--color-surface-card);
       backdrop-filter: blur(20px);

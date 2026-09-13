@@ -90,7 +90,7 @@
   max-width: 75%;
   height: 100%;
   background: var(--color-brand-primary, #fe2c55);
-  border-radius: 9999px 9999px 0 0;
+  border-radius: 8px;
 }
 
 /**

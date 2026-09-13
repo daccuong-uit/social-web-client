@@ -37,7 +37,7 @@ import { CommonModule } from '@angular/common';
 
     .dot {
       position: absolute;
-      border-radius: 999px;
+      border-radius: 8px;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
       animation: dot-pulse 1.1s ease-in-out infinite alternate;
     }

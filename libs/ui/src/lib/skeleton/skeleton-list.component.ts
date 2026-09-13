@@ -35,7 +35,7 @@ import { SkeletonComponent } from './skeleton.component';
       grid-template-columns: repeat(var(--cols, 3), 1fr);
       gap: 1rem;
       padding: 1rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       background-color: rgba(0, 0, 0, 0.02);
     }
 

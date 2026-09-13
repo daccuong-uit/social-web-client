@@ -52,7 +52,7 @@ import { CommonModule } from '@angular/common';
       height: var(--button-height);
       min-height: var(--button-height);
       box-sizing: border-box;
-      border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+      border-radius: 8px;
       padding: 0 var(--button-padding-inline);
       font-family: var(--font-family);
       font-size: var(--button-font-size);
@@ -115,7 +115,7 @@ import { CommonModule } from '@angular/common';
       width: var(--button-height);
       min-width: var(--button-height);
       padding: 0;
-      border-radius: var(--button-radius);
+      border-radius: 8px;
     }
 
     lib-button button:focus-visible,
@@ -249,7 +249,7 @@ import { CommonModule } from '@angular/common';
       height: 1rem;
       border: 2px solid currentColor;
       border-right-color: transparent;
-      border-radius: 50%;
+      border-radius: 8px;
       animation: ui-button-spin 600ms linear infinite;
     }
 

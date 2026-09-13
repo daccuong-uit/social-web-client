@@ -105,7 +105,7 @@ import { Comment } from '@fe/entities/social';
       .user-avatar {
         width: 36px;
         height: 36px;
-        border-radius: 50%;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }
@@ -119,7 +119,7 @@ import { Comment } from '@fe/entities/social';
       .comment-input {
         flex: 1;
         border: 1px solid #e0e0e0;
-        border-radius: 20px;
+        border-radius: 8px;
         padding: 10px 16px;
         font-size: var(--type-small);
         transition: border-color 0.2s ease;
@@ -135,7 +135,7 @@ import { Comment } from '@fe/entities/social';
         background: #0066cc;
         color: white;
         border: none;
-        border-radius: 20px;
+        border-radius: 8px;
         font-weight: var(--font-weight-medium);
         cursor: pointer;
         transition: background 0.2s ease;
@@ -172,7 +172,7 @@ import { Comment } from '@fe/entities/social';
       .avatar {
         width: 32px;
         height: 32px;
-        border-radius: 50%;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }
@@ -260,7 +260,7 @@ import { Comment } from '@fe/entities/social';
       .reply-avatar {
         width: 28px;
         height: 28px;
-        border-radius: 50%;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }

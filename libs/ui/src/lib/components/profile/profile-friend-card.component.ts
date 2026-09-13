@@ -53,7 +53,7 @@ import { ProfileFriend } from '@fe/entities/profile';
     .friend-avatar {
       width: 48px;
       height: 48px;
-      border-radius: 50%;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--color-border-subtle);
       background: var(--color-surface-subtle);
@@ -105,7 +105,7 @@ import { ProfileFriend } from '@fe/entities/profile';
       right: var(--spacing-4);
       width: 12px;
       height: 12px;
-      border-radius: 50%;
+      border-radius: 8px;
       background: #94a3b8;
     }
     .status-dot.online {

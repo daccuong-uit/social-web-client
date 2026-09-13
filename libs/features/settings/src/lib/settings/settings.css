@@ -49,7 +49,7 @@
   justify-content: center;
   width: var(--spacing-6);
   height: var(--spacing-6);
-  border-radius: 50%;
+  border-radius: 8px;
   background: transparent;
   color: inherit;
   border: none;
@@ -72,7 +72,7 @@
   flex-shrink: 0;
   background: var(--color-surface-base, #ffffff);
   border: 1px solid var(--color-border-subtle, rgba(226, 232, 240, 0.8));
-  border-radius: 12px;
+  border-radius: 8px;
   height: calc(100vh - 120px);
   position: sticky;
   top: 84px;
@@ -93,7 +93,7 @@
   flex: 1;
   background: var(--color-surface-base, #ffffff);
   border: 1px solid var(--color-border-subtle, rgba(226, 232, 240, 0.8));
-  border-radius: 12px;
+  border-radius: 8px;
   padding: calc(var(--spacing-scale-base) * 10.5) var(--spacing-8);
   overflow-y: auto;
   height: calc(100vh - 120px);
@@ -167,7 +167,7 @@
 .settings-row-link {
   cursor: pointer;
   transition: background 0.15s ease;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: calc(var(--spacing-scale-base) * 3.5) 0;
   margin: 0 calc(var(--spacing-scale-base) * -2);
 }
@@ -255,7 +255,7 @@
   width: 44px;
   height: 24px;
   background: var(--color-border-subtle, #cbd5e1);
-  border-radius: 9999px;
+  border-radius: 8px;
   position: relative;
   transition: background 0.25s;
 }
@@ -268,7 +268,7 @@
   width: 20px;
   height: 20px;
   background: white;
-  border-radius: 50%;
+  border-radius: 8px;
   transition: transform 0.25s;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
@@ -365,7 +365,7 @@
     position: sticky;
     top: 60px; /* Below the shared header */
     z-index: 10;
-    border-radius: 0;
+    border-radius: 8px;
     border: none;
     border-bottom: 1px solid var(--color-border-subtle, rgba(226, 232, 240, 0.8));
     padding: 0;
@@ -394,6 +394,6 @@
     padding: 24px 16px;
     height: auto;
     border: none;
-    border-radius: 0;
+    border-radius: 8px;
   }
 }

@@ -45,7 +45,7 @@ import { SkeletonComponent } from './skeleton.component';
       flex-direction: column;
       gap: 1rem;
       padding: 1.5rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       background-color: rgba(0, 0, 0, 0.02);
     }
 

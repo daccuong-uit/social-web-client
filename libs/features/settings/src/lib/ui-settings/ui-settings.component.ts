@@ -198,7 +198,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.625rem));
       padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.15rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.5rem));
       border: 1px solid var(--color-border-subtle);
-      border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+      border-radius: 8px;
       background-color: var(--color-surface-base);
       color: var(--color-text-base);
       font-family: var(--font-family-ui);
@@ -225,7 +225,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       min-height: var(--button-height, calc(var(--padding-scale, 1) * 1.625rem));
       padding: var(--button-padding-y, calc(var(--padding-scale, 1) * 0.15rem)) var(--button-padding-x, calc(var(--padding-scale, 1) * 0.5rem));
       border: 1px solid var(--color-border-subtle);
-      border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+      border-radius: 8px;
       background-color: var(--color-surface-base);
       color: var(--color-text-base);
       font-family: var(--font-family-ui);
@@ -249,7 +249,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       display: inline-block;
       width: 1rem;
       height: 1rem;
-      border-radius: 0.25rem;
+      border-radius: 8px;
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
@@ -285,7 +285,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       background-color: transparent;
       color: var(--color-brand-primary);
       border: 1px solid currentColor;
-      border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+      border-radius: 8px;
       font-size: var(--type-small);
       font-weight: var(--font-weight-regular);
       cursor: pointer;
@@ -304,7 +304,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
     .preview-card {
       padding: calc(var(--padding-scale, 1) * 1.5rem);
       background-color: var(--color-surface-base);
-      border-radius: 0.5rem;
+      border-radius: 8px;
       border: 1px solid var(--color-border-subtle);
     }
 
@@ -332,7 +332,7 @@ import { UiSettingsService, type UiSettings } from '@fe/core';
       background-color: var(--color-brand-primary);
       color: var(--color-text-inverse, #ffffff);
       border: 1px solid var(--color-brand-primary);
-      border-radius: var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem));
+      border-radius: 8px;
       font-size: var(--type-small);
       font-weight: var(--font-weight-regular);
       cursor: pointer;

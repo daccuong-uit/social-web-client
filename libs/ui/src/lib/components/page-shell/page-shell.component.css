@@ -90,7 +90,7 @@
   align-self: stretch;
   background: var(--color-surface-base);
   border-right: 1px solid var(--color-border-subtle);
-  z-index: 10;
+  z-index: auto;
   margin-left: 0;
   grid-column: 1;
   justify-self: start;
@@ -172,7 +172,7 @@
   gap: 10px;
   padding: 10px 8px;
   min-height: calc(44px * var(--padding-scale, 1));
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   background: transparent;
   text-decoration: none;
   color: inherit;
@@ -189,7 +189,7 @@
   min-width: var(--std-icon-size-lg);
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-brand-primary);
   color: var(--color-text-inverse, #fff);
   flex-shrink: 0;
@@ -262,7 +262,7 @@
   width: 30px;
   height: 30px;
   flex: 0 0 30px;
-  border-radius: 50%;
+  border-radius: 8px;
   background-position: center;
   background-size: cover;
 }
@@ -301,7 +301,7 @@
   min-height: 34px;
   padding: 0;
   border: 1px solid var(--color-border-subtle);
-  border-radius: 50%;
+  border-radius: 8px;
   background: transparent;
   color: var(--color-text-muted);
 }
@@ -323,7 +323,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 8px;
   transition: background 0.2s ease;
   flex-shrink: 0;
@@ -338,7 +338,7 @@
   width: 4px;
   height: 4px;
   background: var(--color-text-base);
-  border-radius: 50%;
+  border-radius: 8px;
   transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
   transform-origin: center;
 }
@@ -408,7 +408,7 @@
   min-width: 32px !important;
   height: 32px;
   padding: 5px;
-  border-radius: 9px;
+  border-radius: 8px;
   gap: 3px;
 }
 
@@ -419,13 +419,13 @@
 .reels-menu-btn .hamburger-bar {
   width: 4px;
   height: 4px;
-  border-radius: 50%;
+  border-radius: 8px;
 }
 
 .reels-menu-btn.open .hamburger-bar {
   width: 22px;
   height: 2px;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 
 .reels-mobile-user-context {
@@ -454,9 +454,9 @@
 /* ─── Mobile Drawer Overlay ──────────────────────────────────── */
 .mobile-overlay {
   position: fixed;
-  inset: 0;
+  inset: var(--header-height, 56px) 0 0;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 90;
+  z-index: var(--z-mobile-overlay, 90);
   backdrop-filter: blur(2px);
   animation: overlayFadeIn 0.25s ease;
 }
@@ -469,13 +469,13 @@
 /* ─── Mobile Drawer ──────────────────────────────────────────── */
 .mobile-drawer {
   position: fixed;
-  top: 0;
+  top: var(--header-height, 56px);
   left: 0;
   width: 280px;
-  height: 100vh;
+  height: calc(100dvh - var(--header-height, 56px));
   background: var(--color-surface-base);
   border-right: 1px solid var(--color-border-subtle);
-  z-index: 100;
+  z-index: auto;
   transform: translateX(-100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
@@ -483,6 +483,7 @@
 }
 
 .mobile-drawer.open {
+  z-index: var(--z-mobile-drawer, 50);
   transform: translateX(0);
   animation: drawerSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -523,7 +524,7 @@
   min-width: 0;
   max-width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: auto;
 }
 
 .page-main-content {
@@ -774,6 +775,7 @@
     width: 100%;
     max-width: 100%;
     min-height: calc(100vh - 48px);
+    z-index: auto;
   }
 
   .page-main-content {

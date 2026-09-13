@@ -43,7 +43,7 @@
   /* Ăn theo màu nền surface/card của theme */
   background: var(--color-surface-elevated, var(--color-surface-base));
   border: 1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08));
-  border-radius: var(--button-radius, 0.75rem);
+  border-radius: 8px;
   padding: calc(8px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
   height: calc(60px * var(--padding-scale, 0.5rem));
   min-height: 60px;
@@ -75,7 +75,7 @@
   width: 140px;
   height: 140px;
   background: radial-gradient(circle, var(--color-brand-primary, #fe2c55) 0%, transparent 70%);
-  border-radius: 50%;
+  border-radius: 8px;
   pointer-events: none;
   opacity: 0.12;
   animation: studioPulse 4s ease-in-out infinite;
@@ -110,7 +110,7 @@
   width: calc(40px * var(--padding-scale, 1));
   height: calc(40px * var(--padding-scale, 1));
   background: var(--color-brand-subtle, rgba(254, 44, 85, 0.08));
-  border-radius: calc(10px * var(--padding-scale, 1));
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +176,7 @@
   width: calc(32px * var(--padding-scale, 1));
   height: calc(32px * var(--padding-scale, 1));
   background: var(--color-surface-subtle, rgba(0, 0, 0, 0.04));
-  border-radius: calc(8px * var(--padding-scale, 1));
+  border-radius: 8px;
   border: 1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.05));
   transition: background 0.2s ease, border-color 0.2s ease;
 }
@@ -202,7 +202,7 @@
   color: #fff;
   font-size: var(--type-caption);
   font-weight: var(--font-weight-medium);
-  border-radius: 9999px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,7 +252,7 @@
 .profile-card,
 .suggestion-card {
   background: var(--color-surface-subtle, #f3f4f6);
-  border-radius: calc(12px * var(--padding-scale, 1));
+  border-radius: 8px;
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.12));
   padding: calc(8px * var(--padding-scale, 1)) calc(24px * var(--padding-scale, 1));
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
@@ -286,7 +286,7 @@
 .profile-avatar {
   width: calc(48px * var(--padding-scale, 1));
   height: calc(48px * var(--padding-scale, 1));
-  border-radius: 50%;
+  border-radius: 8px;
   background-size: cover;
   background-position: center;
   box-shadow: 0 4px 10px rgba(13, 138, 188, 0.2);
@@ -316,7 +316,7 @@
   transform: translateY(-50%);
   cursor: pointer;
   padding: calc(8px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
-  border-radius: calc(6px * var(--padding-scale, 1));
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -341,7 +341,7 @@
   top: calc(32px * var(--padding-scale, 1));
   background: var(--color-surface-subtle, #f3f4f6);
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.12));
-  border-radius: calc(12px * var(--padding-scale, 1));
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 100;
   min-width: calc(150px * var(--padding-scale, 1));
@@ -431,7 +431,7 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.12));
-  border-radius: calc(8px * var(--padding-scale, 1));
+  border-radius: 8px;
   background: var(--color-surface-base, #ffffff);
   color: var(--color-text-base, #0f172a);
   cursor: pointer;
@@ -461,7 +461,7 @@
   color: #fff;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
-  border-radius: 9999px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -484,7 +484,7 @@
   background: var(--color-brand-primary, #fe2c55);
   color: var(--color-text-inverse, #fff);
   border: none;
-  border-radius: calc(8px * var(--padding-scale, 1));
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
@@ -638,7 +638,7 @@
 .photo-item {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: calc(6px * var(--padding-scale, 1));
+  border-radius: 8px;
   /* Bo tròn siêu nhẹ */
   overflow: hidden;
   background: var(--color-surface-base, #ffffff);
@@ -664,7 +664,7 @@
   transform: translateY(-50%);
   width: calc(28px * var(--padding-scale, 1));
   height: calc(28px * var(--padding-scale, 1));
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-surface-elevated, rgba(255, 255, 255, 0.9));
   border: 1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.1));
   color: var(--color-text-base, #0f172a);
@@ -721,7 +721,7 @@
   /* Cố định chiều rộng cho mỗi item khi lướt ngang */
   width: calc(50% - (4px * var(--padding-scale, 1)));
   flex-shrink: 0;
-  border-radius: calc(8px * var(--padding-scale, 1));
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   background: var(--color-surface-base, #ffffff);
@@ -789,7 +789,7 @@
   transform: translateY(-50%);
   width: calc(32px * var(--padding-scale, 1));
   height: calc(32px * var(--padding-scale, 1));
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-surface-base);
   border: 1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.1));
   color: var(--color-text-base, #0f172a);

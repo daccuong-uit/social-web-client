@@ -186,7 +186,7 @@ export interface CommentThreadTarget {
         height: 100vh;
         max-height: 100vh;
         background: var(--color-surface-base, #ffffff);
-        border-radius: calc(var(--padding-scale, 1) * 0.35rem);
+        border-radius: 8px;
         box-shadow: 0 6px 20px color-mix(in srgb, var(--color-text-base, #0f172a) 10%, transparent);
         overflow: hidden;
         border: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24));
@@ -224,7 +224,7 @@ export interface CommentThreadTarget {
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
         font-size: var(--type-body);
         cursor: pointer;
-        border-radius: 999px;
+        border-radius: 8px;
       }
       .panel-close-btn:hover {
         background: rgba(15, 23, 42, 0.04);
@@ -251,14 +251,14 @@ export interface CommentThreadTarget {
         display: block;
         width: 100%;
         border: none;
-        border-radius: 0;
+        border-radius: 8px;
         background: transparent;
       }
       .source-media {
         width: 180px;
         min-width: 180px;
         aspect-ratio: 16 / 9;
-        border-radius: calc(var(--padding-scale, 1) * 0.75rem);
+        border-radius: 8px;
         overflow: hidden;
         background: var(--color-surface-subtle, #f1f5f9);
       }
@@ -285,7 +285,7 @@ export interface CommentThreadTarget {
         display: inline-flex;
         margin-bottom: calc(var(--padding-scale, 1) * 0.5rem);
         padding: calc(var(--padding-scale, 1) * 0.25rem) calc(var(--padding-scale, 1) * 0.5rem);
-        border-radius: 999px;
+        border-radius: 8px;
         background: color-mix(in srgb, var(--color-brand-primary, #1d9bf0) 12%, transparent);
         color: var(--color-brand-primary, #1d9bf0);
         font-size: var(--type-caption);
@@ -327,7 +327,7 @@ export interface CommentThreadTarget {
       .comment-avatar, .reply-avatar {
         width: 38px;
         height: 38px;
-        border-radius: 999px;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }
@@ -419,7 +419,7 @@ export interface CommentThreadTarget {
         margin-top: 0.4rem;
         padding: 0.35rem;
         border: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24));
-        border-radius: calc(var(--padding-scale, 1) * 0.5rem);
+        border-radius: 8px;
         background: var(--color-surface-subtle, #f8fafc);
       }
       .mention-suggestion {
@@ -430,7 +430,7 @@ export interface CommentThreadTarget {
         border: none;
         background: transparent;
         padding: 0.35rem 0.45rem;
-        border-radius: calc(var(--padding-scale, 1) * 0.35rem);
+        border-radius: 8px;
         cursor: pointer;
         text-align: left;
       }
@@ -440,7 +440,7 @@ export interface CommentThreadTarget {
       .mention-suggestion img {
         width: 1.6rem;
         height: 1.6rem;
-        border-radius: 999px;
+        border-radius: 8px;
         object-fit: cover;
       }
       .mention-suggestion-name {
@@ -469,7 +469,7 @@ export interface CommentThreadTarget {
       .composer-avatar {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
+        border-radius: 8px;
         object-fit: cover;
       }
       .composer-input-wrap {
@@ -481,7 +481,7 @@ export interface CommentThreadTarget {
         flex-direction: column;
         gap: 0.4rem;
         border: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24));
-        border-radius: calc(var(--padding-scale, 1) * 0.75rem);
+        border-radius: 8px;
         background: var(--color-surface-base, #ffffff);
         padding: calc(var(--padding-scale, 1) * 0.45rem);
       }
@@ -520,7 +520,7 @@ export interface CommentThreadTarget {
         min-width: 2rem;
         min-height: 2rem;
         padding: 0.25rem;
-        border-radius: calc(var(--button-radius, calc(var(--padding-scale, 1) * 0.375rem)));
+        border-radius: 8px;
         font-size: var(--type-small);
       }
       .composer-send-btn {
@@ -531,7 +531,7 @@ export interface CommentThreadTarget {
         height: 2.4rem;
         min-width: auto;
         padding: 0;
-        border-radius: 999px;
+        border-radius: 8px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -547,7 +547,7 @@ export interface CommentThreadTarget {
       }
       @media (max-width: 768px) {
         .comment-thread-panel { padding: 0; }
-        .panel-shell { width: 100%; height: 100%; max-height: 100vh; border-radius: 0; }
+        .panel-shell { width: 100%; height: 100%; max-height: 100vh; border-radius: 8px; }
         .source-card { flex-direction: column; }
         .source-media { width: 100%; min-width: 0; }
       }

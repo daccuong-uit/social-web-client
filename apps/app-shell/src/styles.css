@@ -97,7 +97,7 @@
   /* 96px */
 
   /* ▌ CARD & BORDER STYLING ▌ */
-  --card-border-radius: 10px;
+  --card-border-radius: 8px;
   --card-padding: var(--spacing-4);
   /* 24px or scaled */
 
@@ -120,6 +120,10 @@
   /* Page max width */
   --header-height: 56px;
   /* ui-shared-header */
+  --z-mobile-overlay: 40;
+  --z-mobile-drawer: 50;
+  --z-header: 120;
+  --z-panel: 1000;
 }
 
 
@@ -276,7 +280,7 @@ textarea,
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-medium);
   /* Matching TikTok's rounded buttons */
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   position: relative;
@@ -298,7 +302,7 @@ input[type="submit"],
   min-height: var(--button-height);
   min-width: var(--button-min-width);
   padding: 0 var(--button-padding-inline);
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -306,7 +310,7 @@ input[type="submit"],
   gap: var(--button-gap);
   margin: 0 !important;
   padding: 0 var(--button-padding-inline) !important;
-  border-radius: var(--button-radius) !important;
+  border-radius: 8px;
   line-height: 1;
   transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
   cursor: pointer;
@@ -321,7 +325,7 @@ button.icon-only,
   width: var(--button-height);
   min-width: var(--button-height);
   padding: 0 !important;
-  border-radius: var(--button-radius) !important;
+  border-radius: 8px;
 }
 
 :where(.profile-actions, .button-group, .btn-group, .actions) {
@@ -477,7 +481,7 @@ button.loading > .ui-button__content,
 .std-card {
   background: var(--color-surface-base);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 1rem;
+  border-radius: 8px;
   box-shadow: 0 18px 44px rgba(15, 23, 42, 0.06);
 }
 
@@ -501,7 +505,7 @@ button.loading > .ui-button__content,
 .std-row-link {
   cursor: pointer;
   transition: background 0.2s ease;
-  border-radius: 0.75rem;
+  border-radius: 8px;
   margin: 0 -1rem;
   padding: 1rem;
 }
@@ -527,7 +531,7 @@ button.loading > .ui-button__content,
 .std-toggle-track {
   width: 44px;
   height: 24px;
-  border-radius: 9999px;
+  border-radius: 8px;
   background: #cbd5e1;
   position: relative;
   transition: background 0.25s ease;
@@ -540,7 +544,7 @@ button.loading > .ui-button__content,
   left: 2px;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: white;
   transition: transform 0.25s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -773,7 +777,7 @@ button.loading > .ui-button__content,
 }
 
 .rounded-full {
-  border-radius: 9999px;
+  border-radius: 8px;
 }
 
 .hover\:bg-surface-subtle:hover {
@@ -848,7 +852,7 @@ button.loading > .ui-button__content,
 *::-webkit-scrollbar-thumb {
   background: rgba(15, 20, 25, 0.24);
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 8px;
   background-clip: padding-box;
 }
 
@@ -861,7 +865,7 @@ button,
 input,
 select,
 textarea {
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 button:not(.icon-button):not(.hamburger-btn),
@@ -924,7 +928,7 @@ textarea {
 
 .compose-actions .action-btn {
   border-color: var(--color-border-subtle);
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: none;
 }
 

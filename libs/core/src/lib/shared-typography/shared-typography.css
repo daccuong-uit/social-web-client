@@ -33,7 +33,7 @@
   --std-icon-size-xl: calc(var(--std-font-scale) * 2rem);
   --std-button-padding-vertical: var(--button-padding-y);
   --std-button-padding-horizontal: var(--button-padding-x);
-  --std-button-border-radius: var(--button-radius);
+  --std-button-radius: 8px;
 }
 
 .std-icon,
@@ -57,7 +57,7 @@ button[type="submit"] {
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   padding: var(--button-padding-y) var(--button-padding-x);
-  border-radius: var(--button-radius);
+  border-radius: 8px;
   box-sizing: border-box;
   line-height: var(--type-leading-tight);
   display: inline-flex;
@@ -96,7 +96,7 @@ button > img {
   flex: 0 0 auto;
   border: 2px solid currentColor;
   border-right-color: transparent;
-  border-radius: 50%;
+  border-radius: 8px;
   animation: ui-button-spin 600ms linear infinite;
 }
 

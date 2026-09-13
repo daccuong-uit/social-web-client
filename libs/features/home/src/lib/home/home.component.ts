@@ -30,7 +30,7 @@ import { AuthService } from '@fe/core';
     h1 { margin: 12px 0 8px; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.05; }
     p { margin: 0; color: var(--color-text-muted); }
     .domain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: auto; }
-    .domain-card { min-height: 240px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--color-border-subtle); border-radius: 20px; color: inherit; text-decoration: none; overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease; }
+    .domain-card { min-height: 240px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--color-border-subtle); border-radius: 8px; color: inherit; text-decoration: none; overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease; }
     .domain-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12); }
     .domain-card-art { align-self: flex-end; font-size: 5rem; font-weight: 700; line-height: 1; opacity: 0.8; }
     .domain-card-copy { display: flex; flex-direction: column; gap: 5px; }

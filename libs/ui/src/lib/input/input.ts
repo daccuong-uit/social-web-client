@@ -34,7 +34,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
     lib-input input {
       height: 3.25rem;
       width: 100%;
-      border-radius: 1rem;
+      border-radius: 8px;
       padding: 0 1.25rem;
       font-family: var(--font-family);
       font-size: var(--type-body);

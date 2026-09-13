@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend platform for social commerce creator platform.",
   "scripts": {
-    "start": "nx serve app-shell",
+    "start": "nx serve app-shell --host 0.0.0.0",
     "build": "nx build app-shell",
     "lint": "nx run-many -t lint",
     "test": "nx run-many -t test --passWithNoTests"

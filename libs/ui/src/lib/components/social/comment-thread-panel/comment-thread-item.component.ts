@@ -61,7 +61,7 @@ import { Comment } from '@fe/entities/social';
       .comment-avatar {
         width: 36px;
         height: 36px;
-        border-radius: 999px;
+        border-radius: 8px;
         object-fit: cover;
         flex-shrink: 0;
       }

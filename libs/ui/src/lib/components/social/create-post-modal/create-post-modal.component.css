@@ -19,7 +19,7 @@
 /* ─── Modal Box ────────────────────────────────────────────────── */
 .modal-content {
   background: var(--color-surface-base, #fff);
-  border-radius: 12px;
+  border-radius: 8px;
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
@@ -58,7 +58,7 @@
   right: 12px;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-surface-subtle, #e4e6eb);
   border: none;
   display: flex;
@@ -93,7 +93,7 @@
 .author-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: linear-gradient(135deg, var(--color-brand-primary, #fe2c55), rgba(254, 44, 85, 0.7));
   background-size: cover;
   background-position: center;
@@ -231,7 +231,7 @@
   right: 6px;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.65);
   border: none;
   color: #fff;
@@ -286,7 +286,7 @@
 .addon-btn {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 8px;
   border: none;
   background: transparent;
   display: flex;
@@ -379,7 +379,7 @@
 .share-icon-btn svg {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: 8px;
   padding: 12px;
   background: var(--color-surface-subtle, #f0f2f5);
   transition: transform 0.2s, background 0.2s;

@@ -83,7 +83,7 @@
 .progress-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-border-subtle);
   border: none;
   cursor: pointer;
@@ -95,7 +95,7 @@
 
 .progress-dot.active {
   width: 24px;
-  border-radius: 3px;
+  border-radius: 8px;
   background: var(--color-brand-primary);
 }
 
@@ -136,7 +136,7 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  border-radius: 12px;
+  border-radius: 8px;
   color: var(--color-text-base);
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-height: unset;
@@ -154,7 +154,7 @@
   height: 30px;
   min-height: 30px;
   padding: 0;
-  border-radius: 9px;
+  border-radius: 8px;
   color: var(--color-text-muted);
   transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
@@ -196,7 +196,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 8px;
   background: var(--color-surface-subtle);
   border: 1.5px solid var(--color-border-subtle);
   transition: all 0.2s ease;
@@ -258,7 +258,7 @@
     z-index: 12;
     transform: none;
     padding: 0;
-    border-radius: 0;
+    border-radius: 8px;
     background: transparent;
     backdrop-filter: none;
   }
@@ -383,7 +383,7 @@
   width: 40px;
   height: 40px;
   min-width: 40px;
-  border-radius: 50%;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--color-brand-primary);
 }
@@ -417,7 +417,7 @@
 .reels-bottom-overlay .reel-follow-btn {
   padding: 4px 12px;
   border: 1.5px solid rgba(255, 255, 255, 0.85);
-  border-radius: 20px;
+  border-radius: 8px;
   background: transparent;
   border-color: rgba(255, 255, 255, 0.85);
   color: #fff;

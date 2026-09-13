@@ -99,7 +99,7 @@ import { UiSettingsService } from '@fe/core';
       gap: calc(var(--padding-scale, 1) * 1.5rem);
       padding: calc(var(--padding-scale, 1) * 1.5rem);
       background-color: var(--color-surface-base);
-      border-radius: 0.75rem;
+      border-radius: 8px;
       border: 1px solid var(--color-border-subtle);
       max-width: 600px;
     }
@@ -141,7 +141,7 @@ import { UiSettingsService } from '@fe/core';
 
     .btn {
       padding: calc(var(--padding-scale, 1) * 0.75rem) calc(var(--padding-scale, 1) * 1.5rem);
-      border-radius: 0.5rem;
+      border-radius: 8px;
       border: 1px solid;
       font-size: var(--type-body);
       font-weight: var(--font-weight-medium);
@@ -182,7 +182,7 @@ import { UiSettingsService } from '@fe/core';
       padding: calc(var(--padding-scale, 1) * 1rem);
       background-color: rgb(var(--color-danger) / 0.05);
       border: 1px solid var(--color-danger);
-      border-radius: 0.5rem;
+      border-radius: 8px;
       color: var(--color-danger);
       font-size: var(--type-small);
     }
@@ -200,7 +200,7 @@ import { UiSettingsService } from '@fe/core';
       padding: calc(var(--padding-scale, 1) * 1rem);
       background-color: rgb(var(--color-success) / 0.05);
       border: 1px solid var(--color-success);
-      border-radius: 0.5rem;
+      border-radius: 8px;
       color: var(--color-success);
       font-size: var(--type-small);
     }

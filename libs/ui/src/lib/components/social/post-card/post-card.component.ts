@@ -129,7 +129,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         min-width: var(--avatar-size-md);
         width: var(--avatar-size-md);
         height: var(--avatar-size-md);
-        border-radius: 50%;
+        border-radius: 8px;
         background-color: var(--color-surface-subtle, #f3f4f6);
         background-size: cover;
         background-position: center;
@@ -172,7 +172,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         font-size: var(--font-size-label);
         cursor: pointer;
         padding: calc(6px * var(--padding-scale, 1));
-        border-radius: 9999px;
+        border-radius: 8px;
         transition: background 0.2s ease, color 0.2s ease;
       }
       .more-btn:hover {
@@ -202,7 +202,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
       .post-media {
         display: grid;
         gap: 3px;
-        border-radius: calc(12px * var(--padding-scale, 1));
+        border-radius: 8px;
         overflow: hidden;
         margin-top: calc(6px * var(--padding-scale, 1));
         width: 100%;
@@ -269,7 +269,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         font-size: var(--font-size-caption);
         padding: calc(8px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
         height: calc(38px * var(--padding-scale, 1));
-        border-radius: 9999px;
+        border-radius: 8px;
         white-space: nowrap;
         transition: background 0.2s ease, color 0.2s ease;
       }
@@ -338,7 +338,7 @@ const CONTENT_LIMIT = 280; // chars before truncating
         font-size: var(--font-size-body);
         color: var(--color-text-base, #0f172a);
         text-align: left;
-        border-radius: 4px;
+        border-radius: 8px;
         transition: background 0.2s ease;
       }
       .share-dropdown-item:hover {

@@ -26,7 +26,7 @@
   display: grid;
   gap: 12px;
   padding: calc(var(--std-padding-scale) * 1.25rem);
-  border-radius: 24px;
+  border-radius: 8px;
   background: var(--color-surface-base, #ffffff);
   border: 1px solid var(--color-border-subtle, rgba(15, 23, 42, 0.08));
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
@@ -42,7 +42,7 @@
   display: grid;
   place-items: center;
   background: var(--color-surface-subtle, #eff6ff);
-  border-radius: 16px;
+  border-radius: 8px;
   font-size: var(--font-size-subtitle);
 }
 .placeholder-card h2 {
@@ -61,7 +61,7 @@
   color: var(--color-text-inverse, #ffffff);
   padding: 0 18px;
   height: 40px;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-strong);
   cursor: pointer;

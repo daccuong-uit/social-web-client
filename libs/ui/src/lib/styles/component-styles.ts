@@ -43,7 +43,7 @@ export const COMPONENT_STYLES = {
       line-height: calc(var(--line-height, 1.5));
       
       border: 1px solid var(--color-btn-border);
-      border-radius: var(--button-radius);
+      border-radius: 8px;
       background-color: var(--color-btn-bg);
       color: var(--color-text-base);
       
@@ -102,7 +102,7 @@ export const COMPONENT_STYLES = {
       height: var(--button-height);
       padding: 0;
       min-width: var(--button-height);
-      border-radius: 50%;
+      border-radius: 8px;
     `,
   },
 
@@ -122,7 +122,7 @@ export const COMPONENT_STYLES = {
       line-height: calc(var(--line-height, 1.5));
       
       border: 1px solid var(--color-border-subtle);
-      border-radius: 0.5rem;
+      border-radius: 8px;
       background-color: var(--color-surface-subtle);
       color: var(--color-text-base);
       
@@ -176,7 +176,7 @@ export const COMPONENT_STYLES = {
   card: {
     base: `
       padding: calc(var(--padding-scale, 1) * 1.5rem);
-      border-radius: 1rem;
+      border-radius: 8px;
       background-color: var(--color-surface-subtle);
       border: 1px solid var(--color-border-subtle);
       transition: all 0.3s ease-in-out;
