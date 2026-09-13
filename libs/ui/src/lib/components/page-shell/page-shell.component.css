@@ -62,7 +62,8 @@
   https://help.x.com/using-x/x-timeline and https://x.com */
 .page-shell {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(0, var(--page-main-width)) minmax(240px, 1fr);
+  grid-template-columns: minmax(300px, 1fr) minmax(480px, var(--page-main-width)) minmax(300px, 1fr);
+  column-gap: 32px;
   align-items: stretch;
   position: relative;
   width: 100%;
@@ -517,10 +518,10 @@
   justify-content: center;
   background: transparent;
   grid-column: 2;
-  flex: 0 0 640px;
-  width: 640px;
+  flex: 1 1 auto;
+  width: 100%;
   min-width: 0;
-  max-width: 640px;
+  max-width: 100%;
   position: relative;
   z-index: 1;
 }
@@ -539,9 +540,9 @@
 /* ─── Right Sidebar ─────────────────────────────────────────── */
 .page-rightbar {
   box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  max-width: 320px;
+  width: min(100%, var(--page-rightbar-width));
+  min-width: 300px;
+  max-width: var(--page-rightbar-width);
   position: sticky;
   top: var(--header-height, 56px);
   height: 100vh;
@@ -568,10 +569,11 @@
    RESPONSIVE BREAKPOINTS
    ═══════════════════════════════════════════════════════════════ */
 
-/* 1. < 1440px: Collapse left sidebar (icon mode) and replace logo with hamburger. Keep right sidebar visible. */
-@media (max-width: 1439.98px) {
+/* 1. < 1440px: Reduce inter-column space before changing column widths. */
+@media (max-width: 1449.98px) {
   .page-shell {
-    grid-template-columns: minmax(240px, 1fr) minmax(0, var(--page-main-width)) minmax(240px, 1fr);
+    grid-template-columns: 400px minmax(480px, var(--page-main-width)) 400px;
+    column-gap: 16px;
   }
 
   .page-main {
@@ -580,10 +582,111 @@
   }
 }
 
-/* 2. < 1100px: Keep the icon rail and give the timeline the full lane. */
-@media (max-width: 1099.98px) {
+/* 2. < 1130px: Collapse the left menu only when the full rail and 400px rightbar no longer fit. */
+@media (max-width: 1129.98px) {
   .page-shell {
-    grid-template-columns: var(--page-sidebar-width) minmax(0, var(--page-main-width)) var(--page-sidebar-collapsed);
+    grid-template-columns: minmax(300px, 1fr) minmax(480px, var(--page-main-width)) minmax(300px, 1fr);
+    column-gap: 16px;
+  }
+
+  .page-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .page-sidebar {
+    width: var(--page-sidebar-collapsed);
+    min-width: var(--page-sidebar-collapsed);
+  }
+
+  .page-sidebar-nav {
+    padding-inline: 8px;
+  }
+
+  :host ::ng-deep .page-sidebar .sidebar-menu a {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  :host ::ng-deep .page-sidebar .sidebar-menu .nav-text,
+  :host ::ng-deep .page-sidebar .sidebar-menu .badge,
+  .page-sidebar .page-settings-meta {
+    display: none;
+  }
+
+  .page-brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .page-brand-title {
+    display: none;
+  }
+
+  .page-settings-link {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .page-rightbar {
+    display: flex;
+  }
+
+}
+
+/* 3. < 1324px: Main has reached its compact width; shrink the equal rails and reopen the center. */
+@media (max-width: 1323.98px) {
+  .page-shell {
+    grid-template-columns: minmax(240px, 1fr) minmax(480px, var(--page-main-width)) 400px;
+    column-gap: 0;
+  }
+}
+
+/* 4. < 1280px: Keep the equal rails while the main/right tracks shrink together. */
+@media (max-width: 1279.98px) {
+  .page-shell {
+    grid-template-columns: minmax(240px, 1fr) minmax(480px, var(--page-main-width)) 400px;
+    column-gap: 0;
+  }
+
+  .page-rightbar {
+    display: flex;
+  }
+
+  .page-main {
+    grid-column: 2;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-self: stretch;
+  }
+
+  .page-main-content {
+    max-width: 100%;
+  }
+
+}
+
+/* 5. < 1130px: After the left menu collapses, allow the right rail to use its 350px compact width. */
+@media (max-width: 1129.98px) {
+  .page-shell {
+    grid-template-columns: var(--page-sidebar-collapsed) minmax(480px, var(--page-main-width)) minmax(350px, 1fr);
+    column-gap: 16px;
+  }
+
+  .page-rightbar {
+    display: flex;
+    width: 350px;
+    max-width: 350px;
+  }
+}
+
+/* 6. < 934px: Hide the compact right rail only when its 350px minimum cannot fit. */
+@media (max-width: 933.98px) {
+  .page-shell {
+    grid-template-columns: var(--page-sidebar-collapsed) minmax(0, 1fr);
+    column-gap: 16px;
   }
 
   .page-rightbar {
@@ -592,22 +695,19 @@
 
   .page-main {
     grid-column: 2;
-    flex: 0 0 100%;
+    flex: 1 1 auto;
     width: 100%;
-    min-width: 0;
-    max-width: 640px;
-    justify-self: stretch;
+    max-width: var(--page-main-width);
+    justify-self: center;
   }
 
   .page-main-content {
-    border-right: none;
     max-width: 100%;
   }
-
 }
 
-/* 3. < 860px: Full mobile layout (Hide collapsed sidebar, show topbar). */
-@media (max-width: 859.98px) {
+/* 7. < 578px: The icon rail plus the 480px main minimum no longer fits. */
+@media (max-width: 577.98px) {
   /* Override :host min-width to lock viewport at the feed width */
   :host {
     min-width: 0;
@@ -687,7 +787,7 @@
   }
 }
 
-@media (max-width: 859.98px) {
+@media (max-width: 577.98px) {
   :host-context(fe-reels-shell) .page-shell {
     height: 100dvh;
     min-height: 100dvh;
@@ -704,7 +804,7 @@
   }
 }
 
-@media (max-width: 859.98px) {
+@media (max-width: 577.98px) {
   .mobile-topbar .hamburger-btn {
     width: 40px !important;
     min-width: 40px !important;

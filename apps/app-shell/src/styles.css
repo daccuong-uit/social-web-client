@@ -112,9 +112,9 @@
   /* Left nav — icons only */
   --page-main-width: 640px;
   /* Main feed width */
-  --page-rightbar-width: 300px;
-  /* The width of the right sidebar on very large screens (if different) */
-  --page-rightbar-width-full: 300px;
+  --page-rightbar-width: 400px;
+  /* Right sidebar — expanded */
+  --page-rightbar-width-full: 400px;
   /* Right sidebar — full */
   --page-content-max-width: calc(var(--spacing-scale-base) * 335);
   /* Page max width */
