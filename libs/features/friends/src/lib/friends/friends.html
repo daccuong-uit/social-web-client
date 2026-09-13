@@ -1,10 +1,8 @@
 <div class="friends-container">
-  <div style="display: flex; width: 100%; height: 100%;">
-    <ui-page-shell [menuItems]="menuItems" [showRightbar]="true" style="flex: 1; min-width: 0;">
+  <ui-page-shell [menuItems]="menuItems" [showRightbar]="true">
       <div slot="main" class="friends-main-wrapper">
         <div class="friends-main-area">
           <div class="friends-top-nav-container">
-            <h2 class="friends-page-title">Bạn bè</h2>
             <ui-tabs [tabs]="uiTabs()" [activeTabId]="activeTabId()"></ui-tabs>
           </div>
           <section class="friends-content">
@@ -17,6 +15,4 @@
         <feat-friend-profile [friend]="selectedFriend"></feat-friend-profile>
       </div>
     </ui-page-shell>
-    <div style="width: 16px; flex-shrink: 0; background: transparent;"></div>
-  </div>
 </div>

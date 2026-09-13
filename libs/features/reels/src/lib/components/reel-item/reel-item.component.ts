@@ -243,6 +243,40 @@ export class ReelItemComponent implements AfterViewInit, OnChanges, OnDestroy {
     }, 200);
   }
 
+  onTimelinePointerDown(event: PointerEvent, videoElement: HTMLVideoElement): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isSeeking = true;
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+    this.updateTimelineFromPointer(event, videoElement);
+  }
+
+  onTimelinePointerMove(event: PointerEvent, videoElement: HTMLVideoElement): void {
+    if (!this.isSeeking) return;
+    event.preventDefault();
+    event.stopPropagation();
+    this.updateTimelineFromPointer(event, videoElement);
+  }
+
+  onTimelinePointerUp(event: PointerEvent): void {
+    event.stopPropagation();
+    this.isSeeking = false;
+    const target = event.currentTarget as HTMLElement;
+    if (target.hasPointerCapture(event.pointerId)) {
+      target.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  private updateTimelineFromPointer(event: PointerEvent, videoElement: HTMLVideoElement): void {
+    if (!videoElement.duration || isNaN(videoElement.duration)) return;
+    const timeline = event.currentTarget as HTMLElement;
+    const bounds = timeline.getBoundingClientRect();
+    const value = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+    this.progressValue = value;
+    videoElement.currentTime = (value / 100) * videoElement.duration;
+    this.cdr.markForCheck();
+  }
+
   togglePlayPause(videoElement?: HTMLVideoElement) {
     if (videoElement && typeof videoElement.play === 'function') {
       if (videoElement.paused) {

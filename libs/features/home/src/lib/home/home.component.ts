@@ -2,73 +2,46 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@fe/core';
-import { UiButton, UiCard } from '@fe/ui';
 
 @Component({
   standalone: true,
   selector: 'feat-home-page',
-  imports: [CommonModule, RouterModule, UiCard, UiButton],
+  imports: [CommonModule, RouterModule],
   template: `
-    <div class="flex min-h-screen w-full items-center justify-center p-6">
-      <lib-card class="max-w-3xl">
-        <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-surface-subtle pb-8 mb-8">
-          <div class="flex items-center gap-4">
-             <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary text-3xl">
-                👋
-             </div>
-             <div>
-                <h1 class="text-3xl font-bold tracking-tight text-text-base">Welcome back!</h1>
-                <p class="text-text-muted">Hello, <span class="font-bold text-brand-primary">{{ userDisplayName }}</span></p>
-             </div>
-          </div>
-          <lib-button type="button" routerLink="/profile" class="!w-auto !rounded-xl !bg-brand-primary !text-white hover:!bg-brand-primary/90 transition-all">
-            Hồ sơ của bạn
-          </lib-button>
-        </div>
-
-        <div class="grid gap-8 md:grid-cols-2">
-          <div class="rounded-2xl bg-brand-primary/5 p-6 border border-brand-primary/10">
-            <h3 class="text-lg font-bold text-brand-primary mb-3">Quick Start</h3>
-            <p class="text-sm text-text-muted mb-4">
-              Manage your creator content and grow your audience.
-            </p>
-            <div class="flex flex-col gap-2">
-              <a routerLink="/profile" class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-primary/90">
-                Edit Profile
-              </a>
-              <a routerLink="/media" class="inline-flex items-center justify-center rounded-xl border border-border-subtle bg-surface-base px-4 py-2 text-sm font-semibold text-text-base transition hover:bg-surface-subtle">
-                Open Media Platform (creator files)
-              </a>
-              <a routerLink="/media/studio" class="inline-flex items-center justify-center rounded-xl border border-border-subtle bg-surface-base px-4 py-2 text-sm font-semibold text-text-base transition hover:bg-surface-subtle">
-                Open Media Studio (admin files)
-              </a>
-              <a routerLink="/dashboard" class="inline-flex items-center justify-center rounded-xl border border-border-subtle bg-surface-base px-4 py-2 text-sm font-semibold text-text-base transition hover:bg-surface-subtle">
-                Open Dashboard
-              </a>
-            </div>
-          </div>
-          
-          <div class="rounded-2xl bg-surface-muted p-6 border border-border-subtle">
-            <h3 class="text-lg font-bold text-text-base mb-3">Platform Status</h3>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-center gap-2 text-text-base">
-                <span class="flex h-2 w-2 rounded-full bg-green-500"></span>
-                Authenticated
-              </li>
-              <li class="flex items-center gap-2 text-text-base">
-                <span class="flex h-2 w-2 rounded-full bg-green-500"></span>
-                Ready to create
-              </li>
-              <li class="flex items-center gap-2 text-text-base">
-                <span class="flex h-2 w-2 rounded-full bg-green-500"></span>
-                Social Commerce
-              </li>
-            </ul>
-          </div>
-        </div>
-      </lib-card>
+    <div class="domain-launcher">
+      <header class="launcher-header">
+        <span class="launcher-kicker">Reals platform</span>
+        <h1>Chọn không gian làm việc</h1>
+        <p>Xin chào, {{ userDisplayName }}. Bạn muốn khám phá điều gì hôm nay?</p>
+      </header>
+      <main class="domain-grid">
+        <a class="domain-card domain-social" routerLink="/social"><span class="domain-card-art">●</span><span class="domain-card-copy"><strong>Bài đăng</strong><small>Chia sẻ, kết nối và trò chuyện</small></span></a>
+        <a class="domain-card domain-video" routerLink="/video"><span class="domain-card-art">▶</span><span class="domain-card-copy"><strong>Video</strong><small>Xem những nội dung nổi bật</small></span></a>
+        <a class="domain-card domain-shop" routerLink="/shop"><span class="domain-card-art">+</span><span class="domain-card-copy"><strong>Shop</strong><small>Khám phá sản phẩm phù hợp</small></span></a>
+        <a class="domain-card domain-stories" routerLink="/stories"><span class="domain-card-art">Aa</span><span class="domain-card-copy"><strong>Truyện</strong><small>Đọc những câu chuyện mới</small></span></a>
+      </main>
     </div>
   `,
+  styles: [`
+    :host { display: block; min-height: 100vh; }
+    .domain-launcher { min-height: 100vh; padding: 10vh clamp(24px, 8vw, 128px); background: var(--color-surface-base); color: var(--color-text-base); }
+    .launcher-header { max-width: 720px; margin: 0 auto 48px; text-align: center; }
+    .launcher-kicker { color: var(--color-brand-primary); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    h1 { margin: 12px 0 8px; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.05; }
+    p { margin: 0; color: var(--color-text-muted); }
+    .domain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: auto; }
+    .domain-card { min-height: 240px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--color-border-subtle); border-radius: 20px; color: inherit; text-decoration: none; overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease; }
+    .domain-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12); }
+    .domain-card-art { align-self: flex-end; font-size: 5rem; font-weight: 700; line-height: 1; opacity: 0.8; }
+    .domain-card-copy { display: flex; flex-direction: column; gap: 5px; }
+    .domain-card-copy strong { font-size: 1.5rem; }
+    .domain-card-copy small { color: inherit; opacity: 0.74; }
+    .domain-social { background: linear-gradient(135deg, #e8f3ff, #b9dcff); color: #123251; }
+    .domain-video { background: linear-gradient(135deg, #ffe6ea, #ffc3cc); color: #541d2a; }
+    .domain-shop { background: linear-gradient(135deg, #fff2cc, #f8d888); color: #4e3510; }
+    .domain-stories { background: linear-gradient(135deg, #e9e3ff, #cabdff); color: #30205e; }
+    @media (max-width: 640px) { .domain-launcher { padding: 48px 18px; } .domain-grid { grid-template-columns: 1fr; gap: 14px; } .domain-card { min-height: 180px; } }
+  `],
 })
 export class HomeComponent {
   private authService = inject(AuthService);

@@ -1,17 +1,6 @@
-import {
-  Component,
-  inject,
-  signal,
-  HostListener,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  RouterModule,
-  Router,
-  NavigationEnd
-} from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '@fe/core';
 import { filter } from 'rxjs/operators';
 import { SocialFacade } from '@fe/entities/social';
@@ -27,16 +16,11 @@ import { UserCardComponent } from '@fe/ui';
 export class RightSidebarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-  private elementRef = inject(ElementRef);
   private socialFacade = inject(SocialFacade);
-
-  @ViewChild('menuDropdown')
-  menuDropdown: any;
 
   user = this.authService.user;
   suggestedUsers = this.socialFacade.suggestedUsers;
 
-  showMenu = signal(false);
   isHome = signal(true);
   isProfile = signal(false);
 
@@ -56,35 +40,8 @@ export class RightSidebarComponent {
   }
 
   private updateRouteFlags(url: string) {
-    this.isHome.set(url === '/home' || url === '/');
+    this.isHome.set(url === '/home' || url === '/' || url === '/social');
     this.isProfile.set(url === '/profile' || url.startsWith('/profile'));
-  }
-
-  toggleMenu(event?: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
-
-    this.showMenu.update(v => !v);
-  }
-
-  closeMenu() {
-    this.showMenu.set(false);
-  }
-
-  @HostListener(
-    'document:click',
-    ['$event']
-  )
-  onDocumentClick(event: MouseEvent) {
-    if (
-      this.showMenu() &&
-      !this.elementRef.nativeElement.contains(
-        event.target
-      )
-    ) {
-      this.closeMenu();
-    }
   }
 
   logout() {

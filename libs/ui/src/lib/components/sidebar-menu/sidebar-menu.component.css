@@ -6,7 +6,7 @@
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  padding: 0 12px;
+  padding: 0;
   height: 100%;
   box-sizing: border-box;
   background: transparent;
@@ -16,9 +16,9 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 16px;
+  padding: 10px 8px;
   margin-bottom: 6px;
-  border-radius: 16px;
+  border-radius: var(--button-radius);
   color: var(--color-text-base, #334155);
   text-decoration: none;
   font-size: var(--font-size-body);
@@ -44,8 +44,8 @@
 
 /* Nav icon: heavier but balanced with the larger menu text */
 .nav-icon {
-  width: var(--std-icon-size-lg);
-  height: var(--std-icon-size-lg);
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -55,13 +55,28 @@
 
 /* SVG inside nav-icon fills the wrapper exactly */
 .nav-icon ::ng-deep svg {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.65em;
+  height: 1.65em;
   display: block;
 }
 
 .sidebar-menu a:hover .nav-icon {
   transform: scale(1.1);
+}
+
+/* Tailwind's display utilities model: preserve the layout box and hide only labels. */
+.sidebar-menu.is-collapsed .nav-text,
+.sidebar-menu.is-collapsed .badge {
+  display: none;
+}
+
+.sidebar-menu.is-collapsed a {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.sidebar-menu.is-collapsed .nav-icon {
+  margin: 0;
 }
 
 /* Nav text */
@@ -102,17 +117,3 @@
   flex-shrink: 0;
 }
 
-/* Responsive: collapse to icons only (< 1440px) — desktop sidebar */
-@media (max-width: 1439.98px) {
-  .sidebar-menu {
-    align-items: center;
-    padding: 8px 4px;
-  }
-  .nav-text, .badge {
-    display: none;
-  }
-  .sidebar-menu a {
-    padding: 12px;
-    justify-content: center;
-  }
-}

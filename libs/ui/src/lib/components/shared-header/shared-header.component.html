@@ -1,74 +1,134 @@
-<!-- Shared Header: Reals logo left | User profile right -->
 <header class="shared-header">
+  <div class="header-left-group">
+    <button
+      type="button"
+      class="header-menu-toggle"
+      [attr.aria-label]="sidebarCollapsed ? 'Mở rộng menu' : 'Thu gọn menu'"
+      (click)="toggleNavigationMenu()"
+    >
+      <span class="menu-toggle-line"></span>
+      <span class="menu-toggle-line"></span>
+      <span class="menu-toggle-line"></span>
+    </button>
 
-  <!-- Left: Back Button & Reals Brand -->
-  <div style="display: flex; align-items: center; gap: 8px;">
+    <a [routerLink]="domainBrandLink" class="header-brand" aria-label="Về trang domain">
+      <span class="header-brand-mark" aria-hidden="true">R</span>
+      <span class="header-brand-name">Reals</span>
+    </a>
+
     @if (showBack) {
-      <button class="header-back-btn" (click)="goBack()" aria-label="Go back">
+      <button class="header-back-btn" (click)="goBack()" aria-label="Quay lại">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
       </button>
     }
-    
-    <a routerLink="/home" class="header-brand">
-    <div class="header-brand-icon">
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
-        <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
-        <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800"
-              font-family="inherit" fill="var(--color-brand-primary)">C</text>
-      </svg>
-    </div>
-    <span class="header-brand-name">Reals</span>
-    </a>
   </div>
 
-  <!-- Right: User profile (avatar + name + @username + 3-dot) -->
-  <div class="header-user" (click)="toggleMenu()">
-    <div class="header-avatar"
-         [style.background-image]="'url(https://ui-avatars.com/api/?name=' + (user()?.displayName || user()?.username || 'User') + '&background=0D8ABC&color=fff)'">
-    </div>
-    <div class="header-user-info">
-      <span class="header-user-name">{{ user()?.displayName || 'Người dùng' }}</span>
-      <span class="header-user-handle">{{ user()?.username ? '@' + user()?.username : '@user' }}</span>
-    </div>
-    <button class="header-more-btn" aria-label="More options">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-           stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="5" r="1"></circle>
-        <circle cx="12" cy="12" r="1"></circle>
-        <circle cx="12" cy="19" r="1"></circle>
+  <label class="header-search" aria-label="Tìm kiếm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="6"></circle>
+      <line x1="16" y1="16" x2="21" y2="21"></line>
+    </svg>
+    <input type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" />
+  </label>
+
+  <div class="header-right-group">
+    <button class="header-icon-btn" type="button" aria-label="Thông báo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"></path>
+        <path d="M10 20a2 2 0 0 0 4 0"></path>
       </svg>
     </button>
 
-    <!-- Dropdown menu -->
-    @if (showMenu()) {
-      <div class="header-dropdown" (click)="$event.stopPropagation()">
-        <a routerLink="/profile" class="header-dropdown-item" (click)="showMenu.set(false)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          Xem Profile
-        </a>
-        <a routerLink="/settings" class="header-dropdown-item" (click)="showMenu.set(false)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
-          Cài đặt
-        </a>
-        <div class="header-dropdown-divider"></div>
-        <button class="header-dropdown-item header-dropdown-logout" (click)="logout()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
-          Đăng xuất
-        </button>
+    <button class="header-icon-btn" type="button" aria-label="Tin nhắn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+
+    <div class="header-user" (click)="toggleUserMenu()" tabindex="0" role="button" (keydown.enter)="toggleUserMenu()" (keydown.space)="toggleUserMenu()">
+      <div class="header-avatar" [style.background-image]="'url(https://ui-avatars.com/api/?name=' + (user()?.displayName || user()?.username || 'User') + '&background=0D8ABC&color=fff)'"></div>
+      <div class="header-user-info">
+        <span class="header-user-name">{{ user()?.displayName || 'Người dùng' }}</span>
+        <span class="header-user-handle">{{ user()?.username ? '@' + user()?.username : '@user' }}</span>
       </div>
-    }
+
+      @if (showMenu()) {
+        <div class="header-dropdown" (click)="$event.stopPropagation()">
+          <a routerLink="/profile" class="header-dropdown-item" (click)="closeUserMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Xem profile
+          </a>
+
+          <div class="header-dropdown-divider"></div>
+
+          <a routerLink="/video" class="header-dropdown-item" (click)="closeUserMenu()">
+            <span class="header-dropdown-dot"></span>
+            Domain Video
+          </a>
+          <a routerLink="/shop" class="header-dropdown-item" (click)="closeUserMenu()">
+            <span class="header-dropdown-dot"></span>
+            Domain Shop
+          </a>
+          <a routerLink="/stories" class="header-dropdown-item" (click)="closeUserMenu()">
+            <span class="header-dropdown-dot"></span>
+            Domain Truyện
+          </a>
+          <a routerLink="/dashboard" class="header-dropdown-item" (click)="closeUserMenu()">
+            <span class="header-dropdown-dot"></span>
+            Domain Admin
+          </a>
+
+          <div class="header-dropdown-divider"></div>
+
+          <button type="button" class="header-dropdown-item" (click)="closeUserMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v10"></path>
+              <path d="M8 14l4 4 4-4"></path>
+              <path d="M20 20H4"></path>
+            </svg>
+            Giao diện
+          </button>
+          <button type="button" class="header-dropdown-item" (click)="closeUserMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 5h16v14H4z"></path>
+              <path d="M9 9h6"></path>
+              <path d="M9 13h6"></path>
+            </svg>
+            Ngôn ngữ
+          </button>
+          <a routerLink="/settings" class="header-dropdown-item" (click)="closeUserMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.4 9c.4.2.8.2 1.2.1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path>
+            </svg>
+            Cài đặt
+          </a>
+
+          <div class="header-dropdown-divider"></div>
+
+          <button type="button" class="header-dropdown-item" (click)="closeUserMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+              <path d="M12 14c-4.4 0-8 2.7-8 6h16c0-3.3-3.6-6-8-6z"></path>
+            </svg>
+            Chuyển đổi tài khoản
+          </button>
+          <button type="button" class="header-dropdown-item header-dropdown-logout" (click)="logout()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Đăng xuất
+          </button>
+        </div>
+      }
+    </div>
   </div>
 </header>

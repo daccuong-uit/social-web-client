@@ -59,15 +59,15 @@
   gap: calc(5px * var(--padding-scale, 1));
   cursor: pointer;
   flex-shrink: 0;
-  width: calc(144px * var(--padding-scale, 1));
+  width: calc(120px * var(--padding-scale, 1));
   outline: none;
 }
 
 /* ─── Reel Thumbnail (Ti lệ ≈ 9:16) ─── */
 .reel-thumb {
   position: relative;
-  width: calc(144px * var(--padding-scale, 1));
-  height: calc(240px * var(--padding-scale, 1));
+  width: calc(120px * var(--padding-scale, 1));
+  height: calc(200px * var(--padding-scale, 1));
   border-radius: calc(10px * var(--padding-scale, 1));
   overflow: hidden;
   background-size: cover;

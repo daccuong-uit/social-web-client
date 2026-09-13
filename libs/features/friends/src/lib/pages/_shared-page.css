@@ -4,7 +4,7 @@
 }
 
 .page-title {
-  font-size: var(--font-size-heading-md);
+  font-size: var(--font-size-heading-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-base);
   margin: 0 0 var(--spacing-1) 0;

@@ -129,7 +129,7 @@
 }
 
 .card-name {
-  font-size: var(--font-size-subtitle);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-strong);
   color: var(--color-text-base);
   margin: 0;

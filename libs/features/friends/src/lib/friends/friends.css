@@ -1,9 +1,3 @@
-/* Ensure the page‑shell arranges main and rightbar side‑by‑side */
-.ui-page-shell {
-  display: flex;
-  gap: var(--spacing-4);
-}
-
 /* Main content (subtab list) occupies full available width */
 .friends-main-area {
   width: 100%;
@@ -15,7 +9,7 @@
 .friends-top-nav-container {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-5) var(--spacing-5) 0;
+  padding: 0 var(--spacing-5) 0;
   border-bottom: 1px solid var(--color-border-subtle);
   background: var(--color-surface-base);
   position: sticky;
@@ -63,7 +57,6 @@
   min-width: calc(var(--page-rightbar-width, 320px) - 20px);
   display: flex;
   flex-direction: column;
-  padding-left: var(--spacing-3);
   min-height: 100%;
 }
 

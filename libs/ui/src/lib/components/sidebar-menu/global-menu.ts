@@ -5,7 +5,7 @@ export const GLOBAL_MENU_ITEMS: SidebarMenuItem[] = [
     id: 'home',
     label: 'Trang chủ',
     svgIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8.5Z"></path><path d="M9 21V12h6v9"></path></svg>',
-    link: '/home',
+    link: '/social',
     exactMatch: true,
   },
   {

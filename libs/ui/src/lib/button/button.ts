@@ -15,9 +15,10 @@ import { CommonModule } from '@angular/common';
     :root {
       --button-height: 2rem;
       --button-min-width: 5rem;
-      --button-padding-inline: 0.1rem;
+      --button-padding-inline: 0.75rem;
       --button-gap: 0.5rem;
-      --button-radius: 0.5rem;
+      --button-group-gap: 0.5rem;
+      --button-radius: 0.375rem;
       --button-font-size: var(--type-small);
       --button-font-weight: var(--font-weight-medium);
       --button-focus-ring: 0 0 0 3px rgb(42 171 238 / 0.28);
@@ -64,6 +65,17 @@ import { CommonModule } from '@angular/common';
       gap: var(--button-gap);
       box-shadow: none;
       text-decoration: none;
+      margin: 0;
+    }
+
+    :where(.profile-actions, .button-group, .btn-group, .actions) {
+      display: flex;
+      align-items: center;
+      gap: var(--button-group-gap);
+    }
+
+    :where(.profile-actions, .button-group, .btn-group, .actions) > lib-button {
+      margin: 0;
     }
 
     lib-button button > .ui-button__content,
@@ -93,11 +105,17 @@ import { CommonModule } from '@angular/common';
 
     lib-button button.icon-only,
     button.btn.icon-only,
-    .btn.icon-only {
+    .btn.icon-only,
+    button.btn:has(> svg:only-child),
+    button.btn:has(> img:only-child),
+    .btn:has(> svg:only-child),
+    .btn:has(> img:only-child),
+    .profile-actions button:has(> svg:only-child),
+    .profile-actions button:has(> img:only-child) {
       width: var(--button-height);
       min-width: var(--button-height);
       padding: 0;
-      border-radius: 50%;
+      border-radius: var(--button-radius);
     }
 
     lib-button button:focus-visible,
@@ -205,7 +223,6 @@ import { CommonModule } from '@angular/common';
     button.btn-link,
     .btn-link {
       min-width: 0;
-      padding-inline: 0.25rem;
       background: transparent;
       border-color: transparent;
       color: var(--color-brand-primary);
@@ -255,6 +272,7 @@ import { CommonModule } from '@angular/common';
       [disabled]="disabled || loading"
       [class]="variant + (iconOnly ? ' icon-only' : '') + (loading ? ' loading' : '')"
       [attr.aria-busy]="loading"
+      [attr.aria-label]="ariaLabel || null"
     >
       @if (loading) {
         <span class="ui-button__spinner" aria-hidden="true"></span>
@@ -293,6 +311,9 @@ export class UiButton {
   /** Replaces projected content with a consistent spinner while preserving button width. */
   @Input() loading = false;
 
-  /** Makes the button a circular icon-only control. */
+  /** Accessible name for icon-only buttons. */
+  @Input() ariaLabel = '';
+
+  /** Makes the button a compact square icon-only control. */
   @Input() iconOnly = false;
 }

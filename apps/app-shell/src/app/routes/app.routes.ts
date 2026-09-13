@@ -14,6 +14,30 @@ export const appRoutes: Route[] = [
       import('@fe/features/home').then((m) => m.homeRoutes),
   },
   {
+    path: 'social',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('@fe/features/home').then((m) => m.socialRoutes),
+  },
+  {
+    path: 'video',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('@fe/features/video').then((m) => m.videoRoutes),
+  },
+  {
+    path: 'shop',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('@fe/features/shop').then((m) => m.shopRoutes),
+  },
+  {
+    path: 'stories',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('@fe/features/stories').then((m) => m.storiesRoutes),
+  },
+  {
     path: 'profile',
     canActivate: [authGuard],
     loadChildren: () =>

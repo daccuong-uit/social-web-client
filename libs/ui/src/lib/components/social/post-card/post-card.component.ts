@@ -126,9 +126,9 @@ const CONTENT_LIMIT = 280; // chars before truncating
         gap: calc(12px * var(--padding-scale, 1));
       }
       .avatar {
-        min-width: calc(40px * var(--padding-scale, 1));
-        width: calc(40px * var(--padding-scale, 1));
-        height: calc(40px * var(--padding-scale, 1));
+        min-width: var(--avatar-size-md);
+        width: var(--avatar-size-md);
+        height: var(--avatar-size-md);
         border-radius: 50%;
         background-color: var(--color-surface-subtle, #f3f4f6);
         background-size: cover;

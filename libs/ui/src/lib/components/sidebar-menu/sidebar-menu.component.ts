@@ -28,6 +28,7 @@ export class SidebarMenuComponent {
 
   @Input() items: SidebarMenuItem[] = [];
   @Input() activeItemId: string | null = null;
+  @Input() collapsed = false;
 
   @Output() itemClick = new EventEmitter<SidebarMenuItem>();
 

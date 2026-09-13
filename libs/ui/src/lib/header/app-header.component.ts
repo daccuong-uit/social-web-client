@@ -1,18 +1,14 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LogoComponent } from '../logo/logo.component';
 
 export type HeaderContext = 'login' | 'register' | 'dashboard' | 'default';
 
 @Component({
   standalone: true,
   selector: 'lib-ui-app-header',
-  imports: [CommonModule, LogoComponent],
+  imports: [CommonModule],
   template: `
     <div class="flex items-center justify-between px-6 py-4 md:px-10 md:py-5 bg-surface-base">
-      <!-- Logo -->
-      <ui-logo (clicked)="logoClicked.emit()"></ui-logo>
-
       <!-- Right Section: Feedback link (only for auth pages) -->
       <div class="flex items-center gap-4">
         @if (showFeedback) {

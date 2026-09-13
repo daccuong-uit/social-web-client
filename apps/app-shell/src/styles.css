@@ -15,8 +15,8 @@
     /* Typography scale: one family, eight sizes, three weights. */
     --font-family: 'Outfit', sans-serif;
     --font-family-ui: var(--font-family);
-    --font-size-scale: 1;
-    --padding-scale: 1;
+    --font-size-scale: 0.92;
+    --padding-scale: 0.84;
     --type-leading-tight: 1.25;
     --type-leading-normal: 1.5;
     --type-leading-relaxed: 1.75;
@@ -48,20 +48,24 @@
     --font-weight-medium: 500;
     --font-weight-strong: 700;
     --font-weight-heavy: 700;
-    --button-height: 2.5rem;
-    --button-min-width: 5rem;
-    --button-padding-inline: 1rem;
-    --button-gap: 0.5rem;
-    --button-radius: 0.5rem;
+    --button-height: 2rem;
+    --button-min-width: 4.25rem;
+    --button-padding-inline: 0.625rem;
+    --button-gap: 0.375rem;
+    --button-group-gap: 0.5rem;
+    --button-radius: 0.375rem;
     --button-font-size: var(--type-small);
     --button-font-weight: var(--font-weight-medium);
     --button-transition: 160ms cubic-bezier(0.2, 0, 0, 1);
+    --std-icon-size-lg: 28px;
+    --avatar-size-md: calc(40px * var(--padding-scale, 1));
+    --feed-composer-height: 148px;
 
   /* ▌ DYNAMIC SPACING SYSTEM ▌
      Base unit scales from 4px. User adjusts in Settings → spacing scale changes.
      All padding/margin then recalculates using multiplication/division.
   */
-  --spacing-scale-base: 4.4px;
+  --spacing-scale-base: 4px;
   /* Base unit — default 4px (1 × base) */
   --spacing-1: calc(var(--spacing-scale-base) * 1);
   /* 4px */
@@ -93,8 +97,8 @@
   /* 96px */
 
   /* ▌ CARD & BORDER STYLING ▌ */
-  --card-border-radius: 12px;
-  --card-padding: var(--spacing-6);
+  --card-border-radius: 10px;
+  --card-padding: var(--spacing-4);
   /* 24px or scaled */
 
   /* ─── Page Shell Layout Tokens ───────────────────────────────
@@ -102,19 +106,19 @@
      Changing these propagates to Home, Profile, and Settings.
      All layout sizes are now fully dynamic and depend on user scaling.
   ─────────────────────────────────────────────────────────── */
-  --page-sidebar-width: calc(var(--spacing-scale-base) * 70);
+  --page-sidebar-width: calc(var(--spacing-scale-base) * 64);
   /* Left nav — full labels */
-  --page-sidebar-collapsed: calc(var(--spacing-scale-base) * 22);
+  --page-sidebar-collapsed: 72px;
   /* Left nav — icons only */
-  --page-main-width: calc(var(--spacing-scale-base) * 170);
+  --page-main-width: 640px;
   /* Main feed width */
-  --page-rightbar-width: calc(var(--spacing-scale-base) * 100);
+  --page-rightbar-width: 300px;
   /* The width of the right sidebar on very large screens (if different) */
-  --page-rightbar-width-full: calc(var(--spacing-scale-base) * 100);
+  --page-rightbar-width-full: 300px;
   /* Right sidebar — full */
   --page-content-max-width: calc(var(--spacing-scale-base) * 335);
   /* Page max width */
-  --header-height: calc(var(--spacing-scale-base) * 18);
+  --header-height: 56px;
   /* ui-shared-header */
 }
 
@@ -131,6 +135,7 @@ html {
      Tất cả kích thước dùng px tuyệt đối qua CSS custom properties. */
   font-size: 100%;
   line-height: var(--line-height, 1.5);
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -156,9 +161,9 @@ textarea,
 /* Light Theme — Telegram Light */
 :root {
   --color-surface-base: #ffffff;
-  --color-surface-subtle: #f4f4f5;
-  --color-border-subtle: #e4e4e7;
-  --color-border-default: #e4e4e7;
+  --color-surface-subtle: #f7f9f9;
+  --color-border-subtle: rgba(15, 20, 25, 0.12);
+  --color-border-default: rgba(15, 20, 25, 0.12);
   --color-text-base: #000000;
   --color-text-muted: #707579;
   --color-text-inverse: #ffffff;
@@ -299,9 +304,28 @@ input[type="submit"],
   align-items: center;
   justify-content: center;
   gap: var(--button-gap);
+  margin: 0 !important;
+  padding: 0 var(--button-padding-inline) !important;
+  border-radius: var(--button-radius) !important;
   line-height: 1;
   transition: background-color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition), transform var(--button-transition), color var(--button-transition);
   cursor: pointer;
+}
+
+button:has(> svg:only-child),
+button:has(> img:only-child),
+button.icon-only,
+.icon-button,
+.profile-actions button:has(> svg:only-child),
+.profile-actions button:has(> img:only-child) {
+  width: var(--button-height);
+  min-width: var(--button-height);
+  padding: 0 !important;
+  border-radius: var(--button-radius) !important;
+}
+
+:where(.profile-actions, .button-group, .btn-group, .actions) {
+  gap: var(--button-group-gap);
 }
 
 .std-icon,
@@ -805,4 +829,193 @@ button.loading > .ui-button__content,
   padding: 12px 16px !important;
   width: 100% !important;
   box-sizing: border-box !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 20, 25, 0.28) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(15, 20, 25, 0.24);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 20, 25, 0.42);
+  background-clip: padding-box;
+}
+
+button,
+input,
+select,
+textarea {
+  border-radius: 6px;
+}
+
+button:not(.icon-button):not(.hamburger-btn),
+input,
+select,
+textarea {
+  min-height: 32px;
+}
+
+.sidebar-menu {
+  padding-inline: 0;
+}
+
+.sidebar-menu a {
+  gap: 10px;
+  min-height: 40px;
+  margin-bottom: 2px;
+  padding: 9px 11px;
+  border-radius: 8px;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background: color-mix(in srgb, var(--color-brand-primary) 9%, transparent);
+}
+
+.sidebar-menu a.active {
+  color: var(--color-text-base);
+}
+
+.nav-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-drawer {
+  width: min(288px, 86vw);
+  box-shadow: 8px 0 24px rgba(15, 20, 25, 0.12);
+}
+
+.mobile-drawer-inner {
+  padding: 16px 8px 12px;
+}
+
+.mobile-drawer .sidebar-menu a {
+  min-height: 42px;
+  padding: 9px 11px !important;
+  border-radius: 8px;
+}
+
+.feed-header,
+.feed-reels-strip,
+.post-card {
+  border-color: var(--color-border-subtle);
+}
+
+.feed-header {
+  gap: 0;
+}
+
+.compose-actions .action-btn {
+  border-color: var(--color-border-subtle);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.post-card {
+  gap: 6px;
+}
+
+.post-author {
+  gap: 9px;
+}
+
+.post-actions {
+  justify-content: space-between;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.post-actions .action-btn {
+  min-width: 0;
+  min-height: 32px;
+  padding: 5px 7px;
+}
+
+.post-media {
+  margin-top: 2px;
+  gap: 6px;
+}
+
+.post-media img {
+  max-height: 360px;
+}
+
+.feed-empty,
+.feed-error {
+  padding: 28px 16px;
+}
+
+.feed-reels-strip {
+  padding-block: 6px;
+}
+
+.strip-header {
+  padding-bottom: 6px;
+}
+
+.reel-thumb {
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(15, 20, 25, 0.12);
+}
+
+.profile-card,
+.promo-card,
+.trending-card,
+.suggestion-card {
+  border-color: var(--color-border-subtle);
+}
+
+@media (max-width: 859.98px) {
+  button:not(.icon-button):not(.hamburger-btn),
+  input,
+  select,
+  textarea {
+    min-height: 36px;
+  }
+
+  .mobile-topbar {
+    padding-inline: 10px;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .home-tabs-grid {
+    height: 44px;
+  }
+
+  .home-tab-btn {
+    font-size: var(--type-caption);
+  }
+
+  .post-card {
+    padding: 10px 12px;
+  }
+
+  .post-media img {
+    max-height: 280px;
+  }
+
+  .post-actions .action-btn {
+    padding-inline: 4px;
+  }
+
+  .compose-actions {
+    gap: 8px;
+  }
 }

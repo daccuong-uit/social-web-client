@@ -1,4 +1,4 @@
-<nav class="sidebar-menu">
+<nav class="sidebar-menu" [class.is-collapsed]="collapsed">
   <!-- Dynamic Items -->
   @for (item of items; track item.id) {
     <!-- Link version -->

@@ -26,7 +26,7 @@ Tất cả 3 loại nút sử dụng chung các CSS variables & layout metrics �
 :root {
   --button-height: 2.5rem;
   --button-min-width: 5rem;
-  --button-padding-inline: 1rem;
+  --button-padding-inline: 0.75rem;
   --button-gap: 0.5rem;
   --button-font-size: var(--type-small);
   --button-font-weight: var(--font-weight-medium);
@@ -99,5 +99,7 @@ Dành cho các `<button>` HTML nguyên bản hoặc thẻ `<a>` ở các trang:
 1. **Không hard-code font-weight trong nút** — dùng `var(--button-font-weight)`.
 2. **Không hard-code kích thước nút** — dùng `var(--button-height)`, `var(--button-padding-inline)`, `var(--button-gap)`.
 3. **Icon/image phải là flex item không co**, có `aspect-ratio: 1` và kích thước `1.125rem`.
-4. **Icon-only dùng `iconOnly`**, không tự đặt width/padding riêng.
+4. **Icon-only dùng `iconOnly`**; nút `.btn` chỉ chứa một SVG/image cũng tự thu gọn về kích thước icon.
 5. **Loading dùng `loading`**, không tự tạo spinner cho từng feature.
+
+Các nhóm nút như `.profile-actions`, `.button-group`, `.btn-group` và `.actions` tự dùng `gap` chuẩn để các nút không bị dính sát nhau.

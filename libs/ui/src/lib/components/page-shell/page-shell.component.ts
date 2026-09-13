@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { SidebarMenuComponent, SidebarMenuItem } from '../sidebar-menu/sidebar-menu.component';
+import { SharedHeaderComponent } from '../shared-header/shared-header.component';
 import { AuthService } from '@fe/core';
 
 /**
@@ -29,7 +30,7 @@ import { AuthService } from '@fe/core';
 @Component({
   selector: 'ui-page-shell',
   standalone: true,
-  imports: [CommonModule, RouterModule, SidebarMenuComponent],
+  imports: [CommonModule, RouterModule, SidebarMenuComponent, SharedHeaderComponent],
   templateUrl: './page-shell.component.html',
   styleUrls: ['./page-shell.component.css'],
 })
@@ -37,6 +38,7 @@ export class PageShellComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private elementRef = inject(ElementRef);
+  private readonly sidebarCollapsedStorageKey = 'reals.sidebar.collapsed';
 
   user = this.authService.user;
 
@@ -52,21 +54,58 @@ export class PageShellComponent {
   /** Show the bottom settings footer in the left sidebar. */
   @Input() showSettingsFooter = true;
 
+  /** Use the compact Reels mobile header instead of the branded topbar. */
+  @Input() mobileReelsHeader = false;
+
   /**
    * Force the global left sidebar into icon-only (collapsed) mode.
    * Use [collapsed]="true" on pages that have their own sub-navigation
    * (e.g. the Bạn bè page), so the global sidebar stays out of the way.
    */
-  @Input() collapsed = false;
+  @Input()
+  set collapsed(value: boolean) {
+    this.sidebarCollapsed.set(Boolean(value));
+  }
+  get collapsed(): boolean {
+    return this.sidebarCollapsed();
+  }
 
-  @HostBinding('class.sidebar-collapsed') get isCollapsed() { return this.collapsed; }
+  @HostBinding('class.sidebar-collapsed') get isCollapsed() { return this.sidebarCollapsed(); }
 
+  sidebarCollapsed = signal(this.readSidebarCollapsedState());
   showUserMenu = signal(false);
   mobileMenuOpen = signal(false);
 
   toggleUserMenu(e: Event) {
     e.stopPropagation();
     this.showUserMenu.update(v => !v);
+  }
+
+  toggleHeaderMenu() {
+    if (typeof window !== 'undefined' && window.innerWidth <= 860) {
+      this.toggleMobileMenu(new MouseEvent('click'));
+      return;
+    }
+
+    this.sidebarCollapsed.update((value) => {
+      const nextValue = !value;
+      this.persistSidebarCollapsedState(nextValue);
+      return nextValue;
+    });
+  }
+
+  private readSidebarCollapsedState(): boolean {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.localStorage.getItem(this.sidebarCollapsedStorageKey) === 'true';
+  }
+
+  private persistSidebarCollapsedState(collapsed: boolean): void {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(this.sidebarCollapsedStorageKey, String(collapsed));
+    }
   }
 
   closeUserMenu() {

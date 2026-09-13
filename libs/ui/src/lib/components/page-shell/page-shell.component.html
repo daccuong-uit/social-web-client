@@ -1,21 +1,14 @@
+<ui-shared-header
+  [brandLink]="brandLink"
+  [sidebarCollapsed]="sidebarCollapsed()"
+  (menuToggle)="toggleHeaderMenu()"
+></ui-shared-header>
+
 <div class="page-shell">
 
   <!-- ═══ LEFT SIDEBAR ═══ -->
   <aside class="page-sidebar">
     <nav class="page-sidebar-nav">
-
-      <!-- Brand logo -->
-      <a [routerLink]="brandLink" class="page-brand">
-        <div class="page-brand-icon">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
-            <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
-            <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800"
-                  font-family="inherit" fill="var(--color-brand-primary)">C</text>
-          </svg>
-        </div>
-        <span class="page-brand-title">Reals</span>
-      </a>
 
       <!-- Collapsed Menu Hamburger -->
       <div class="sidebar-hamburger">
@@ -26,10 +19,8 @@
         </button>
       </div>
 
-      <hr class="page-nav-separator" />
-
       <!-- Navigation menu -->
-      <ui-sidebar-menu [items]="menuItems"></ui-sidebar-menu>
+      <ui-sidebar-menu [items]="menuItems" [collapsed]="sidebarCollapsed()"></ui-sidebar-menu>
 
       <!-- Settings footer -->
       @if (showSettingsFooter) {
@@ -52,27 +43,6 @@
 
     </nav>
   </aside>
-
-  <!-- ═══ MOBILE TOPBAR ═══ -->
-  <div class="mobile-topbar">
-    <button class="hamburger-btn" (click)="toggleMobileMenu($event)" [class.open]="mobileMenuOpen()" aria-label="Menu">
-      <span class="hamburger-bar"></span>
-      <span class="hamburger-bar"></span>
-      <span class="hamburger-bar"></span>
-    </button>
-
-    <a [routerLink]="brandLink" class="page-brand mobile-brand">
-      <div class="page-brand-icon">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="22" fill="var(--color-brand-primary)" opacity="0.12"/>
-          <circle cx="24" cy="24" r="22" stroke="var(--color-brand-primary)" stroke-width="2.5"/>
-          <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="800"
-                font-family="inherit" fill="var(--color-brand-primary)">C</text>
-        </svg>
-      </div>
-      <span class="page-brand-title">Reals</span>
-    </a>
-  </div>
 
   <!-- ═══ MOBILE DRAWER OVERLAY ═══ -->
   @if (mobileMenuOpen()) {

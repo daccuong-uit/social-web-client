@@ -1,9 +1,16 @@
+:host {
+  display: block;
+  height: 100%;
+  min-height: 100%;
+}
+
 .sidebar-right {
   display: flex;
   flex-direction: column;
   gap: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  min-height: 0;
   background: transparent;
 }
 
@@ -14,15 +21,39 @@
   overflow-y: visible;
   overflow-x: hidden;
   flex: 1;
+  height: 100%;
+  min-height: 0;
 }
 
 .sidebar-content {
   display: flex;
   flex-direction: column;
-  gap: calc(24px * var(--padding-scale, 1));
+  gap: 12px;
   width: 100%;
-  padding: calc(16px * var(--padding-scale, 1)) calc(8px * var(--padding-scale, 1));
+  height: 100%;
+  min-height: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+.sidebar-content > fe-reels-comments {
+  display: flex;
+  height: auto;
+  min-height: 0;
+  flex: 1 1 0;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 1100px) {
+  :host {
+    height: calc(100dvh - 32px);
+    min-height: calc(100dvh - 32px);
+  }
+
+  .sidebar-right {
+    height: calc(100dvh - 32px);
+    min-height: calc(100dvh - 32px);
+  }
 }
 
 .profile-card {
@@ -147,8 +178,13 @@
 
 .profile-actions {
   display: grid;
-  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) 1fr;
+  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) minmax(0, 1fr);
   gap: calc(12px * var(--padding-scale, 1));
+}
+
+.profile-actions > button {
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 900px) {
@@ -162,8 +198,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 600px;
-  max-height: calc(100vh - 350px);
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  flex: 1 1 auto;
   background: var(--color-surface-subtle, #f3f4f6);
   border-radius: calc(12px * var(--padding-scale, 1));
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.12));

@@ -15,21 +15,58 @@
 
 /* ─── Center Column ─────────────────────────────────────────── */
 .reels-center {
-  flex: 1 1 auto;
+  flex: 0 0 var(--page-main-width, 640px);
+  width: var(--page-main-width, 640px);
+  max-width: var(--page-main-width, 640px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   min-width: 0;
-  padding: 0 12px;
+  padding: 0;
   overflow: hidden;
   transition: padding-right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Shift video left when comments panel is open */
+.reels-center:not(.video-fills-main)::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  z-index: 0;
+  background-color: #000;
+  background-image: var(--reel-backdrop);
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  opacity: 0.78;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+.reels-center:not(.video-fills-main) .reels-viewport {
+  position: relative;
+  z-index: 1;
+}
+
+.reels-center:not(.video-fills-main) .reels-content-wrapper {
+  transform: translateY(var(--video-center-offset, 0px));
+}
+
+.reels-viewport {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.reels-slider {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Keep the center column stable when comments open; do not shrink the main lane. */
 .reels-page.comments-open .reels-center {
-  padding-right: 372px;
+  padding-right: 0;
+  overflow: visible;
 }
 
 /* Progress dots */
@@ -66,17 +103,27 @@
 .reels-content-wrapper {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
 }
 
 
 
 /* ─── Vertical Action Icons ─────────────────────────────────── */
 .reels-actions {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  z-index: 12;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  padding: 0;
+  background: transparent;
   flex-shrink: 0;
 }
 
@@ -88,17 +135,46 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px;
   border-radius: 12px;
   color: var(--color-text-base);
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-height: unset;
   height: auto;
-  min-width: 52px;
+  min-width: 36px;
 }
 
 .action-btn:hover {
   transform: scale(1.08);
+}
+
+#reel-more-btn {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  padding: 0;
+  border-radius: 9px;
+  color: var(--color-text-muted);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+#reel-more-btn .action-icon-wrap {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+}
+
+#reel-more-btn .action-icon-wrap svg {
+  width: 17px;
+  height: 17px;
+}
+
+#reel-more-btn:hover {
+  background: var(--color-surface-subtle);
+  color: var(--color-text-base);
+  transform: translateY(-1px);
 }
 
 .action-btn.active {
@@ -115,8 +191,8 @@
 }
 
 .action-icon-wrap {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +200,7 @@
   background: var(--color-surface-subtle);
   border: 1.5px solid var(--color-border-subtle);
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .action-icon-wrap svg {
@@ -154,18 +230,100 @@
 /* ─── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .reels-center {
+    padding-inline: 0 !important;
+  }
+
+  .reels-page.comments-open .reels-center {
     padding-right: 0 !important;
   }
 }
 
+@media (max-width: 859.98px) {
+  .reels-page {
+    height: calc(100dvh - 48px);
+    max-height: calc(100dvh - 48px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .reels-content-wrapper {
+    position: relative;
+  }
+
+  .reels-content-wrapper .reels-actions {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    top: auto;
+    z-index: 12;
+    transform: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .reels-content-wrapper .action-btn {
+    min-width: 40px;
+    padding: 5px;
+  }
+
+  .reels-content-wrapper .action-icon-wrap {
+    width: 32px;
+    height: 32px;
+  }
+
+  .reels-content-wrapper .action-icon-wrap svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 @media (max-width: 600px) {
+  .reels-center {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-inline: 0;
+  }
+
+  .reels-content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    height: min(calc(100dvh - 48px - 24px), calc(80vw * 16 / 9)) !important;
+    justify-content: center;
+  }
+
+  .reels-content-wrapper .reels-actions {
+    right: max(0px, calc((100% - min(80vw, calc(80vh * 9 / 16))) / 2));
+    bottom: 8px;
+    transform: scale(0.78);
+    transform-origin: bottom right;
+  }
+
+  .reels-content-wrapper > fe-reel-item {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+  }
+
   .reel-video-card {
-    height: 80vh;
-    width: calc(80vh * 9 / 16);
+    width: 100% !important;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    aspect-ratio: 9 / 16;
+    flex: 0 0 auto;
   }
 
   .reels-actions {
     gap: 2px;
+  }
+
+  .reels-content-wrapper .reels-actions {
+    right: 0;
   }
 
   .action-icon-wrap {
@@ -177,4 +335,304 @@
     width: 18px;
     height: 18px;
   }
-}@media (min-width: 1100px) { .mobile-comments { display: none; } }
+}
+
+@media (min-width: 1100px) {
+  .mobile-comments {
+    display: none;
+  }
+}
+
+/* Metadata and actions follow the main layout bottom, not the video card. */
+.reels-bottom-overlay {
+  position: absolute;
+  left: calc(50% + 36px);
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  width: min(var(--page-main-width, 640px), calc(90vh * 9 / 16 + 72px));
+  min-width: 0;
+  padding: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: transparent;
+}
+
+.reels-bottom-overlay .reel-overlay-info {
+  position: static;
+  flex: 1 1 auto;
+  align-self: flex-end;
+  min-width: 0;
+  padding: 0 16px 12px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.reels-bottom-overlay .reel-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reels-bottom-overlay .reel-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-brand-primary);
+}
+
+.reels-bottom-overlay .reel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reels-bottom-overlay .reel-author-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.reels-bottom-overlay .reel-author-name,
+.reels-bottom-overlay .reel-description,
+.reels-bottom-overlay .reel-music {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.reels-bottom-overlay .reel-author-name {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-strong);
+  white-space: nowrap;
+}
+
+.reels-bottom-overlay .reel-follow-btn {
+  padding: 4px 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+  font-size: var(--font-size-label);
+  cursor: pointer;
+}
+
+.reels-bottom-overlay .reel-description,
+.reels-bottom-overlay .reel-music {
+  margin: 0;
+  overflow: hidden;
+}
+
+.reels-bottom-overlay .reel-description {
+  font-size: var(--font-size-body);
+  line-height: var(--type-leading-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.reels-bottom-overlay .reel-music {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-caption);
+  white-space: nowrap;
+}
+
+.reels-bottom-overlay .reels-actions {
+  position: static;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  margin-left: 8px;
+  padding-bottom: 4px;
+  pointer-events: auto;
+}
+
+.reels-bottom-overlay .action-btn {
+  color: #fff;
+}
+
+.reels-bottom-overlay .action-count {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.reels-center.video-fills-main .reels-bottom-overlay {
+  bottom: var(--video-bottom-gap, 0px);
+}
+
+@media (max-width: 600px) {
+  .reels-page,
+  .reels-center {
+    width: 100vw;
+    max-width: none;
+  }
+
+  .reels-bottom-overlay {
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .reels-bottom-overlay .reel-overlay-info {
+    padding: 0 8px 8px 8px;
+    gap: 4px;
+  }
+
+  .reels-bottom-overlay .reel-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+
+  .reels-bottom-overlay .reel-author {
+    gap: 7px;
+  }
+
+  .reels-bottom-overlay .reel-author-details {
+    gap: 7px;
+  }
+
+  .reels-bottom-overlay .reel-author-name,
+  .reels-bottom-overlay .reel-description {
+    font-size: var(--font-size-md);
+  }
+
+  .reels-bottom-overlay .reel-follow-btn {
+    font-size: var(--font-size-label);
+  }
+
+  .reels-bottom-overlay .reel-follow-btn {
+    padding: 0;
+    border: 0;
+    text-decoration: underline;
+  }
+
+  .reels-bottom-overlay .reel-music {
+    font-size: var(--type-micro);
+  }
+
+  .reels-bottom-overlay .reels-actions {
+    gap: 2px;
+    margin-left: 0;
+    padding-bottom: 4px;
+  }
+
+  .reels-bottom-overlay .action-btn {
+    min-width: 48px;
+    padding: 2px;
+  }
+
+  .reels-bottom-overlay .action-icon-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay {
+    padding: 8px 0 10px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-overlay-info {
+    padding: 0 0 8px;
+  }
+}
+
+/* When the video leaves space below, move the controls into the main layout. */
+.reels-center:not(.video-fills-main) .reels-bottom-overlay {
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 12px 12px;
+  background: transparent;
+  border-top: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.reels-center:not(.video-fills-main) {
+  background: transparent;
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-overlay-info {
+  padding: 0;
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-author-name,
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-description,
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-music {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-follow-btn {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .action-btn,
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .action-count {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .action-icon-wrap {
+  width: 64px;
+  height: 64px;
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .action-icon-wrap svg {
+  width: 30px;
+  height: 30px;
+}
+
+.reels-center:not(.video-fills-main) .reels-bottom-overlay .action-btn {
+  min-width: 68px;
+}
+
+@media (max-width: 600px) {
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay {
+    padding: 8px 0 10px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-overlay-info {
+    padding: 0 0 8px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .reels-actions {
+    margin-left: 0;
+    padding-bottom: 4px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .action-btn {
+    min-width: 48px;
+    padding: 2px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .action-icon-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .reels-center:not(.video-fills-main) .reels-bottom-overlay .action-icon-wrap svg {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -170,8 +170,13 @@
 
 .profile-actions {
   display: grid;
-  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) 1fr;
+  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) minmax(0, 1fr);
   gap: calc(12px * var(--padding-scale, 1));
+}
+
+.profile-actions > button {
+  width: 100%;
+  min-width: 0;
 }
 
 /* Promo Card */
@@ -333,4 +338,4 @@
     padding: calc(16px * var(--padding-scale, 1)) 0;
   }
 }
-
+

@@ -193,8 +193,13 @@
 
 .profile-actions {
   display: grid;
-  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) 1fr;
+  grid-template-columns: calc(48px * var(--padding-scale, 1)) calc(48px * var(--padding-scale, 1)) minmax(0, 1fr);
   gap: calc(12px * var(--padding-scale, 1));
+}
+
+.profile-actions > button {
+  width: 100%;
+  min-width: 0;
 }
 
 .profile-actions button {
@@ -392,4 +397,48 @@
   .sidebar-right {
     padding: calc(16px * var(--padding-scale, 1)) 0;
   }
+}
+
+.sidebar-scroll-form {
+  gap: 14px;
+  padding: 12px 16px;
+}
+
+.profile-card,
+.promo-card,
+.trending-card,
+.suggestion-card {
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: none;
+}
+
+.profile-top {
+  margin-bottom: 10px;
+  padding-block: 4px;
+}
+
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+}
+
+.profile-stats {
+  margin-bottom: 12px;
+  padding-block: 10px;
+}
+
+.profile-actions {
+  grid-template-columns: 40px 40px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.profile-actions button {
+  height: 32px;
+  min-height: 32px;
+  border-radius: 6px;
+}
+
+.profile-menu-dropdown {
+  border-radius: 8px;
 }
