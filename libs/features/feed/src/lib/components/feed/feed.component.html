@@ -1,40 +1,32 @@
 <div class="feed-container">
   <!-- Feed Header / Compose Box -->
-  <div class="feed-header">
+  <div class="feed-header" aria-label="Tạo bài đăng">
     <div class="compose-card">
-      <div class="compose-top">
+      <div class="compose-main">
         <button type="button" class="compose-input" (click)="onCreatePost()">
           <span class="compose-input-avatar" aria-hidden="true"></span>
-          Bạn đang nghĩ gì thế?
+          <span class="compose-input-label">Bạn đang nghĩ gì thế?</span>
         </button>
       </div>
       <div class="compose-actions">
         <div class="action-buttons compact">
-          <lib-button variant="ghost" (click)="onCreatePost()">
+          <lib-button variant="ghost" [iconOnly]="true" ariaLabel="Hình ảnh hoặc video" (click)="onCreatePost()">
             <img
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2345bd62' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='M21 15l-5-5L5 21'/%3E%3C/svg%3E"
               alt="Hình ảnh/Video" />
-            Hình ảnh/Video
           </lib-button>
-          <lib-button variant="ghost" (click)="onCreatePost()">
+          <lib-button variant="ghost" [iconOnly]="true" ariaLabel="Cảm xúc" (click)="onCreatePost()">
             <img
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f7b928' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'/%3E%3Cpath d='M9 10h.01M15 10h.01'/%3E%3C/svg%3E"
               alt="Cảm xúc" />
-            Cảm xúc
           </lib-button>
-          <lib-button variant="ghost" (click)="onCreatePost()">
+          <lib-button variant="ghost" [iconOnly]="true" ariaLabel="Check in" (click)="onCreatePost()">
             <img
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5533d' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s8-4.5 8-11a8 8 0 0 0-16 0c0 6.5 8 11 8 11z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"
               alt="Vị trí" />
-            Check in
           </lib-button>
         </div>
-        <lib-button variant="primary" (click)="onCreatePost()">
-          <img
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='22' y1='2' x2='11' y2='13'/%3E%3Cpolygon points='22 2 15 22 11 13 2 9 22 2'/%3E%3C/svg%3E"
-            alt="Đăng" />
-          Đăng
-        </lib-button>
+        <lib-button class="compose-submit" variant="primary" ariaLabel="Đăng" (click)="onCreatePost()">Đăng</lib-button>
       </div>
     </div>
   </div>

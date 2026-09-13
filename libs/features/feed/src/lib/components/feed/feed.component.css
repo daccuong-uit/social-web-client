@@ -9,55 +9,79 @@
   overflow: visible;
   color: var(--color-text-base, #0f172a);
   font-family: inherit;
-  min-width: 380px;
+  min-width: 0;
 }
 
 /* ═════════════════════════════════════════════════════════════ */
 /* Feed Header */
 /* ═════════════════════════════════════════════════════════════ */
 .feed-header {
-  display: flex;
-  flex-direction: column;
-  gap: calc(12px * var(--padding-scale, 1));
+  display: block;
+  width: 100%;
   padding: 0;
   background: var(--color-surface-base, #ffffff);
   border: none;
   border-radius: 0;
   border-bottom: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.24));
+  box-sizing: border-box;
 }
 
 .compose-card {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
+  grid-template-rows: auto auto;
   width: 100%;
-  padding: 0;
+  max-width: 100%;
+  padding: 0 calc(12px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1));
   border: none;
   border-radius: 0;
   background: transparent;
-  gap: calc(8px * var(--padding-scale, 1));
+  gap: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.compose-top {
+.compose-main {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: calc(780px * var(--padding-scale, 1));
-  padding: calc(8px * var(--padding-scale, 1)) calc(8px * var(--padding-scale, 1)) 0 calc(8px * var(--padding-scale, 1));
+  min-width: 0;
+  min-height: calc(68px * var(--padding-scale, 1));
 }
 
-.compose-input {
+.compose-main > .compose-input {
   position: relative;
+  display: block !important;
   width: 100%;
-  padding: 0;
+  min-width: 0;
+  height: auto !important;
+  min-height: calc(52px * var(--padding-scale, 1)) !important;
+  padding: 0 0 0 calc(52px * var(--padding-scale, 1)) !important;
   border: none;
+  border-radius: 0;
   background: transparent;
   color: var(--color-text-muted, rgba(107, 114, 128, 0.72));
   text-align: left;
+  justify-content: initial;
+  align-items: initial;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
-  min-height: calc(50px * var(--padding-scale, 1));
+  box-sizing: border-box;
+}
+
+.compose-input-label {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  z-index: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  pointer-events: none;
 }
 
 .compose-input-avatar {
@@ -65,36 +89,48 @@
   left: calc(1px * var(--padding-scale, 1));
   top: 50%;
   transform: translateY(-50%);
-  width: calc(42px * var(--padding-scale, 1));
-  height: calc(42px * var(--padding-scale, 1));
+  z-index: 0;
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-brand-primary, #fe2c55), rgba(254, 44, 85, 0.75));
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
-.compose-input:hover {
-  background: transparent;
-}
-
-.compose-input:hover {
+.compose-main > .compose-input:hover {
   background: transparent;
 }
 
 .compose-actions {
-  width: 100%;
-  max-width: calc(780px * var(--padding-scale, 1));
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: calc(16px * var(--padding-scale, 1));
-  padding: 0 calc(8px * var(--padding-scale, 1)) calc(8px * var(--padding-scale, 1)) calc(8px * var(--padding-scale, 1));
+  gap: var(--spacing-4);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .compose-actions lib-button,
 .compose-actions lib-button button {
   height: var(--button-height) !important;
   min-height: var(--button-height) !important;
+}
+
+.compose-actions lib-button {
+  display: block;
+  line-height: 0;
+}
+
+.compose-actions lib-button button {
+  height: var(--button-height) !important;
+  min-height: var(--button-height) !important;
+}
+
+.compose-actions lib-button button.icon-only {
+  width: var(--button-height);
+  min-width: var(--button-height);
+  padding: 0;
 }
 
 .compose-actions lib-button {
@@ -118,6 +154,7 @@
   height: var(--button-height);
   min-height: var(--button-height);
   padding: 0 var(--button-padding-inline);
+  flex: 0 0 auto;
 }
 
 .compose-footer {
@@ -186,12 +223,10 @@
   display: flex;
   gap: calc(8px * var(--padding-scale, 1));
   flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.action-buttons::-webkit-scrollbar {
-  display: none;
+  overflow: visible;
+  min-width: 0;
+  flex: 1 1 0;
+  width: auto;
 }
 
 .compose-actions .action-btn {
@@ -336,12 +371,12 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: calc(8px * var(--padding-scale, 1)) 0 calc(8px * var(--padding-scale, 1));
+  padding: 0;
 }
 
 .post-card {
   width: 100%;
-  padding: calc(12px * var(--padding-scale, 1));
+  padding: calc(12px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1));
   display: flex;
   flex-direction: column;
   gap: calc(8px * var(--padding-scale, 1));
@@ -367,9 +402,9 @@
 }
 
 .avatar {
-  min-width: calc(48px * var(--padding-scale, 1));
-  width: calc(48px * var(--padding-scale, 1));
-  height: calc(48px * var(--padding-scale, 1));
+  min-width: calc(40px * var(--padding-scale, 1));
+  width: calc(40px * var(--padding-scale, 1));
+  height: calc(40px * var(--padding-scale, 1));
   border-radius: 50%;
   background-color: var(--color-surface-subtle, #f3f4f6);
   background-size: cover;
@@ -409,7 +444,7 @@
   margin: 0;
   color: var(--color-text-muted, rgba(0, 0, 0, 0.68));
   font-size: var(--font-size-caption);
-  line-height: var(--type-leading-tight)5;
+  line-height: var(--type-leading-tight);
 }
 
 .more-btn {
@@ -463,14 +498,14 @@
   width: 100%;
   height: auto;
   max-height: calc(450px * var(--padding-scale, 1));
-  border-radius: calc(20px * var(--padding-scale, 1));
+  border-radius: 8px;
   object-fit: cover;
 }
 
 
 @media (max-width: 840px) {
   .feed-header {
-    padding: calc(14px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
+    padding: 0;
   }
 
   .feed-controls {
@@ -488,7 +523,7 @@
 
 @media (max-width: 640px) {
   .feed-header {
-    padding: calc(12px * var(--padding-scale, 1)) calc(14px * var(--padding-scale, 1));
+    padding: 0;
   }
 
   .post-actions {
@@ -501,7 +536,7 @@
 /* ═════════════════════════════════════════════════════════════ */
 @media (max-width: 840px) {
   .feed-header {
-    padding: calc(14px * var(--padding-scale, 1)) calc(16px * var(--padding-scale, 1)) calc(12px * var(--padding-scale, 1));
+    padding: 0;
   }
 
   .feed-controls {
@@ -519,10 +554,51 @@
 
 @media (max-width: 640px) {
   .feed-header {
-    padding: calc(12px * var(--padding-scale, 1)) calc(14px * var(--padding-scale, 1));
+    padding: 0;
   }
 
   .post-actions {
     grid-template-columns: 1fr;
+  }
+
+  .compose-actions {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .compose-actions .action-btn {
+    min-width: 42px;
+    padding-inline: 8px;
+  }
+
+  .compose-actions .action-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .compose-submit,
+  .compose-submit button {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .compose-card {
+    padding-inline: 10px;
+  }
+
+  .compose-actions {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .compose-actions .action-buttons {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .compose-submit,
+  .compose-submit button {
+    width: 100%;
   }
 }
