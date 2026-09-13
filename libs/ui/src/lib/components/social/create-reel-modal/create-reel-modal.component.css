@@ -58,6 +58,9 @@
   right: 12px;
   width: 36px;
   height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
   border-radius: 8px;
   background: var(--color-surface-subtle, #e4e6eb);
   border: none;
@@ -67,6 +70,12 @@
   cursor: pointer;
   color: var(--color-text-base, #050505);
   transition: background 0.15s;
+}
+
+.close-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .close-btn:hover {
@@ -232,6 +241,9 @@
   right: calc(50% - 90px - 36px);
   width: 30px;
   height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.65);
   border: none;
@@ -239,6 +251,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 1;
   cursor: pointer;
   transition: background 0.15s;
 }

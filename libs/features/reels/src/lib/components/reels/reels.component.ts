@@ -118,6 +118,17 @@ export class ReelsComponent implements AfterViewInit, OnInit, OnDestroy {
     return n.toString();
   }
 
+  reelItemAspect(index: number): number {
+    const reel = this.reelsService.reels()[index] as any;
+    const width = Number(reel?.width ?? reel?.videoWidth ?? reel?.frameWidth);
+    const height = Number(reel?.height ?? reel?.videoHeight ?? reel?.frameHeight);
+    const reportedRatio = Number(reel?.aspectRatio ?? reel?.ratio);
+    const ratio = width > 0 && height > 0 ? width / height : reportedRatio > 0 ? reportedRatio : 9 / 16;
+    if (ratio > 1.05) return 16 / 9;
+    if (ratio >= 0.7) return 4 / 5;
+    return 9 / 16;
+  }
+
   @HostListener('window:keydown', ['$event'])
   onKeyDown(e: KeyboardEvent) {
     if (e.key === 'ArrowUp') { e.preventDefault(); this.reelsService.goToPrev(); }

@@ -36,6 +36,7 @@ export class ReelItemComponent implements AfterViewInit, OnChanges, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
 
   paused: boolean = false;
+  aspectRatio = 9 / 16;
   showControls: boolean = false;
   progressValue: number = 0;
   isSeeking: boolean = false;
@@ -61,8 +62,23 @@ export class ReelItemComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
+  private updateAspectRatio(): void {
+    const source = this.reel ?? {};
+    const width = Number(source.width ?? source.videoWidth ?? source.frameWidth);
+    const height = Number(source.height ?? source.videoHeight ?? source.frameHeight);
+    const reportedRatio = Number(source.aspectRatio ?? source.ratio);
+    const ratio = width > 0 && height > 0
+      ? width / height
+      : reportedRatio > 0
+        ? reportedRatio
+        : 9 / 16;
+
+    this.aspectRatio = ratio > 1.05 ? 16 / 9 : ratio >= 0.7 ? 4 / 5 : 9 / 16;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['reel']) {
+      this.updateAspectRatio();
       const newUrl: string = changes['reel'].currentValue?.videoUrl ?? '';
       if (newUrl && newUrl !== this.currentSrc) {
         const video = this.videoPlayerRef?.nativeElement;

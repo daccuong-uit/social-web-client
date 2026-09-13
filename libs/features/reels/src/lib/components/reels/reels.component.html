@@ -1,26 +1,85 @@
 <div class="reels-page" [class.comments-open]="reelsService.showComments()">
 
   <!-- ═══ VIDEO AREA (center column) ═══ -->
-  <div class="reels-center" [class.video-fills-main]="videoFillsMain()"
-    [style.--reel-backdrop]="'url(' + currentReelBackdrop() + ')'">
+  <div class="reels-center" [class.video-fills-main]="videoFillsMain()">
 
     <!-- Viewport for sliding animation -->
-    <div class="reels-viewport" style="height: 90vh; overflow: hidden; position: relative; width: 100%; max-width: max-content; display: flex; justify-content: center;">
-      <div class="reels-slider" [style.transform]="'translateY(calc(-' + reelsService.currentIndex() + ' * 90vh))'"
-        style="transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; height: 100%; max-width: 100%;">
+    <div class="reels-viewport">
+      <div class="reels-slider" [style.transform]="'translateY(calc(-' + reelsService.currentIndex() + ' * var(--reel-frame-step)))'">
 
         <!-- Video + side icons wrapper (centered together) -->
-        <div class="reels-content-wrapper" *ngFor="let reel of reelsService.reels(); let i = index; trackBy: trackReel"
-          style="height: 90vh; flex-shrink: 0; max-width: 100%;">
+        <div class="reels-content-wrapper" *ngFor="let reel of reelsService.reels(); let i = index; trackBy: trackReel">
 
 
           <!-- Video card Component -->
+          <div class="reel-video-frame" [style.--reel-aspect]="reelItemAspect(i)">
           <fe-reel-item 
             [reel]="reel" 
             [isCurrent]="i === reelsService.currentIndex()"
             (onLike)="reelsService.currentIndex() === i && reelsService.toggleLike()"
-            style="flex: 1 1 auto; min-width: 0; display: flex; justify-content: center;">
+            [style.--reel-aspect]="reelItemAspect(i)"
+            class="reel-item-frame">
           </fe-reel-item>
+
+          <div class="reels-actions" *ngIf="i === reelsService.currentIndex()">
+            <button class="action-btn" [class.active]="reel.liked" (click)="reelsService.toggleLike()" id="reel-like-btn" aria-label="Thích">
+              <div class="action-icon-wrap">
+                <svg viewBox="0 0 24 24" [attr.fill]="reel.liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </div>
+              <span class="action-count">{{ formatCount(reel.likes) }}</span>
+            </button>
+            <button class="action-btn" [class.active]="reelsService.showComments()" (click)="reelsService.toggleComments()" id="reel-comment-btn" aria-label="Bình luận">
+              <div class="action-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              </div>
+              <span class="action-count">{{ formatCount(reel.comments) }}</span>
+            </button>
+            <button class="action-btn" id="reel-share-btn" aria-label="Chia sẻ">
+              <div class="action-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
+              </div>
+              <span class="action-count">{{ formatCount(reel.shares) }}</span>
+            </button>
+            <button class="action-btn" [class.active]="reel.saved" (click)="reelsService.toggleSave()" id="reel-save-btn" aria-label="Lưu">
+              <div class="action-icon-wrap">
+                <svg viewBox="0 0 24 24" [attr.fill]="reel.saved ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2"><path d="M6 3h12a2 2 0 0 1 2 2v16l-8-5-8 5V5a2 2 0 0 1 2-2Z" /></svg>
+              </div>
+              <span class="action-count">{{ formatCount(reel.saves) }}</span>
+            </button>
+            <button class="action-btn" id="reel-more-btn" aria-label="Thêm">
+              <div class="action-icon-wrap"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" /></svg></div>
+            </button>
+          </div>
+
+          <div class="reels-bottom-overlay" *ngIf="i === reelsService.currentIndex()">
+            <div class="reel-overlay-info">
+              <div class="reel-author">
+                <div class="reel-avatar">
+                  <img [src]="reel.avatar" alt="Avatar">
+                </div>
+                <div class="reel-author-details">
+                  <span class="reel-author-name">{{ reel.author }}</span>
+                  <button class="reel-follow-btn" [class.following]="reelsService.isFollowingAuthor(reel.id)"
+                    (click)="$event.stopPropagation(); reelsService.toggleFollow(reel.id)">
+                    {{ reelsService.isFollowingAuthor(reel.id) ? 'Đang theo dõi' : 'Theo dõi' }}
+                  </button>
+                </div>
+              </div>
+              <p class="reel-description">{{ reel.description }}</p>
+              <p class="reel-music">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg>
+                {{ reel.music }}
+              </p>
+            </div>
+          </div>
+
+          </div>
 
         </div>
         <!-- end .reels-content-wrapper (ngFor) -->
@@ -29,65 +88,6 @@
       <!-- end .reels-slider -->
     </div>
     <!-- end .reels-viewport -->
-
-    <!-- UI anchored to the main layout, independent of video card height -->
-    <div class="reels-bottom-overlay" *ngIf="reelsService.currentReel() as reel">
-      <div class="reel-overlay-info">
-        <div class="reel-author">
-          <div class="reel-avatar">
-            <img [src]="reel.avatar" alt="Avatar">
-          </div>
-          <div class="reel-author-details">
-            <span class="reel-author-name">{{ reel.author }}</span>
-            <button class="reel-follow-btn" [class.following]="reelsService.isFollowingAuthor(reel.id)"
-              (click)="$event.stopPropagation(); reelsService.toggleFollow(reel.id)">
-              {{ reelsService.isFollowingAuthor(reel.id) ? 'Đang theo dõi' : 'Theo dõi' }}
-            </button>
-          </div>
-        </div>
-        <p class="reel-description">{{ reel.description }}</p>
-        <p class="reel-music">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-            <path d="M9 18V5l12-2v13" />
-            <circle cx="6" cy="18" r="3" />
-            <circle cx="18" cy="16" r="3" />
-          </svg>
-          {{ reel.music }}
-        </p>
-      </div>
-
-      <div class="reels-actions">
-        <button class="action-btn" [class.active]="reel.liked" (click)="reelsService.toggleLike()" id="reel-like-btn" aria-label="Thích">
-          <div class="action-icon-wrap">
-            <svg viewBox="0 0 24 24" [attr.fill]="reel.liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-          </div>
-          <span class="action-count">{{ formatCount(reel.likes) }}</span>
-        </button>
-        <button class="action-btn" [class.active]="reelsService.showComments()" (click)="reelsService.toggleComments()" id="reel-comment-btn" aria-label="Bình luận">
-          <div class="action-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
-          </div>
-          <span class="action-count">{{ formatCount(reel.comments) }}</span>
-        </button>
-        <button class="action-btn" id="reel-share-btn" aria-label="Chia sẻ">
-          <div class="action-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
-          </div>
-          <span class="action-count">{{ formatCount(reel.shares) }}</span>
-        </button>
-        <button class="action-btn" [class.active]="reel.saved" (click)="reelsService.toggleSave()" id="reel-save-btn" aria-label="Lưu">
-          <div class="action-icon-wrap">
-            <svg viewBox="0 0 24 24" [attr.fill]="reel.saved ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2"><path d="M6 3h12a2 2 0 0 1 2 2v16l-8-5-8 5V5a2 2 0 0 1 2-2Z" /></svg>
-          </div>
-          <span class="action-count">{{ formatCount(reel.saves) }}</span>
-        </button>
-        <button class="action-btn" id="reel-more-btn" aria-label="Thêm">
-          <div class="action-icon-wrap"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" /></svg></div>
-        </button>
-      </div>
-    </div>
 
     <!-- Mobile Comments Panel (Bottom Sheet) -->
     <ng-container *ngIf="reelsService.showComments()">

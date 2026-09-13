@@ -17,8 +17,41 @@ import { ReelsRightSidebarComponent } from '../reels-right-sidebar/reels-right-s
     </ui-page-shell>
   `,
   styles: [`
-    :host { display: block; width: 100%; min-height: 100%; }
-    .reels-shell-main { width: 100%; min-height: 100%; }
+    :host {
+      display: block;
+      width: 100%;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .reels-shell-main { width: 100%; height: 100%; min-height: 0; }
+    :host ::ng-deep ui-page-shell {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+    :host ::ng-deep ui-page-shell .page-shell {
+      flex: 1 1 auto;
+      height: auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+    :host ::ng-deep ui-page-shell .page-main,
+    :host ::ng-deep ui-page-shell .page-main-content {
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+    :host ::ng-deep ui-page-shell .page-main-content {
+      padding-bottom: 0;
+    }
+    :host ::ng-deep ui-page-shell .page-rightbar {
+      top: 0;
+      height: 100%;
+      max-height: 100%;
+    }
     @media (max-width: 859.98px) {
       :host,
       :host ::ng-deep ui-page-shell,
@@ -26,9 +59,26 @@ import { ReelsRightSidebarComponent } from '../reels-right-sidebar/reels-right-s
         width: 100vw;
         max-width: none;
       }
-      :host ::ng-deep ui-page-shell .page-shell { height: 100dvh; min-height: 100dvh; }
-      :host ::ng-deep ui-page-shell .page-main { height: calc(100dvh - 48px); min-height: calc(100dvh - 48px); }
-      :host ::ng-deep ui-page-shell .page-main-content { height: 100%; min-height: 100%; }
+      :host ::ng-deep ui-page-shell .page-shell { height: auto; min-height: 0; }
+      :host ::ng-deep ui-page-shell .page-main,
+      :host ::ng-deep ui-page-shell .page-main-content { height: 100%; min-height: 0; }
+      :host ::ng-deep ui-page-shell .page-shell {
+        display: flex;
+        width: 100%;
+      }
+      :host ::ng-deep ui-page-shell .page-sidebar {
+        display: none;
+      }
+      :host ::ng-deep ui-page-shell .page-main {
+        width: 100%;
+        max-width: none;
+        flex: 1 1 auto;
+      }
+      :host ::ng-deep ui-page-shell .page-main-content {
+        width: 100%;
+        max-width: none;
+        border: 0;
+      }
     }
   `]
 })

@@ -1,6 +1,6 @@
 <div class="reel-video-card" (click)="handleVideoClick(videoPlayer)">
   <!-- Video background -->
-  <div class="reel-video-bg" [style.background]="reel.thumbnailColor">
+  <div class="reel-video-bg">
     <video #videoPlayer class="reel-video-element" [hidden]="!reel.videoUrl" loop
       muted playsinline preload="auto"
       (play)="paused = false" (pause)="paused = true"

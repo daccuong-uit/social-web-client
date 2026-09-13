@@ -219,12 +219,16 @@ export interface CommentThreadTarget {
       .panel-close-btn {
         width: 2.5rem;
         height: 2.5rem;
+        min-width: 2.5rem;
+        min-height: 2.5rem;
+        padding: 0;
         border: none;
         background: transparent;
         color: var(--color-text-muted, rgba(15, 23, 42, 0.64));
         font-size: var(--type-body);
         cursor: pointer;
         border-radius: 8px;
+        line-height: 1;
       }
       .panel-close-btn:hover {
         background: rgba(15, 23, 42, 0.04);
@@ -374,6 +378,9 @@ export interface CommentThreadTarget {
         font-weight: var(--font-weight-regular);
         cursor: pointer;
         padding: 0;
+        min-width: 0;
+        min-height: 0;
+        line-height: 1;
         font-family: var(--font-family-ui);
       }
       .like-action {
@@ -523,6 +530,18 @@ export interface CommentThreadTarget {
         border-radius: 8px;
         font-size: var(--type-small);
       }
+      .composer-icon-btn button {
+        min-width: 2rem;
+        min-height: 2rem;
+        padding: 0.25rem;
+      }
+      :host ::ng-deep .composer-icon-btn button {
+        width: 2rem;
+        min-width: 2rem;
+        height: 2rem;
+        min-height: 2rem;
+        padding: 0;
+      }
       .composer-send-btn {
         position: absolute;
         right: calc(var(--padding-scale, 1) * 0.7rem);
@@ -536,6 +555,13 @@ export interface CommentThreadTarget {
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+      }
+      :host ::ng-deep .composer-send-btn button {
+        width: 2.4rem;
+        min-width: 2.4rem;
+        height: 2.4rem;
+        min-height: 2.4rem;
+        padding: 0;
       }
       .composer-send-btn svg {
         width: 1rem;

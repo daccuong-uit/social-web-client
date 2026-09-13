@@ -7,17 +7,61 @@
 .reels-page {
   display: flex;
   width: 100%;
-  height: calc(100vh - var(--spacing-6, 40px));
+  height: calc(100dvh - var(--header-height, 56px));
+  max-height: calc(100dvh - var(--header-height, 56px));
+  min-height: 0;
   overflow: hidden;
   background: var(--color-surface-base);
   position: relative;
+  --reel-frame-step: 100%;
+}
+
+/* Final frame-owned positioning, shared by desktop and responsive layouts. */
+.reel-video-frame > .reels-actions {
+  right: 8px !important;
+  bottom: 8px !important;
+  top: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.reel-video-frame > .reels-bottom-overlay {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  bottom: auto !important;
+  transform: none !important;
+  padding: 0 !important;
+  pointer-events: none;
+}
+
+.reel-video-frame > .reels-bottom-overlay .reel-overlay-info {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 12px 12px;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.reel-video-frame > .reels-bottom-overlay .reel-author,
+.reel-video-frame > .reels-bottom-overlay .reel-description,
+.reel-video-frame > .reels-bottom-overlay .reel-music,
+.reel-video-frame > .reels-bottom-overlay .reel-follow-btn {
+  pointer-events: auto;
+}
+
+.reel-video-frame .video-timeline-container {
+  z-index: 100;
+  pointer-events: auto;
 }
 
 /* ─── Center Column ─────────────────────────────────────────── */
 .reels-center {
-  flex: 0 0 var(--page-main-width, 640px);
-  width: var(--page-main-width, 640px);
-  max-width: var(--page-main-width, 640px);
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,38 +73,24 @@
   transition: padding-right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.reels-center:not(.video-fills-main)::before {
-  content: '';
-  position: absolute;
-  inset: -32px;
-  z-index: 0;
-  background-color: #000;
-  background-image: var(--reel-backdrop);
-  background-size: cover;
-  background-position: center;
-  filter: blur(12px);
-  opacity: 0.78;
-  transform: scale(1.08);
-  pointer-events: none;
-}
-
-.reels-center:not(.video-fills-main) .reels-viewport {
-  position: relative;
-  z-index: 1;
-}
-
-.reels-center:not(.video-fills-main) .reels-content-wrapper {
-  transform: translateY(var(--video-center-offset, 0px));
-}
-
 .reels-viewport {
-  width: 100% !important;
-  max-width: 100% !important;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .reels-slider {
   width: 100%;
   max-width: 100%;
+  align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Keep the center column stable when comments open; do not shrink the main lane. */
@@ -107,7 +137,34 @@
   position: relative;
   width: 100%;
   max-width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: var(--color-surface-base, #000);
   justify-content: center;
+}
+
+.reel-video-frame {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  width: min(calc((100dvh - var(--header-height, 56px)) * 9 / 16), calc(100vw - 16px));
+  height: auto;
+  aspect-ratio: var(--reel-aspect, 0.5625);
+  min-width: 0;
+}
+
+.reel-video-frame > .reels-actions {
+  right: max(8px, calc((100% - 100vw) / 2 + 8px)) !important;
+}
+
+.reel-item-frame {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
 }
 
 
@@ -115,7 +172,7 @@
 /* ─── Vertical Action Icons ─────────────────────────────────── */
 .reels-actions {
   position: absolute;
-  right: 0;
+  right: 4px;
   bottom: 8px;
   z-index: 12;
   display: flex;
@@ -127,7 +184,7 @@
   flex-shrink: 0;
 }
 
-.action-btn {
+button.action-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,6 +199,13 @@
   min-height: unset;
   height: auto;
   min-width: 36px;
+}
+
+button.action-btn .action-icon-wrap {
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .action-btn:hover {
@@ -182,7 +246,33 @@
 }
 
 .action-btn.active .action-icon-wrap {
-  background: color-mix(in srgb, var(--color-brand-primary) 12%, transparent);
+  background: transparent;
+}
+
+#reel-like-btn,
+#reel-like-btn:hover,
+#reel-like-btn.active {
+  color: #ef3340;
+}
+
+#reel-like-btn .action-icon-wrap,
+#reel-like-btn.active .action-icon-wrap {
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(255, 255, 255, 0.14);
+  border: 0;
+}
+
+#reel-like-btn .action-icon-wrap svg {
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px;
+  color: #ef3340;
+  stroke: #ef3340;
+}
+
+#reel-like-btn .action-icon-wrap svg path {
+  fill: #ef3340;
 }
 
 .action-btn.disabled {
@@ -191,14 +281,14 @@
 }
 
 .action-icon-wrap {
-  width: 34px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: var(--color-surface-subtle);
-  border: 1.5px solid var(--color-border-subtle);
+  background: rgba(255, 255, 255, 0.14);
+  border: 0;
   transition: all 0.2s ease;
   box-shadow: none;
 }
@@ -212,8 +302,31 @@
 .action-count {
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-muted);
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   line-height: var(--type-leading-normal);
+}
+
+/* Contrast follows the surface behind the rail: white over video, theme text outside it. */
+.reels-center.video-fills-main .reels-actions,
+.reels-center.video-fills-main .reels-actions button.action-btn,
+.reels-center.video-fills-main .reels-actions button.action-btn .action-icon-wrap {
+  color: #ffffff;
+}
+
+.reels-center:not(.video-fills-main) .reels-actions,
+.reels-center:not(.video-fills-main) .reels-actions button.action-btn,
+.reels-center:not(.video-fills-main) .reels-actions button.action-btn .action-icon-wrap {
+  color: var(--color-text-base);
+}
+
+.reels-center:not(.video-fills-main) .reels-actions .action-icon-wrap {
+  background: color-mix(in srgb, var(--color-text-base) 12%, transparent);
+}
+
+.reels-center:not(.video-fills-main) .reels-actions .action-count {
+  color: var(--color-text-base);
+  text-shadow: none;
 }
 
 .action-btn.active .action-count {
@@ -240,8 +353,8 @@
 
 @media (max-width: 859.98px) {
   .reels-page {
-    height: calc(100dvh - 48px);
-    max-height: calc(100dvh - 48px);
+    height: 100%;
+    max-height: none;
   }
 }
 
@@ -252,7 +365,7 @@
 
   .reels-content-wrapper .reels-actions {
     position: absolute;
-    right: 0;
+    right: 4px;
     bottom: 8px;
     top: auto;
     z-index: 12;
@@ -268,6 +381,46 @@
     padding: 5px;
   }
 
+  .reels-actions button.action-btn {
+    width: 40px;
+    min-width: 40px;
+    min-height: 0;
+    padding: 4px 0 !important;
+    color: #ffffff;
+  }
+
+  .reels-actions button.action-btn .action-icon-wrap {
+    width: 44px;
+    height: 44px;
+    color: #ffffff;
+  }
+
+  .reels-actions button#reel-like-btn,
+  .reels-actions button#reel-like-btn:hover,
+  .reels-actions button#reel-like-btn.active {
+    width: 40px;
+    min-width: 40px;
+    color: #ef3340;
+    padding: 4px 0 !important;
+  }
+
+  .reels-actions button#reel-like-btn .action-icon-wrap,
+  .reels-actions button#reel-like-btn.active .action-icon-wrap {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .reels-actions button#reel-like-btn .action-icon-wrap svg {
+    width: 32px !important;
+    height: 32px !important;
+    flex-basis: 32px;
+  }
+
+
+#reel-like-btn .action-count,
+#reel-like-btn.active .action-count {
+  color: #ef3340;
+}
   .reels-content-wrapper .action-icon-wrap {
     width: 32px;
     height: 32px;
@@ -291,30 +444,32 @@
   .reels-content-wrapper {
     width: 100%;
     max-width: 100%;
-    height: min(calc(100dvh - 48px - 24px), calc(80vw * 16 / 9)) !important;
+    height: 100% !important;
     justify-content: center;
   }
 
   .reels-content-wrapper .reels-actions {
     right: max(0px, calc((100% - min(80vw, calc(80vh * 9 / 16))) / 2));
     bottom: 8px;
-    transform: scale(0.78);
+    transform: none;
     transform-origin: bottom right;
   }
 
   .reels-content-wrapper > fe-reel-item {
     flex: 0 0 auto !important;
-    width: 100% !important;
+    width: auto !important;
     height: 100% !important;
+    aspect-ratio: var(--reel-aspect, 0.5625);
     max-width: none;
   }
 
   .reel-video-card {
-    width: 100% !important;
-    height: 100%;
+    width: 100%;
+    height: 100% !important;
+    min-height: 0 !important;
     max-width: none;
     max-height: none;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: var(--reel-aspect, 0.5625);
     flex: 0 0 auto;
   }
 
@@ -323,7 +478,7 @@
   }
 
   .reels-content-wrapper .reels-actions {
-    right: 0;
+    right: 4px;
   }
 
   .action-icon-wrap {
@@ -343,16 +498,24 @@
   }
 }
 
+/* The right column owns comments while it is visible; use the bottom sheet only after it hides. */
+@media (min-width: 934px) {
+  .reels-page .mobile-comments {
+    display: none !important;
+  }
+}
+
 /* Metadata and actions follow the main layout bottom, not the video card. */
 .reels-bottom-overlay {
   position: absolute;
-  left: calc(50% + 36px);
-  bottom: 0;
+  left: 50%;
+  bottom: max(0px, calc((100% - min(90vh, 100%)) / 2));
   transform: translateX(-50%);
   display: flex;
   align-items: flex-end;
   gap: 0;
-  width: min(var(--page-main-width, 640px), calc(90vh * 9 / 16 + 72px));
+  width: min(100%, calc(min(90vh, 100%) * 9 / 16));
+  height: min(90vh, 100%);
   min-width: 0;
   padding: 0;
   z-index: 30;
@@ -377,6 +540,27 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* Final theme/context pass: the rail stays visible without covering the video. */
+.reels-center.video-fills-main .reels-actions .action-icon-wrap {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.reels-center.video-fills-main .reels-actions .action-count {
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.reels-center:not(.video-fills-main) .reels-actions .action-icon-wrap {
+  background: color-mix(in srgb, var(--color-text-base) 12%, transparent);
+  color: var(--color-text-base);
+}
+
+.reels-center:not(.video-fills-main) .reels-actions .action-count {
+  color: var(--color-text-base);
+  text-shadow: none;
 }
 
 .reels-bottom-overlay .reel-avatar {
@@ -437,6 +621,7 @@
   line-height: var(--type-leading-normal);
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -573,6 +758,32 @@
 .reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-music {
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+/* Metadata shares the exact video frame; it never falls back to main-column width. */
+.reels-bottom-overlay {
+  left: 50%;
+  bottom: max(0px, calc((100% - min(90vh, 100%)) / 2));
+  width: min(100%, calc(min(90vh, 100%) * 9 / 16));
+  height: min(90vh, 100%);
+  box-sizing: border-box;
+}
+
+.reels-center .reels-bottom-overlay {
+  left: 50% !important;
+  bottom: max(0px, calc((100% - min(90vh, 100%)) / 2)) !important;
+  width: min(100%, calc(min(90vh, 100%) * 9 / 16)) !important;
+  height: min(90vh, 100%) !important;
+}
+
+.reel-video-frame > .reels-bottom-overlay {
+  inset: 0 !important;
+  left: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  box-sizing: border-box;
 }
 
 .reels-center:not(.video-fills-main) .reels-bottom-overlay .reel-follow-btn {
