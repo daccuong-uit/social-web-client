@@ -1,11 +1,9 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ASSETS_CONFIG } from '@fe/core';
 
 @Component({
   standalone: true,
   selector: 'ui-logo',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div
       class="flex items-center gap-2 cursor-pointer"
@@ -15,13 +13,18 @@ import { ASSETS_CONFIG } from '@fe/core';
       (keydown.enter)="clicked.emit()"
       (keydown.space)="clicked.emit()"
     >
-      <img
-        [src]="logoSrc"
-        [alt]="logoAlt"
-        [width]="logoSize"
-        [height]="logoSize"
-        class="object-contain"
-      />
+      <span
+        [style.width.px]="logoSize"
+        [style.height.px]="logoSize"
+        [style.display]="'grid'"
+        [style.place-items]="'center'"
+        [style.border-radius]="'50%'"
+        [style.background]="'var(--color-brand-primary)'"
+        [style.color]="'white'"
+        [style.font-weight]="'var(--font-weight-strong)'"
+        [style.user-select]="'none'"
+        aria-hidden="true"
+      >R</span>
       <span
         [style.font-family]="'var(--font-family)'"
         [style.font-weight]="'var(--font-weight-strong)'"
@@ -39,7 +42,4 @@ import { ASSETS_CONFIG } from '@fe/core';
 export class LogoComponent {
   @Output() clicked = new EventEmitter<void>();
   @Input() logoSize = 40;
-
-  logoSrc = ASSETS_CONFIG.images.logo.main;
-  logoAlt = ASSETS_CONFIG.images.logo.alt;
 }

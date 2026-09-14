@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ThemeService } from '@fe/core';
 import { AuthFacade } from '../data-access/auth.facade';
-import { TranslocoModule } from '@jsverse/transloco';
 import { toast } from 'ngx-sonner';
 import { UiAppHeader, UiAuthFooter } from '@fe/ui';
 
@@ -17,7 +16,6 @@ type LoginView = 'selection' | 'email-login';
   selector: 'feat-auth-login',
   imports: [
     CommonModule,
-    TranslocoModule,
     UiAppHeader,
     UiAuthFooter,
     LoginSelection,
@@ -30,7 +28,6 @@ type LoginView = 'selection' | 'email-login';
       [class.dark]="theme() === 'dark'"
       [class.ocean]="theme() === 'ocean'"
       [class.forest]="theme() === 'forest'"
-      *transloco="let t"
     >
       <!-- Header -->
       <lib-ui-app-header context="login" (logoClicked)="currentView.set('selection')" />

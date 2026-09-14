@@ -2,7 +2,6 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService, ThemeService } from '@fe/core';
-import { TranslocoModule } from '@jsverse/transloco';
 import { toast } from 'ngx-sonner';
 import { UiAppHeader, UiAuthFooter } from '@fe/ui';
 
@@ -16,7 +15,6 @@ type RegisterView = 'selection' | 'email-register';
   selector: 'feat-auth-register',
   imports: [
     CommonModule,
-    TranslocoModule,
     UiAppHeader,
     UiAuthFooter,
     RegisterSelection,
@@ -29,7 +27,6 @@ type RegisterView = 'selection' | 'email-register';
       [class.dark]="theme() === 'dark'"
       [class.ocean]="theme() === 'ocean'"
       [class.forest]="theme() === 'forest'"
-      *transloco="let t"
     >
       <!-- Header -->
       <lib-ui-app-header context="register" (logoClicked)="currentView.set('selection')" />

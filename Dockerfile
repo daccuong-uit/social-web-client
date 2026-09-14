@@ -11,7 +11,7 @@ RUN npm ci
 COPY . .
 
 # Build the application
-RUN npx nx build app-shell --configuration=production
+RUN npx nx build web --configuration=production
 
 # Production image
 FROM nginx:alpine
@@ -20,7 +20,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy build output
-COPY --from=build /app/dist/apps/app-shell/browser /usr/share/nginx/html
+COPY --from=build /app/dist/apps/web/browser /usr/share/nginx/html
 
 EXPOSE 80
 

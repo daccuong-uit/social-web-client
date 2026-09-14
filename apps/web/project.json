@@ -1,29 +1,19 @@
 {
-  "name": "app-shell",
+  "name": "web",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/app-shell/src",
+  "sourceRoot": "apps/web/src",
   "tags": ["type:app", "scope:shell"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/app-shell",
-        "browser": "apps/app-shell/src/main.ts",
-        "tsConfig": "apps/app-shell/tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/app-shell/public"
-          },
-          {
-            "glob": "**/*",
-            "input": "public"
-          }
-        ],
-        "styles": ["apps/app-shell/src/styles.css"]
+        "outputPath": "dist/apps/web",
+        "browser": "apps/web/src/main.ts",
+        "tsConfig": "apps/web/tsconfig.app.json",
+        "styles": ["apps/web/src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -54,10 +44,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "app-shell:build:production"
+          "buildTarget": "web:build:production"
         },
         "development": {
-          "buildTarget": "app-shell:build:development",
+          "buildTarget": "web:build:development",
           "hmr": true
         }
       },
@@ -76,8 +66,8 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "app-shell:build",
-        "staticFilePath": "dist/apps/app-shell/browser",
+        "buildTarget": "web:build",
+        "staticFilePath": "dist/apps/web/browser",
         "spa": true
       }
     }

@@ -9,7 +9,6 @@
 | Framework | Angular 21 (Standalone, Signals-first) |
 | Monorepo | Nx 22 |
 | Styling | Tailwind CSS v4 (native Angular integration) |
-| i18n | Transloco |
 | State | Angular Signals + RxJS |
 | Linting | ESLint + Prettier |
 | Testing | Jest |
@@ -19,7 +18,7 @@
 ```
 .
 ├── apps/
-│   └── app-shell/              # Entry point — routing shell only, zero business logic
+│   └── web/                    # Entry point — routing shell only, zero business logic
 │       ├── src/
 │       │   ├── app/
 │       │   │   ├── layout/     # AppShell component (header, router-outlet)
@@ -27,8 +26,6 @@
 │       │   │   └── app.config.ts
 │       │   ├── styles.css      # Global design tokens (@theme) + base styles
 │       │   └── index.html
-│       └── public/
-│           └── assets/i18n/    # Translation files (en.json, vi.json)
 │
 ├── libs/
 │   ├── core/                   # tag: type:core
@@ -109,10 +106,10 @@ In production, publish the frontend image and update its Docker Compose service 
 npm install
 
 # Serve dev server
-npx nx serve app-shell
+npx nx serve web
 
 # Build production
-npx nx build app-shell
+npx nx build web
 
 # Lint all
 npx nx run-many -t lint
@@ -149,7 +146,6 @@ The commands above are for repository development and CI only. The supported app
 - **Global CSS Architecture**: Native Tailwind v4 + Angular 21 esbuild integration.
 - **Feature Modularization**: Pages moved out of `apps/` into `libs/features/*` as lazy-loaded libraries.
 - **Lazy Loading**: Initial bundle ~42KB, features load on demand.
-- **i18n**: Transloco configured with `en` and `vi` locales. Assets served from `public/assets/i18n/`.
 - **Core Services**: Organized into dedicated folders (config, services, interceptors, guards) in `@fe/core`.
 - **Shared UI**: `UiButton`, `UiCard` in `@fe/ui` with inline styles (library build compatible).
 - **ESLint Module Boundaries**: Dependency rules strictly enforced.
@@ -164,7 +160,7 @@ The commands above are for repository development and CI only. The supported app
 
 ## Architecture Rules
 
-- `apps/app-shell` contains only bootstrap, global configuration, and top-level routes.
+- `apps/web` contains only bootstrap, global configuration, and top-level routes.
 - `libs/core` contains singleton infrastructure such as guards, interceptors, and services.
 - `libs/entities` contains domain models and data-access services without page composition.
 - `libs/features` owns routes, pages, feature-specific UI, and feature state.

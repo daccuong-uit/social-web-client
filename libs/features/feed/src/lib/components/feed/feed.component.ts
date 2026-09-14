@@ -84,7 +84,7 @@ export class FeedComponent implements OnInit {
   /** Scroll the feed's host element back to the top. */
   private scrollToTop(): void {
     // Walk up the DOM to find the nearest scrollable ancestor
-    // (the <main> element in app-shell.component.html)
+    // (the <main> element in the web app shell)
     let el: HTMLElement | null = this.elementRef.nativeElement as HTMLElement;
     while (el) {
       if (el.scrollTop > 0) {

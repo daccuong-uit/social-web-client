@@ -1,7 +1,6 @@
 // Config
 export * from './lib/config/app-config';
 export * from './lib/config/url-config';
-export * from './lib/config/assets-config';
 
 // Models
 export * from './lib/models/error.model';

@@ -1,7 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UiLanguageSelector } from '../language-selector/language-selector';
 import { ThemeService, Theme, Font } from '@fe/core';
 
 export type AuthContext = 'login' | 'register';
@@ -9,7 +8,7 @@ export type AuthContext = 'login' | 'register';
 @Component({
   standalone: true,
   selector: 'lib-ui-auth-footer',
-  imports: [CommonModule, UiLanguageSelector, RouterModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <div class="fixed bottom-0 left-0 right-0 z-40 bg-surface-base border-t border-border-subtle">
       <!-- Row 1: Navigation link (Register/Login) -->
@@ -29,9 +28,6 @@ export type AuthContext = 'login' | 'register';
       <!-- Row 2: Language + Theme + Font (left) | copyright (right) -->
       <div class="px-6 pb-5 flex items-center justify-between">
         <div class="flex items-center gap-6">
-          <!-- Language selector -->
-          <lib-language-selector />
-
           @if (context !== 'login' && context !== 'register') {
             <!-- Theme selector dropdown -->
             <div class="flex items-center gap-1">
