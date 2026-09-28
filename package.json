@@ -1,9 +1,10 @@
 {
-  "name": "cross_platform_software_daccuong_uit_fe",
+  "name": "social-web-client",
   "version": "1.0.0",
-  "description": "Frontend platform for social commerce creator platform.",
+  "description": "Social web client for social commerce creator platform.",
   "scripts": {
     "start": "nx serve web --host 0.0.0.0",
+    "dev": "nx serve web",
     "build": "nx build web",
     "lint": "nx run-many -t lint",
     "test": "nx run-many -t test --passWithNoTests"

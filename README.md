@@ -1,6 +1,6 @@
 # social-web-client — Reals Social
 
-> Angular 21 · Nx 22 · Port **4200** (dev & Docker)
+> Angular 21 · Nx 22 · Port **4201** (dev & Docker)
 
 Không gian **Mạng xã hội** trong hệ sinh thái Reals Platform. Chuyên trách Feeds, bài đăng đa phương tiện, bình luận phân cấp real-time, kết bạn và Reels.
 
@@ -57,7 +57,7 @@ Không gian **Mạng xã hội** trong hệ sinh thái Reals Platform. Chuyên t
 
 ```bash
 npm install
-npm start          # → http://localhost:4200
+npm start          # → http://localhost:4201
 npm run build      # Production build
 ```
 
@@ -68,7 +68,7 @@ npm run build      # Production build
 docker compose build fe-social
 docker compose up -d fe-social
 
-# → http://localhost:4200
+# → http://localhost:4201
 ```
 
 Nginx phục vụ Angular bundle và proxy `/api/*` → `gateway:3000`.
@@ -78,9 +78,9 @@ Nginx phục vụ Angular bundle và proxy `/api/*` → `gateway:3000`.
 | Biến | Mô tả |
 |---|---|
 | `apiUrl` | `/api/v1` (proxied qua nginx → gateway) |
-| `iamUrl` | http://localhost:4204 |
-| `socialUrl` | http://localhost:4200 |
-| `videoUrl` | http://localhost:4201 |
-| `shopUrl` | http://localhost:4202 |
-| `storiesUrl` | http://localhost:4203 |
+| `iamUrl` | http://localhost:4200 |
+| `socialUrl` | http://localhost:4201 |
+| `videoUrl` | http://localhost:4202 |
+| `shopUrl` | http://localhost:4203 |
+| `storiesUrl` | http://localhost:4204 |
 | `portfolioUrl` | http://localhost:4205 |
