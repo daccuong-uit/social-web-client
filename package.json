@@ -60,6 +60,8 @@
   },
   "nx": {},
   "dependencies": {
+    "@daccuong-uit/frontend-core": "^0.1.0",
+    "@daccuong-uit/ui": "^0.1.0",
     "@angular/common": "~21.2.0",
     "@angular/compiler": "~21.2.0",
     "@angular/core": "~21.2.0",

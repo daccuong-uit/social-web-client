@@ -10,10 +10,11 @@ export const guestGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated() || localStorage.getItem('token')) {
+  if (authService.isAuthenticated()) {
     // Already logged in, shouldn't see login page again
     return router.createUrlTree(['/']);
   }
 
-  return true;
+  authService.login();
+  return false;
 };

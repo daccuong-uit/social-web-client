@@ -1,10 +1,6 @@
-import { HttpContext } from '@angular/common/http';
-import { Injectable, signal, computed, inject } from '@angular/core';
-import { ApiResponse, ApiService } from './api.service';
-import { catchError, of, switchMap } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { urlConfig } from '../config/url-config';
-import { showGlobalLoading } from '../interceptors/loading.interceptor';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { AuthClient, UserSessionStore } from '@daccuong-uit/frontend-core';
+import { EMPTY, Observable, of } from 'rxjs';
 import { AppRouteReuseStrategy } from './route-reuse.strategy';
 
 export interface User {
@@ -15,134 +11,75 @@ export interface User {
   displayName?: string;
 }
 
-export interface AuthResponse {
-  accountId: string;
-  accessToken: string;
-  refreshToken: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private api = inject(ApiService);
-  private reuseStrategy = inject(AppRouteReuseStrategy);
-  private readonly USER_KEY = 'user';
-  private _user = signal<User | null>(null);
-  
-  user = this._user.asReadonly();
-  isAuthenticated = computed(() => !!this._user());
+  private readonly authClient = inject(AuthClient);
+  private readonly sessionStore = inject(UserSessionStore);
+  private readonly reuseStrategy = inject(AppRouteReuseStrategy);
+  private readonly userState = signal<User | null>(null);
 
-  login(credentials: Record<string, unknown>) {
-    const context = new HttpContext().set(showGlobalLoading, true);
+  readonly user = this.userState.asReadonly();
+  readonly isAuthenticated = computed(() => {
+    const currentUser = this.userState();
+    return Boolean(currentUser && currentUser.id !== 'loading');
+  });
 
-    return this.api.post<AuthResponse>(urlConfig.auth.login, credentials, { context }).pipe(
-      map((res: ApiResponse<AuthResponse>) => res.data),
-      tap((auth: AuthResponse) => this.storeTokens(auth)),
-      switchMap(() => this.fetchProfile(true))
-    );
+  login(_credentials?: Record<string, unknown>): Observable<never> {
+    return this.startLogin();
   }
 
-  register(data: Record<string, unknown>) {
-    const context = new HttpContext().set(showGlobalLoading, true);
-
-    return this.api.post<AuthResponse>(urlConfig.auth.register, data, { context }).pipe(
-      map((res: ApiResponse<AuthResponse>) => res.data),
-      tap((auth: AuthResponse) => this.storeTokens(auth)),
-      switchMap(() => this.fetchProfile(true))
-    );
+  register(_data?: Record<string, unknown>): Observable<never> {
+    return this.startLogin();
   }
 
-  sendOtp(phoneNumber: string) {
-    return this.api.post<{ message: string }>(urlConfig.auth.sendOtp, { phoneNumber }).pipe(
-      map((res: ApiResponse<{ message: string }>) => res.data)
-    );
+  sendOtp(_phoneNumber: string): Observable<never> {
+    return this.startLogin();
   }
 
-  changePassword(data: Record<string, unknown>) {
-    const context = new HttpContext().set(showGlobalLoading, true);
-    return this.api.post<{ message: string }>(urlConfig.auth.changePassword, data, { context }).pipe(
-      map((res: ApiResponse<{ message: string }>) => res.data)
-    );
+  changePassword(_data: Record<string, unknown>): Observable<never> {
+    return this.startLogin();
   }
 
-  logout() {
-    this._user.set(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem(this.USER_KEY);
-    // Evict all cached route handles so the next user gets fresh component trees
+  logout(): void {
+    this.userState.set(null);
+    this.sessionStore.clear();
     this.reuseStrategy.evictAll();
+    void this.authClient.logout();
   }
 
-  refresh() {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) return of(null);
-
-    return this.api.post<AuthResponse>(urlConfig.auth.refresh, { refreshToken }).pipe(
-      map((res: ApiResponse<AuthResponse>) => res.data),
-      tap((auth: AuthResponse) => this.storeTokens(auth)),
-      catchError(() => {
-        this.logout();
-        return of(null);
-      })
-    );
+  refresh(): Observable<null> {
+    return of(null);
   }
 
-  checkAuth() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const storedUser = this.restoreStoredUser();
-      if (storedUser) {
-        this._user.set(storedUser);
-      } else {
-        this._user.set({ id: 'loading', email: '' });
-      }
-
-      this.fetchProfile().subscribe({
-        error: (err) => {
-          console.error('[AuthService] checkAuth failed:', err);
-          // Only clear state. error.interceptor handles actual 401 logouts.
-          this._user.set(null);
-        }
-      });
-    }
+  checkAuth(): void {
+    this.clearLegacyCredentials();
+    this.userState.set({ id: 'loading', email: '' });
+    void this.authClient.getSession().then((session) => {
+      const user = session.user;
+      this.userState.set(user ? {
+        id: user.sub,
+        userId: user.sub,
+        email: user.email ?? '',
+        username: user.username,
+        displayName: user.name,
+      } : null);
+    }).catch(() => this.userState.set(null));
   }
 
-  private storeTokens(res: AuthResponse) {
-    localStorage.setItem('token', res.accessToken);
-    localStorage.setItem('refreshToken', res.refreshToken);
+  private startLogin(): Observable<never> {
+    this.authClient.login();
+    return EMPTY;
   }
 
-  private fetchProfile(useGlobalLoading = false) {
-    const options = useGlobalLoading
-      ? { context: new HttpContext().set(showGlobalLoading, true) }
-      : undefined;
-
-    return this.api.get<User>(urlConfig.profile.me, options).pipe(
-      map((res: ApiResponse<User>) => res.data),
-      tap((user: User) => {
-        this._user.set(user);
-        this.storeUser(user);
-      })
-    );
-  }
-
-  private storeUser(user: User) {
+  private clearLegacyCredentials(): void {
     try {
-      localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
     } catch {
-      // Ignore storage failures.
-    }
-  }
-
-  private restoreStoredUser(): User | null {
-    try {
-      const saved = localStorage.getItem(this.USER_KEY);
-      if (!saved) return null;
-      return JSON.parse(saved) as User;
-    } catch {
-      return null;
+      return;
     }
   }
 }

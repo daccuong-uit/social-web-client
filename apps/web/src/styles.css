@@ -1,4 +1,9 @@
 @import 'tailwindcss';
+@import '@daccuong-uit/ui/preset.css';
+
+:root {
+  --color-primary: oklch(0.60 0.20 240);
+}
 
 /* 
   NOTE: Manual CSS variables as fallback for Tailwind v4 
